@@ -3,8 +3,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import Home from "./src/screens/Home"
 import SplashScreen from "./src/screens/SplashScreen"
+import UserTypeSelectionScreen from "./src/screens/UserTypeSelectionScreen";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import 'react-native-reanimated'
+import Shop from "./src/screens/Shop";
 // import 'react-native-gesture-handler'
 
 
@@ -12,13 +15,17 @@ export default function App() {
   const Stack = createNativeStackNavigator()
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Splash'>
+    <GestureHandlerRootView>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Shop'>
 
-        <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name='Splash' component={SplashScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Splash' component={SplashScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='UserTypeSelection' component={UserTypeSelectionScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name='Shop' component={Shop} options={{ headerShown: false }} />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   )
 }
