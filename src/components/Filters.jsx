@@ -38,7 +38,7 @@ export const FilterSection = () => {
         } else {
             setOpenFilterKey(key);
         }
-    };
+    }
 
     return (
         <View style={styles.container}>

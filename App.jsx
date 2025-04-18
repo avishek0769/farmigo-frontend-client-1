@@ -8,6 +8,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import 'react-native-reanimated'
 import Shop from "./src/screens/Shop";
+import { SafeAreaView } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 // import 'react-native-gesture-handler'
 
 
@@ -15,17 +17,19 @@ export default function App() {
   const Stack = createNativeStackNavigator()
 
   return (
-    <GestureHandlerRootView>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Shop'>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
 
-          <Stack.Screen name='Splash' component={SplashScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='UserTypeSelection' component={UserTypeSelectionScreen} options={{ headerShown: false }} />
-          <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
-          <Stack.Screen name='Shop' component={Shop} options={{ headerShown: false }} />
-
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserTypeSelection" component={UserTypeSelectionScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Stack.Screen name="Shop" component={Shop} options={{ headerShown: false }} />
+            
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   )
 }

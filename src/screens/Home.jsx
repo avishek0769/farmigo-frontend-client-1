@@ -5,6 +5,7 @@ import Separator from '../components/Separator';
 import ProductCard from '../components/ProductCard';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
+import { THEME_COLOR } from '../constant';
 
 const width = Dimensions.get('window').width;
 const data = [
@@ -60,69 +61,70 @@ export default function Home({ navigation }) {
     );
 
     return (
-        <FlatList
-            data={cardData}
-            numColumns={2}
-            renderItem={renderProductCard}
-            keyExtractor={(index) => String(Math.random() * 10000000000)}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            ListHeaderComponent={
-                <>
-                    {/* Logo + Top Icons */}
-                    <Header />
-                    <Separator />
+        <>
+            {/* Logo + Top Icons */}
+            <Header />
+            <Separator />
 
-                    {/* Carousel */}
-                    <Carousel
-                        // autoPlay
-                        autoPlayInterval={2000}
-                        width={width}
-                        height={width / 1.4}
-                        data={data}
-                        renderItem={({ item }) => (
-                            <View style={{ flex: 1, justifyContent: "center" }}>
-                                <Image source={item.src} style={{ width: '100%', height: '100%', resizeMode: 'cover' }} />
-                            </View>
-                        )}
-                    />
+            <FlatList
+                data={cardData}
+                numColumns={2}
+                renderItem={renderProductCard}
+                keyExtractor={(index) => String(Math.random() * 10000000000)}
+                columnWrapperStyle={{ justifyContent: 'space-between' }}
+                ListHeaderComponent={
+                    <>
+                        {/* Carousel */}
+                        <Carousel
+                            // autoPlay
+                            autoPlayInterval={2000}
+                            width={width}
+                            height={width / 1.4}
+                            data={data}
+                            renderItem={({ item }) => (
+                                <View style={{ flex: 1, justifyContent: "center" }}>
+                                    <Image source={item.src} style={{ width: '100%', height: '100%', resizeMode: 'cover' }} />
+                                </View>
+                            )}
+                        />
 
-                    {/* Section Title */}
-                    <Text style={{ fontWeight: "bold", fontSize: 26, padding: 15, color: "#343a40" }}>New on Farmigo</Text>
-                    <Separator />
-                </>
-            }
+                        {/* Section Title */}
+                        <Text style={{ fontWeight: "bold", fontSize: 26, padding: 15, color: "#343a40" }}>New on Farmigo</Text>
+                        <Separator />
+                    </>
+                }
 
-            ListFooterComponent={
-                <>
-                    {/* You can repeat similar sections here */}
-                    <Separator />
-                    <Text style={{ fontWeight: "bold", fontSize: 26, padding: 15, color: "#343a40" }}>Best Selling Products</Text>
-                    <Separator />
+                ListFooterComponent={
+                    <>
+                        {/* You can repeat similar sections here */}
+                        <Separator />
+                        <Text style={{ fontWeight: "bold", fontSize: 26, padding: 15, color: "#343a40" }}>Best Selling Products</Text>
+                        <Separator />
 
-                    <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
-                        {cardData.map(item => (
-                            <ProductCard key={String(Math.random() * 100000000000)} data={item} />
-                        ))}
-                    </View>
+                        <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+                            {cardData.map(item => (
+                                <ProductCard key={String(Math.random() * 100000000000)} data={item} />
+                            ))}
+                        </View>
 
-                    <Separator />
-                    <Text style={{ fontWeight: "bold", fontSize: 26, padding: 15, color: "#343a40" }}>Products from nearby sellers</Text>
-                    <Separator />
+                        <Separator />
+                        <Text style={{ fontWeight: "bold", fontSize: 26, padding: 15, color: "#343a40" }}>Products from nearby sellers</Text>
+                        <Separator />
 
-                    <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
-                        {cardData.map(item => (
-                            <ProductCard key={String(Math.random() * 100000000)} data={item} />
-                        ))}
-                    </View>
+                        <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+                            {cardData.map(item => (
+                                <ProductCard key={String(Math.random() * 100000000)} data={item} />
+                            ))}
+                        </View>
 
-                    <TouchableOpacity onPress={() => navigation.navigate("Shop")} style={{backgroundColor: "#29bf12", marginVertical: 30, marginBottom: 70, marginHorizontal: 20, borderRadius: 5, padding: 10}}>
-                        {/* Arrow Icon */}
-                        <Text style={{fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white"}}>View all Products</Text>
-                    </TouchableOpacity>
-
-                    <Navbar />
-                </>
-            }
-        />
+                        <TouchableOpacity onPress={() => navigation.navigate("Shop")} style={{ backgroundColor: THEME_COLOR, marginTop: 30, marginBottom: 80, marginHorizontal: 20, borderRadius: 5, padding: 10 }}>
+                            {/* Arrow Icon */}
+                            <Text style={{ fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white" }}>View all Products</Text>
+                        </TouchableOpacity>
+                    </>
+                }
+            />
+            <Navbar />
+        </>
     );
 }

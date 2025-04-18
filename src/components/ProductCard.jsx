@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { THEME_COLOR } from '../constant';
 
 
 export default function ProductCard({ data }) {
@@ -10,9 +12,9 @@ export default function ProductCard({ data }) {
             <Text numberOfLines={2} ellipsizeMode="tail" style={styles.title}>{data.title}</Text>
             <Text style={styles.price}>{data.price}</Text>
 
-            <TouchableOpacity style={{ borderWidth: 2, borderColor: "#29bf12", padding: 10, margin: 10, borderRadius: 5, flexDirection: "row" }}>
-                <Image source={require("../assets/icons/cart.webp")} style={{ width: 22, height: 22, marginRight: 7 }} />
-                <Text style={{ color: "#29bf12", fontSize: 16, fontWeight: "bold", letterSpacing: 1 }}>Add to Cart</Text>
+            <TouchableOpacity style={{ borderWidth: 2, borderColor: THEME_COLOR, padding: 8, margin: 10, borderRadius: 5, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 5 }}>
+                <Icon name='shopping-cart' size={24} color={THEME_COLOR} />
+                <Text style={{ color: THEME_COLOR, fontSize: 16, fontWeight: "bold", letterSpacing: 1 }}>Add to Cart</Text>
             </TouchableOpacity>
         </View>
     );
