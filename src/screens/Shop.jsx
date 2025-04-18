@@ -7,13 +7,14 @@ import Navbar from '../components/Navbar'
 
 export default function Shop() {
     return (
-        <View style={{height: "100%"}}>
+        <View style={{ height: "100%" }}>
             <Header />
             <Separator />
 
             <View style={{ zIndex: 100 }}>
                 <FilterSection />
             </View>
+            
             <Navbar />
         </View>
     )

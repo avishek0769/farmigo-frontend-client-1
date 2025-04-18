@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -10,35 +10,51 @@ import {
 
 const filters = [
     { key: 'price', label: 'Price', options: ['₹0–₹100', '₹101–₹500', '₹501+'] },
-    { key: 'category', label: 'Category', options: ['Tops', 'Bottoms', 'Dresses', 'Accessories'] },
+    { key: 'category', label: 'Category', options: ['Natural Pesticides', 'Chemical Pesticides', 'Natural Fertilisers', 'Chemical Fertilisers'] },
     { key: 'availability', label: 'Availability', options: ['In Stock', 'Out of Stock'] },
 ];
 
-const FilterDropdown = ({ options, onClose }) => {
-    return (
-        <View style={styles.dropdown}>
-            {options.map((option, index) => (
-                <TouchableOpacity key={index} style={styles.dropdownItem}>
-                    <Text>{option}</Text>
-                </TouchableOpacity>
-            ))}
-            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                <Text style={{ color: 'red' }}>✕ Close</Text>
-            </TouchableOpacity>
-        </View>
-    );
-};
 
 export const FilterSection = () => {
     const [openFilterKey, setOpenFilterKey] = useState(null);
+    const [selectedFilters, setSelectedFilters] = useState({})
 
     const handleFilterPress = (key) => {
         if (openFilterKey === key) {
             setOpenFilterKey(null);
-        } else {
+        }
+        else {
             setOpenFilterKey(key);
         }
     }
+    useEffect(() => {
+        console.log(selectedFilters)
+    }, [selectedFilters])
+    
+    const handleOptionSelect = useCallback((optionIndex) => {
+        setSelectedFilters({
+            ...selectedFilters,
+            [openFilterKey]: optionIndex,
+        })
+        setTimeout(() => {
+            setOpenFilterKey(null)
+        }, 150);
+    }, [openFilterKey, selectedFilters, setSelectedFilters, setOpenFilterKey])
+
+    const FilterDropdown = ({ options, onClose }) => {
+        return (
+            <View style={styles.dropdown}>
+                {options.map((option, index) => (
+                    <TouchableOpacity onPress={() => handleOptionSelect(index)} key={index} style={[styles.dropdownItem, { backgroundColor: selectedFilters[openFilterKey] == index? "#f0fff1" : "" }]}>
+                        <Text>{option}</Text>
+                    </TouchableOpacity>
+                ))}
+                <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                    <Text style={{ color: 'red' }}>✕ Close</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    };
 
     return (
         <View style={styles.container}>
@@ -79,7 +95,7 @@ const styles = StyleSheet.create({
     filterButton: {
         marginRight: 12,
         paddingVertical: 8,
-        paddingHorizontal: 12,
+        paddingHorizontal: 14,
         backgroundColor: '#fff',
         borderRadius: 20,
         borderWidth: 1,
@@ -90,22 +106,21 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         backgroundColor: '#fff',
-        padding: 10,
         marginTop: 4,
         elevation: 3,
         borderRadius: 8,
         marginHorizontal: 10,
     },
     dropdownItem: {
-        paddingVertical: 8,
+        padding: 13,
+        paddingVertical: 10,
         borderBottomWidth: 1,
         borderColor: '#eee',
     },
     closeButton: {
-        marginTop: 10,
+        margin: 10,
         alignItems: 'flex-end',
-    },
-    
+    }    
 });
 
 
