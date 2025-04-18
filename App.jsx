@@ -3,13 +3,13 @@ import 'react-native-reanimated'
 // import 'react-native-gesture-handler'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import Home from "./src/screens/Home"
 import SplashScreen from "./src/screens/SplashScreen"
-import AllProducts from "./src/screens/AllProducts";
 import UserTypeSelectionScreen from "./src/screens/UserTypeSelectionScreen";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
+import Cart from "./src/screens/Cart";
+import { ContextProvider } from "./src/context/ContextProvider";
+import Tabs from "./src/TabsNavigator";
 
 
 export default function App() {
@@ -18,16 +18,19 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="AllProducts">
+        <ContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }} >
 
-            <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="UserTypeSelection" component={UserTypeSelectionScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-            <Stack.Screen name="AllProducts" component={AllProducts} options={{ headerShown: false }} />
+              <Stack.Screen name="Splash" component={SplashScreen} />
+              <Stack.Screen name="UserTypeSelection" component={UserTypeSelectionScreen} />
+              <Stack.Screen name="Cart" component={Cart} />
 
-          </Stack.Navigator>
-        </NavigationContainer>
+              <Stack.Screen name="Main" component={Tabs} />
+
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ContextProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   )

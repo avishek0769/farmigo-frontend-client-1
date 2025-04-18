@@ -1,7 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import Header from '../components/Header'
-import Separator from '../components/Separator'
 import { FilterSection } from '../components/Filters'
 import Navbar from '../components/Navbar'
 import { FlatList } from 'react-native'
@@ -46,21 +45,19 @@ const cardData = [
     },
 ];
 
-export default function AllProducts() {
+export default function AllProducts({ navigation }) {
     const renderProductCard = ({ item }) => (
         <ProductCard data={item} />
     );
 
     return (
-        <View style={{ height: "100%" }}>
+        <>
             <Header />
-            <Separator />
-
             <View style={{ zIndex: 100 }}>
                 <FilterSection />
             </View>
 
-            <View style={{marginBottom: 200}}>
+            <View style={{ marginBottom: 130 }}>
                 <FlatList
                     data={cardData}
                     numColumns={2}
@@ -68,12 +65,10 @@ export default function AllProducts() {
                     keyExtractor={(index) => String(Math.random() * 10000000)}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     ListHeaderComponent={
-                        <Text style={{fontSize: 30, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15, paddingVertical: 5}}>Our Collection</Text>
+                        <Text style={{ fontSize: 30, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15, paddingVertical: 5 }}>Our Collection</Text>
                     }
                 />
             </View>
-
-            <Navbar />
-        </View>
+        </>
     )
 }

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Dimensions, FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel';
 import Separator from '../components/Separator';
 import ProductCard from '../components/ProductCard';
-import Navbar from '../components/Navbar';
-import Header from '../components/Header';
 import { THEME_COLOR } from '../constant';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Header from '../components/Header';
 
 const width = Dimensions.get('window').width;
 const data = [
@@ -55,17 +55,13 @@ const cardData = [
 ];
 
 export default function Home({ navigation }) {
-
     const renderProductCard = ({ item }) => (
         <ProductCard data={item} />
     );
 
     return (
         <>
-            {/* Logo + Top Icons */}
             <Header />
-            <Separator />
-
             <FlatList
                 data={cardData}
                 numColumns={2}
@@ -117,14 +113,13 @@ export default function Home({ navigation }) {
                             ))}
                         </View>
 
-                        <TouchableOpacity onPress={() => navigation.navigate("Shop")} style={{ backgroundColor: THEME_COLOR, marginTop: 30, marginBottom: 80, marginHorizontal: 20, borderRadius: 5, padding: 10 }}>
-                            {/* Arrow Icon */}
+                        <TouchableOpacity onPress={() => navigation.navigate("Shop")} style={{ backgroundColor: THEME_COLOR, marginTop: 30, marginBottom: 20, marginHorizontal: 20, borderRadius: 5, padding: 10, flexDirection: "row", justifyContent: "center",  alignItems: "center", gap: 10 }}>
                             <Text style={{ fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white" }}>View all Products</Text>
+                            <Icon name='north-east' size={25} color={"white"} />
                         </TouchableOpacity>
                     </>
                 }
             />
-            <Navbar />
         </>
     );
 }

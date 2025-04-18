@@ -8,6 +8,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
     const [sellerChecked, setSellerChecked] = useState(false)
     const [enterBtnDisabled, setEnterBtnDisabled] = useState(false)
 
+
     const handleBuyerCheckBox = useCallback(() => {
         setBuyerChecked(!buyerChecked)
         setSellerChecked(false)
@@ -23,7 +24,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
     }, [])
 
     useEffect(() => {
-        if(!buyerChecked && !sellerChecked){
+        if (!buyerChecked && !sellerChecked) {
             setEnterBtnDisabled(true)
         }
         else {
@@ -32,10 +33,10 @@ export default function UserTypeSelectionScreen({ navigation }) {
     }, [buyerChecked, sellerChecked, setEnterBtnDisabled])
 
     return (
-        <View style={{ justifyContent: "center", alignItems: "center", height: "100%"}}>
+        <View style={{ justifyContent: "center", alignItems: "center", height: "100%" }}>
             <Image source={require("../assets/images/userType.png")} style={{ width: 230, height: 230 }} />
 
-            <Text style={{fontSize: 30, fontWeight: "500", width: "100%", paddingLeft: 32}}>Select your user type</Text>
+            <Text style={{ fontSize: 30, fontWeight: "500", width: "100%", paddingLeft: 32 }}>Select your user type</Text>
             <View>
                 <Pressable onTouchEnd={handleBuyerCheckBox} style={style.optionView}>
                     <Image source={require("../assets/images/farmer.png")} style={{ width: 50, height: 50 }} />
@@ -63,8 +64,8 @@ export default function UserTypeSelectionScreen({ navigation }) {
                         innerIconStyle={{ borderWidth: 1 }}
                     />
                 </Pressable>
-                <TouchableOpacity disabled={enterBtnDisabled} onPress={handleEnter} style={{ backgroundColor: enterBtnDisabled? "#92e6a7" : "#29bf12", padding: 10, borderRadius: 5, marginTop: 90}}>
-                    <Text style={{color: "white", fontWeight: "bold", fontSize: 24, textAlign: "center", letterSpacing: 3}}>Enter</Text>
+                <TouchableOpacity disabled={enterBtnDisabled} onPress={handleEnter} style={{ backgroundColor: enterBtnDisabled ? "#92e6a7" : "#29bf12", padding: 10, borderRadius: 5, marginTop: 90 }}>
+                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 24, textAlign: "center", letterSpacing: 3 }}>Enter</Text>
                 </TouchableOpacity>
             </View>
         </View>

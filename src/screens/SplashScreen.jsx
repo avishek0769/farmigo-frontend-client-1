@@ -8,7 +8,7 @@ export default function SplashScreen({ navigation }) {
             navigation.replace("UserTypeSelection")
         }, 1500);
     }, [])
-    
+
     return (
         <View style={{ backgroundColor: "white", height: "100%", width: "100%", justifyContent: "center", alignItems: "center" }}>
             <MotiImage
@@ -22,7 +22,7 @@ export default function SplashScreen({ navigation }) {
                 }}
             />
             <MotiText
-                style={styles.brandName} 
+                style={styles.brandName}
                 from={{ opacity: 0, scale: 0.7 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
