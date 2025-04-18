@@ -12,6 +12,7 @@ const filters = [
     { key: 'price', label: 'Price', options: ['₹0–₹100', '₹101–₹500', '₹501+'] },
     { key: 'category', label: 'Category', options: ['Natural Pesticides', 'Chemical Pesticides', 'Natural Fertilisers', 'Chemical Fertilisers'] },
     { key: 'availability', label: 'Availability', options: ['In Stock', 'Out of Stock'] },
+    { key: 'sort', label: 'Sort', options: ['Sort by price (Ascending)', 'Sort by price (Decending)'] },
 ];
 
 
@@ -85,12 +86,10 @@ export const FilterSection = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 20,
-    },
     filterBar: {
-        paddingHorizontal: 10,
-        backgroundColor: '#f4f4f4',
+        padding: 10,
+        backgroundColor: '#e9ecef',
+        // marginBottom: 10
     },
     filterButton: {
         marginRight: 12,
@@ -105,6 +104,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     dropdown: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 40,
         backgroundColor: '#fff',
         marginTop: 4,
         elevation: 3,

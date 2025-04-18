@@ -12,8 +12,8 @@ export default function ProductCard({ data }) {
             <Text numberOfLines={2} ellipsizeMode="tail" style={styles.title}>{data.title}</Text>
             <Text style={styles.price}>{data.price}</Text>
 
-            <TouchableOpacity style={{ borderWidth: 2, borderColor: THEME_COLOR, padding: 8, margin: 10, borderRadius: 5, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 5 }}>
-                <Icon name='shopping-cart' size={24} color={THEME_COLOR} />
+            <TouchableOpacity style={{ borderWidth: 1, borderColor: THEME_COLOR, padding: 7, margin: 8, borderRadius: 500, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 5 }}>
+                <Icon name='shopping-cart' size={22} color={THEME_COLOR} />
                 <Text style={{ color: THEME_COLOR, fontSize: 16, fontWeight: "bold", letterSpacing: 1 }}>Add to Cart</Text>
             </TouchableOpacity>
         </View>

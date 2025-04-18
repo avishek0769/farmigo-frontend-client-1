@@ -12,7 +12,7 @@ export default function Navbar() {
             </View>
             <View style={{alignItems: "center"}}>
                 <Icon name="store" size={25} />
-                <Text style={{letterSpacing: 0.9}}>Shop</Text>
+                <Text style={{letterSpacing: 0.9}}>Products</Text>
             </View>
             <View style={{alignItems: "center"}}>
                 <Icon name="local-shipping" size={25} />
