@@ -95,36 +95,38 @@ export default function Cart({ navigation }) {
                         image={item.image}
                         price={item.price}
                         quantity={item.quantity}
-                        title={item.title} 
+                        title={item.title}
                         setQuantity={setQuantity}
                         removeItem={removeItem}
                     />
                 )}
                 ListFooterComponent={
                     <>
-                        <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                            <Text>Gross Total </Text>
-                            <Text>${totalPrice}</Text>
+                        <View style={{marginBottom: 90}}>
+                            <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                                <Text>Gross Total </Text>
+                                <Text>${totalPrice}</Text>
+                            </View>
+                            <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                                <Text>Discount (-)</Text>
+                                <Text>${discount}</Text>
+                            </View>
+                            <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                                <Text>Delivery Charges (+) </Text>
+                                <Text>${deliveryCharges}</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 1, borderTopWidth: 1, borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 12, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                                <Text style={styles.priceText}>Total </Text>
+                                <Text style={styles.priceText}>${totalPrice}</Text>
+                            </View>
                         </View>
-                        <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                            <Text>Discount (-)</Text>
-                            <Text>${discount}</Text>
-                        </View>
-                        <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                            <Text>Delivery Charges (+) </Text>
-                            <Text>${deliveryCharges}</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 1, borderTopWidth: 1, borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 12, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                            <Text style={styles.priceText}>Total </Text>
-                            <Text style={styles.priceText}>${totalPrice}</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => navigation.navigate("Shop")} style={{ backgroundColor: THEME_COLOR, marginTop: 30, marginBottom: 20, marginHorizontal: 20, borderRadius: 5, padding: 10, flexDirection: "row", justifyContent: "center", gap: 15 }}>
-                            <Icon name='paid' size={27} color={"white"} />
-                            <Text style={{ fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white" }}>Proceed to checkout</Text>
-                        </TouchableOpacity>
                     </>
                 }
             />
+            <TouchableOpacity onPress={() => navigation.navigate("Checkout")} style={{ backgroundColor: THEME_COLOR, borderRadius: 5, padding: 10, flexDirection: "row", justifyContent: "center", gap: 15, position: "absolute", bottom: 20, left: 20, right: 20 }}>
+                <Icon name='paid' size={27} color={"white"} />
+                <Text style={{ fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white" }}>Proceed to checkout</Text>
+            </TouchableOpacity>
         </>
     )
 }
