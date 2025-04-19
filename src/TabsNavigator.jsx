@@ -3,7 +3,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './screens/Home';
-import AllProducts from './screens/AllProducts';
+import Products from './screens/Products';
 import Account from './screens/Account';
 import Order from './screens/Order';
 
@@ -47,7 +47,7 @@ export default function Tabs() {
             })}
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Products" component={AllProducts} />
+            <Tab.Screen name="Products" component={Products} />
             <Tab.Screen name="Order" component={Order} />
             <Tab.Screen name="Account" component={Account} />
         </Tab.Navigator>

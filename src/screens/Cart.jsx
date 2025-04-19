@@ -82,7 +82,8 @@ export default function Cart({ navigation }) {
 
     return (
         <>
-            <Header />
+            <Header inCartScreen={true} />
+            
             <FlatList
                 data={cartItems}
                 keyExtractor={(item) => String(item.id)}

@@ -10,6 +10,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import Cart from "./src/screens/Cart";
 import { ContextProvider } from "./src/context/ContextProvider";
 import Tabs from "./src/TabsNavigator";
+import SearchResult from "./src/screens/SearchResults";
 
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
               <Stack.Screen name="Splash" component={SplashScreen} />
               <Stack.Screen name="UserTypeSelection" component={UserTypeSelectionScreen} />
               <Stack.Screen name="Cart" component={Cart} />
+              <Stack.Screen name="SearchResult" component={SearchResult} />
 
               <Stack.Screen name="Main" component={Tabs} />
 

@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import Header from '../components/Header'
 import { FilterSection } from '../components/Filters'
 import { FlatList } from 'react-native'
 import ProductCard from '../components/ProductCard'
+import { useRoute } from '@react-navigation/native'
 
 const cardData = [
     {
@@ -44,7 +45,10 @@ const cardData = [
     },
 ];
 
-export default function AllProducts({ navigation }) {
+export default function SearchResult({ navigation }) {
+    const route = useRoute()
+    const { query } = route.params
+
     const renderProductCard = ({ item }) => (
         <ProductCard data={item} />
     );
@@ -56,7 +60,7 @@ export default function AllProducts({ navigation }) {
                 <FilterSection />
             </View>
 
-            <View style={{ marginBottom: 130 }}>
+            <View >
                 <FlatList
                     data={cardData}
                     numColumns={2}
@@ -64,7 +68,10 @@ export default function AllProducts({ navigation }) {
                     keyExtractor={(index) => String(Math.random() * 10000000)}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     ListHeaderComponent={
-                        <Text style={{ fontSize: 30, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15, paddingVertical: 5 }}>Our Collection</Text>
+                        <Text style={{ fontSize: 16, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15, paddingTop: 8 }}>Showing results for "{query}"</Text>
+                    }
+                    ListFooterComponent={
+                        <View style={{margin: 75}}></View>
                     }
                 />
             </View>

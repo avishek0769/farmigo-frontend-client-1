@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
     filterBar: {
         padding: 10,
         backgroundColor: '#e9ecef',
-        // marginBottom: 10
     },
     filterButton: {
         marginRight: 12,
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
         right: 0,
         top: 40,
         backgroundColor: '#fff',
-        marginTop: 4,
+        marginTop: 15,
         elevation: 3,
         borderRadius: 8,
         marginHorizontal: 10,
