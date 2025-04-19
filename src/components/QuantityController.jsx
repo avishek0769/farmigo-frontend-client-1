@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 
-const QuantityController = ({ onChange, quantity, setQuantity }) => {
-
+const QuantityController = ({ id, quantity, setQuantity }) => {
+    
     const increase = () => {
         const newQty = quantity + 1;
-        setQuantity(newQty);
-        onChange?.(newQty);
+        setQuantity(id, newQty);
     };
 
     const decrease = () => {
         if (quantity > 1) {
             const newQty = quantity - 1;
-            setQuantity(newQty);
-            onChange?.(newQty);
+            setQuantity(id, newQty);
         }
     };
 

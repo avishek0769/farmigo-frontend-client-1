@@ -2,7 +2,6 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import Header from '../components/Header'
 import { FilterSection } from '../components/Filters'
-import Navbar from '../components/Navbar'
 import { FlatList } from 'react-native'
 import ProductCard from '../components/ProductCard'
 

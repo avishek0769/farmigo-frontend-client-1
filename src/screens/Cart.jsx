@@ -1,77 +1,137 @@
-import { Text, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import CartProductCard from '../components/CartProductCard'
 import { THEME_COLOR } from '../constant'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Header from '../components/Header'
-import Navbar from '../components/Navbar'
+import { View } from 'moti'
 
-const cartItems = [
-    {
-        id: 1,
-        title: "Fresh Organic Apples",
-        image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
-        initialQuantity: 2,
-        price: 120
-    },
-    {
-        id: 2,
-        title: "Farm Fresh Eggs",
-        image: "https://images.unsplash.com/photo-1585238342028-0c01fef9e1d2",
-        initialQuantity: 1,
-        price: 90
-    },
-    {
-        id: 3,
-        title: "Almond Milk 1L",
-        image: "https://images.unsplash.com/photo-1604908177522-f69f4d6d8b65",
-        initialQuantity: 3,
-        price: 150
-    },
-    {
-        id: 4,
-        title: "Raw Honey Glass Jar",
-        image: "https://images.unsplash.com/photo-1582719478174-ade57f6d55b4",
-        initialQuantity: 1,
-        price: 250
-    },
-    {
-        id: 5,
-        title: "Organic Tomatoes 1kg",
-        image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
-        initialQuantity: 2,
-        price: 60
-    },
-    {
-        id: 6,
-        title: "Homemade Bread Loaf",
-        image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec",
-        initialQuantity: 1,
-        price: 100
-    },
-];
 
 export default function Cart({ navigation }) {
+    const [cartItems, setCartItems] = useState([
+        {
+            id: 1,
+            title: "Fresh Organic Apples Fresh Organic Apples Fresh Organic Apples",
+            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            quantity: 2,
+            price: 120
+        },
+        {
+            id: 2,
+            title: "Farm Fresh Eggs",
+            image: "https://images.pexels.com/photos/129574/pexels-photo-129574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+            quantity: 1,
+            price: 90
+        },
+        {
+            id: 3,
+            title: "Almond Milk 1L",
+            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            quantity: 3,
+            price: 150
+        },
+        {
+            id: 4,
+            title: "Raw Honey Glass Jar",
+            image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec",
+            quantity: 1,
+            price: 250
+        },
+        {
+            id: 5,
+            title: "Organic Tomatoes 1kg",
+            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            quantity: 2,
+            price: 60
+        },
+        {
+            id: 6,
+            title: "Homemade Bread Loaf",
+            image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec",
+            quantity: 1,
+            price: 100
+        },
+    ])
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [discount, setDiscount] = useState(250)
+    const [deliveryCharges, setDeliveryCharges] = useState(20)
+
+    useEffect(() => {
+        if (cartItems.length) {
+            setTotalPrice(0)
+            cartItems.map(item => {
+                setTotalPrice(prev => prev + (item.price * item.quantity))
+            })
+            setTotalPrice(prev => (prev - discount) + deliveryCharges)
+        }
+    }, [cartItems])
+
+    const setQuantity = (productId, newQuantity) => {
+        setCartItems(prevItems =>
+            prevItems.map(item =>
+                item.id === productId
+                    ? { ...item, quantity: newQuantity }
+                    : item
+            )
+        );
+    }
+
+    const removeItem = (productId) => {
+        setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+    };
 
     return (
         <>
             <Header />
             <FlatList
                 data={cartItems}
-                keyExtractor={() => String(Math.random() * 10000000000)}
+                keyExtractor={(item) => String(item.id)}
                 ListHeaderComponent={
                     <Text style={{ fontSize: 30, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15 }}>Cart</Text>
                 }
                 renderItem={({ item }) => (
-                    <CartProductCard key={item.id.toString()} price={item.price} title={item.title} initialQuantity={item.initialQuantity} />
+                    <CartProductCard
+                        id={item.id}
+                        image={item.image}
+                        price={item.price}
+                        quantity={item.quantity}
+                        title={item.title} 
+                        setQuantity={setQuantity}
+                        removeItem={removeItem}
+                    />
                 )}
                 ListFooterComponent={
-                    <TouchableOpacity onPress={() => navigation.navigate("Shop")} style={{ backgroundColor: THEME_COLOR, marginTop: 30, marginBottom: 20, marginHorizontal: 20, borderRadius: 5, padding: 10, flexDirection: "row", justifyContent: "center", gap: 15 }}>
-                        <Icon name='paid' size={27} color={"white"} />
-                        <Text style={{ fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white" }}>Proceed to checkout</Text>
-                    </TouchableOpacity>
+                    <>
+                        <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                            <Text>Gross Total </Text>
+                            <Text>${totalPrice}</Text>
+                        </View>
+                        <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                            <Text>Discount (-)</Text>
+                            <Text>${discount}</Text>
+                        </View>
+                        <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                            <Text>Delivery Charges (+) </Text>
+                            <Text>${deliveryCharges}</Text>
+                        </View>
+                        <View style={{ borderBottomWidth: 1, borderTopWidth: 1, borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 12, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+                            <Text style={styles.priceText}>Total </Text>
+                            <Text style={styles.priceText}>${totalPrice}</Text>
+                        </View>
+                        <TouchableOpacity onPress={() => navigation.navigate("Shop")} style={{ backgroundColor: THEME_COLOR, marginTop: 30, marginBottom: 20, marginHorizontal: 20, borderRadius: 5, padding: 10, flexDirection: "row", justifyContent: "center", gap: 15 }}>
+                            <Icon name='paid' size={27} color={"white"} />
+                            <Text style={{ fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white" }}>Proceed to checkout</Text>
+                        </TouchableOpacity>
+                    </>
                 }
             />
         </>
     )
 }
+
+const styles = StyleSheet.create({
+    priceText: {
+        fontSize: 20,
+        fontWeight: "500"
+    }
+})
