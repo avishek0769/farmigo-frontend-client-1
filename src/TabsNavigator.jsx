@@ -6,7 +6,6 @@ import Home from './screens/Home';
 import Products from './screens/Products';
 import Account from './screens/Account';
 import Order from './screens/Order';
-import NoAccount from './components/NoAccount';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,7 +49,7 @@ export default function Tabs() {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Products" component={Products} />
             <Tab.Screen name="Order" component={Order} />
-            <Tab.Screen name="Account" component={NoAccount} />
+            <Tab.Screen name="Account" component={Account} />
         </Tab.Navigator>
     );
 }

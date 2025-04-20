@@ -13,6 +13,8 @@ import Tabs from "./src/TabsNavigator";
 import SearchResult from "./src/screens/SearchResults";
 import ProductDetails from "./src/screens/ProductDetails";
 import Checkout from "./src/screens/Checkout";
+import Login from "./src/screens/Login";
+import Signup from "./src/screens/Signup";
 
 
 export default function App() {
@@ -31,6 +33,8 @@ export default function App() {
               <Stack.Screen name="SearchResult" component={SearchResult} />
               <Stack.Screen name="ProductDetails" component={ProductDetails} />
               <Stack.Screen name="Checkout" component={Checkout} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Signup" component={Signup} />
 
               <Stack.Screen name="Main" component={Tabs} />
 

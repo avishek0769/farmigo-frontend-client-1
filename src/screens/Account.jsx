@@ -4,14 +4,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { THEME_COLOR } from '../constant'
 import Header from '../components/Header'
 import { AppContext } from '../context/ContextProvider'
+import NoAccount from '../components/NoAccount'
 
 export default function Account({ navigation }) {
     const [showLogoutModal, setShowLogoutModal] = useState(false)
-    const { user } = AppContext()
+    const { isLoggedIn, user, setIsLoggedIn } = AppContext()
 
     const handleLogout = () => {
         // Add your logout logic here
         setShowLogoutModal(false)
+        setIsLoggedIn(false)
         // Navigate to login screen or clear auth state
         navigation.replace('Main')
     }
@@ -84,7 +86,7 @@ export default function Account({ navigation }) {
         }
     ]
 
-    return (
+    return isLoggedIn? (
         <>
             <Header />
             <ScrollView style={styles.container}>
@@ -177,7 +179,8 @@ export default function Account({ navigation }) {
                 </View>
             </Modal>
         </>
-    )
+    ) :
+    <NoAccount navigation={navigation} />
 }
 
 const styles = StyleSheet.create({

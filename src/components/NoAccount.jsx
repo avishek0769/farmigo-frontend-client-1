@@ -3,6 +3,7 @@ import React from 'react'
 import { THEME_COLOR } from '../constant'
 
 export default function NoAccount({ navigation }) {
+    
     return (
         <View style={styles.container}>
             <Image
@@ -25,7 +26,7 @@ export default function NoAccount({ navigation }) {
 
                 <TouchableOpacity
                     style={styles.registerButton}
-                    onPress={() => navigation.navigate('Register')}
+                    onPress={() => navigation.navigate('Signup')}
                 >
                     <Text style={styles.registerButtonText}>Create Account</Text>
                 </TouchableOpacity>
