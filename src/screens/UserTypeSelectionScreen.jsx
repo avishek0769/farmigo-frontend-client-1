@@ -20,7 +20,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
     }, [setBuyerChecked, sellerChecked, setSellerChecked])
 
     const handleEnter = useCallback(() => {
-        navigation.replace("Home")
+        navigation.replace("Main")
     }, [])
 
     useEffect(() => {
@@ -36,7 +36,8 @@ export default function UserTypeSelectionScreen({ navigation }) {
         <View style={{ justifyContent: "center", alignItems: "center", height: "100%" }}>
             <Image source={require("../assets/images/userType.png")} style={{ width: 230, height: 230 }} />
 
-            <Text style={{ fontSize: 30, fontWeight: "500", width: "100%", paddingLeft: 32 }}>Select your user type</Text>
+            <Text style={style.title}>Select your user type</Text>
+
             <View>
                 <Pressable onTouchEnd={handleBuyerCheckBox} style={style.optionView}>
                     <Image source={require("../assets/images/farmer.png")} style={{ width: 50, height: 50 }} />
@@ -90,5 +91,12 @@ const style = StyleSheet.create({
     checkBox: {
         position: "absolute",
         right: 1
-    }
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: "700",
+        marginBottom: 30,
+        color: '#2d3436',
+        textAlign: 'center'
+    },
 })

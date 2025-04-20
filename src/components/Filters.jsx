@@ -4,7 +4,6 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    FlatList,
     ScrollView,
 } from 'react-native';
 
@@ -33,10 +32,18 @@ export const FilterSection = () => {
     }, [selectedFilters])
     
     const handleOptionSelect = useCallback((optionIndex) => {
-        setSelectedFilters({
-            ...selectedFilters,
-            [openFilterKey]: optionIndex,
-        })
+        if(selectedFilters[openFilterKey] == optionIndex) {
+            setSelectedFilters({
+                ...selectedFilters,
+                [openFilterKey]: undefined,
+            })
+        }
+        else {
+            setSelectedFilters({
+                ...selectedFilters,
+                [openFilterKey]: optionIndex,
+            })
+        }
         setTimeout(() => {
             setOpenFilterKey(null)
         }, 150);
@@ -45,36 +52,68 @@ export const FilterSection = () => {
     const FilterDropdown = ({ options, onClose }) => {
         return (
             <View style={styles.dropdown}>
+                <View style={styles.dropdownHeader}>
+                    <Text style={styles.dropdownTitle}>
+                        Select {filters.find(f => f.key === openFilterKey)?.label}
+                    </Text>
+                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                        <Text style={styles.closeButtonText}>✕</Text>
+                    </TouchableOpacity>
+                </View>
                 {options.map((option, index) => (
-                    <TouchableOpacity onPress={() => handleOptionSelect(index)} key={index} style={[styles.dropdownItem, { backgroundColor: selectedFilters[openFilterKey] == index? "#f0fff1" : "" }]}>
-                        <Text>{option}</Text>
+                    <TouchableOpacity 
+                        onPress={() => handleOptionSelect(index)} 
+                        key={index} 
+                        style={[
+                            styles.dropdownItem, 
+                            selectedFilters[openFilterKey] === index && styles.selectedDropdownItem
+                        ]}
+                    >
+                        <Text style={[
+                            styles.dropdownItemText,
+                            selectedFilters[openFilterKey] === index && styles.selectedDropdownItemText
+                        ]}>
+                            {option}
+                        </Text>
                     </TouchableOpacity>
                 ))}
-                <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                    <Text style={{ color: 'red' }}>✕ Close</Text>
-                </TouchableOpacity>
             </View>
         );
     };
 
     return (
         <View style={styles.container}>
-            {/* Filter Bar */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterBar}>
+            <ScrollView 
+                horizontal 
+                showsHorizontalScrollIndicator={false} 
+                style={styles.filterBar}
+                contentContainerStyle={styles.filterBarContent}
+            >
                 {filters.map((filter) => (
                     <TouchableOpacity
                         key={filter.key}
-                        style={styles.filterButton}
+                        style={[
+                            styles.filterButton,
+                            openFilterKey === filter.key && styles.activeFilterButton,
+                            selectedFilters[filter.key] !== undefined && styles.selectedFilterButton
+                        ]}
                         onPress={() => handleFilterPress(filter.key)}
                     >
-                        <Text style={styles.filterText}>
-                            {filter.label} {openFilterKey === filter.key ? '▲' : '▼'}
+                        <Text style={[
+                            styles.filterText,
+                            openFilterKey === filter.key && styles.activeFilterText,
+                            selectedFilters[filter.key] !== undefined && styles.selectedFilterText
+                        ]}>
+                            {filter.label} 
+                            <Text style={styles.filterArrow}>
+                                {openFilterKey === filter.key ? ' ▲' : ' ▼'}
+                            </Text>
                         </Text>
                     </TouchableOpacity>
                 ))}
             </ScrollView>
 
-            {/* Dropdown Section */}
+            {/* Dropdown Section remains the same */}
             {openFilterKey && (
                 <FilterDropdown
                     options={filters.find((f) => f.key === openFilterKey)?.options || []}
@@ -86,43 +125,100 @@ export const FilterSection = () => {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fff',
+        elevation: 2,
+    },
     filterBar: {
-        padding: 10,
-        backgroundColor: '#e9ecef',
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderBottomColor: '#f0f0f0',
+    },
+    filterBarContent: {
+        padding: 12,
+        paddingBottom: 8,
     },
     filterButton: {
-        marginRight: 12,
+        marginRight: 10,
         paddingVertical: 8,
-        paddingHorizontal: 14,
-        backgroundColor: '#fff',
+        paddingHorizontal: 16,
+        backgroundColor: '#f8f9fa',
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#e9ecef',
+    },
+    activeFilterButton: {
+        backgroundColor: '#e8f5e9',
+        borderColor: '#4caf50',
+    },
+    selectedFilterButton: {
+        backgroundColor: '#fff',
+        borderColor: '#4caf50',
     },
     filterText: {
         fontSize: 14,
+        color: '#495057',
+        fontWeight: '500',
+    },
+    activeFilterText: {
+        color: '#2e7d32',
+        fontWeight: '600',
+    },
+    selectedFilterText: {
+        color: '#2e7d32',
+    },
+    filterArrow: {
+        fontSize: 12,
     },
     dropdown: {
         position: "absolute",
         left: 0,
         right: 0,
-        top: 40,
+        top: 55,
         backgroundColor: '#fff',
-        marginTop: 15,
-        elevation: 3,
-        borderRadius: 8,
-        marginHorizontal: 10,
+        borderRadius: 12,
+        marginHorizontal: 12,
+        elevation: 4,
+        overflow: 'hidden',
     },
-    dropdownItem: {
-        padding: 13,
-        paddingVertical: 10,
+    dropdownHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        paddingVertical: 12,
         borderBottomWidth: 1,
-        borderColor: '#eee',
+        borderBottomColor: '#f0f0f0',
+    },
+    dropdownTitle: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#212529',
     },
     closeButton: {
-        margin: 10,
-        alignItems: 'flex-end',
-    }    
+        padding: 4,
+    },
+    closeButtonText: {
+        color: '#dc3545',
+        fontSize: 18,
+        fontWeight: '600',
+    },
+    dropdownItem: {
+        padding: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f0f0f0',
+    },
+    selectedDropdownItem: {
+        backgroundColor: '#e8f5e9',
+    },
+    dropdownItemText: {
+        fontSize: 15,
+        color: '#495057',
+    },
+    selectedDropdownItemText: {
+        color: '#2e7d32',
+        fontWeight: '500',
+    },
 });
 
 

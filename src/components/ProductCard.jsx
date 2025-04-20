@@ -1,22 +1,58 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { THEME_COLOR } from '../constant';
-
+import { useNavigation } from '@react-navigation/native';
 
 export default function ProductCard({ data }) {
+    const navigation = useNavigation();
 
     return (
-        <View style={styles.card}>
-            <Image source={{ uri: data.image }} style={styles.imageStyle} resizeMode="cover" />
-            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.title}>{data.title}</Text>
-            <Text style={styles.price}>{data.price}</Text>
+        <Pressable 
+            style={styles.card}
+            onPress={() => navigation.navigate('ProductDetails', { product: data })}
+        >
+            <View style={styles.imageContainer}>
+                <Image source={{ uri: data.image }} style={styles.imageStyle} resizeMode="cover" />
+            </View>
 
-            <TouchableOpacity style={{ borderWidth: 1, borderColor: THEME_COLOR, padding: 7, margin: 8, borderRadius: 500, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 5 }}>
-                <Icon name='shopping-cart' size={22} color={THEME_COLOR} />
-                <Text style={{ color: THEME_COLOR, fontSize: 16, fontWeight: "bold", letterSpacing: 1 }}>Add to Cart</Text>
+            {data.discountPercentage > 0 && (
+                <View style={styles.discountBadge}>
+                    <Text style={styles.discountText}>{data.discountPercentage}% OFF</Text>
+                </View>
+            )}
+
+            <View style={styles.contentContainer}>
+                <Text numberOfLines={2} ellipsizeMode="tail" style={styles.title}>
+                    {data.title}
+                </Text>
+
+                <View style={styles.priceSection}>
+                    <View style={styles.priceRow}>
+                        {data.discountPercentage > 0 ? (
+                            <>
+                                <Text style={styles.discountedPrice}>{data.discountedPrice}</Text>
+                                <Text style={styles.actualPrice}>{data.actualPrice}</Text>
+                            </>
+                        ) : (
+                            <Text style={styles.normalPrice}>{data.actualPrice}</Text>
+                        )}
+                    </View>
+                </View>
+            </View>
+
+            <TouchableOpacity 
+                style={styles.addToCartButton}
+                onPress={(e) => {
+                    e.stopPropagation(); // Prevents triggering the card's onPress
+                    // Add to cart logic here
+                    
+                }}
+            >
+                <Icon name='shopping-cart' size={20} color={THEME_COLOR} />
+                <Text style={{color: THEME_COLOR}}>Add to Cart</Text>
             </TouchableOpacity>
-        </View>
+        </Pressable>
     );
 };
 
@@ -24,7 +60,7 @@ const styles = StyleSheet.create({
     card: {
         width: 170,
         margin: 10,
-        borderRadius: 10,
+        borderRadius: 12,
         backgroundColor: '#fff',
         elevation: 3,
         shadowColor: '#000',
@@ -32,25 +68,82 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         overflow: 'hidden',
+        position: 'relative', // Added for absolute positioning of children
+        minHeight: 320, // Add minimum height to accommodate content
+    },
+    imageContainer: {
+        width: '100%',
+        height: 170,
     },
     imageStyle: {
         width: '100%',
-        height: 150,
+        height: '100%',
+    },
+    discountBadge: {
+        backgroundColor: '#e8f5e9', // Changed to green shade
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        // borderRadius: 4,
+        position: 'absolute',
+        top: 0, // Position it over the bottom of image
+        left: 0,
+        right: 0,
+        // marginBottom: 10,
+        // elevation: 2,
+    },
+    discountText: {
+        color: '#2e7d32', // Dark green color
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+    contentContainer: {
+        padding: 12,
+        paddingBottom: 60, // Make space for the button
     },
     title: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: '500',
-        padding: 8,
-        paddingBottom: 2,
-        paddingHorizontal: 10,
-        color: "#1d1e18"
+        color: "#1d1e18",
+        marginBottom: 8,
+        lineHeight: 20,
     },
-    price: {
-        fontSize: 22,
-        paddingHorizontal: 10,
-        paddingVertical: 3,
-        fontWeight: "bold",
-        letterSpacing: 1
+    priceSection: {
+        marginBottom: 12,
     },
+    priceRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+    },
+    normalPrice: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: "black",
+    },
+    discountedPrice: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: THEME_COLOR,
+    },
+    actualPrice: {
+        fontSize: 14,
+        color: '#6c757d',
+        textDecorationLine: 'line-through',
+    },
+    addToCartButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 6,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: THEME_COLOR,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        borderRadius: 8,
+        position: 'absolute',
+        bottom: 12,
+        left: 12,
+        right: 12,
+    }
 });
-

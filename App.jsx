@@ -11,6 +11,8 @@ import Cart from "./src/screens/Cart";
 import { ContextProvider } from "./src/context/ContextProvider";
 import Tabs from "./src/TabsNavigator";
 import SearchResult from "./src/screens/SearchResults";
+import ProductDetails from "./src/screens/ProductDetails";
+import Checkout from "./src/screens/Checkout";
 
 
 export default function App() {
@@ -21,12 +23,14 @@ export default function App() {
       <SafeAreaProvider>
         <ContextProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }} >
+            <Stack.Navigator initialRouteName="UserTypeSelection" screenOptions={{ headerShown: false }} >
 
               <Stack.Screen name="Splash" component={SplashScreen} />
               <Stack.Screen name="UserTypeSelection" component={UserTypeSelectionScreen} />
               <Stack.Screen name="Cart" component={Cart} />
               <Stack.Screen name="SearchResult" component={SearchResult} />
+              <Stack.Screen name="ProductDetails" component={ProductDetails} />
+              <Stack.Screen name="Checkout" component={Checkout} />
 
               <Stack.Screen name="Main" component={Tabs} />
 

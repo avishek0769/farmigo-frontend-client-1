@@ -1,11 +1,27 @@
-import { Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useCallback, useEffect, useState } from 'react'
+import { Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import CartProductCard from '../components/CartProductCard'
 import { THEME_COLOR } from '../constant'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Header from '../components/Header'
 import { View } from 'moti'
 
+const EmptyCart = ({ navigation }) => (
+    <View style={styles.emptyContainer}>
+        <Image
+            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2038/2038854.png' }}
+            style={styles.emptyImage}
+        />
+        <Text style={styles.emptyTitle}>Your cart is empty</Text>
+        <Text style={styles.emptySubtitle}>Add items to start shopping</Text>
+        <TouchableOpacity
+            style={styles.shopButton}
+            onPress={() => navigation.navigate("Main")}
+        >
+            <Text style={styles.shopButtonText}>Start Shopping</Text>
+        </TouchableOpacity>
+    </View>
+)
 
 export default function Cart({ navigation }) {
     const [cartItems, setCartItems] = useState([
@@ -83,58 +99,168 @@ export default function Cart({ navigation }) {
     return (
         <>
             <Header inCartScreen={true} />
-            
-            <FlatList
-                data={cartItems}
-                keyExtractor={(item) => String(item.id)}
-                ListHeaderComponent={
-                    <Text style={{ fontSize: 30, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15 }}>Cart</Text>
-                }
-                renderItem={({ item }) => (
-                    <CartProductCard
-                        id={item.id}
-                        image={item.image}
-                        price={item.price}
-                        quantity={item.quantity}
-                        title={item.title}
-                        setQuantity={setQuantity}
-                        removeItem={removeItem}
+
+            {cartItems.length === 0 ? (
+                <EmptyCart navigation={navigation} />
+            ) : (
+                <>
+                    <FlatList
+                        data={cartItems}
+                        keyExtractor={(item) => String(item.id)}
+                        ListHeaderComponent={
+                            <Text style={styles.headerTitle}>My Cart ({cartItems.length})</Text>
+                        }
+                        renderItem={({ item }) => (
+                            <CartProductCard
+                                id={item.id}
+                                image={item.image}
+                                price={item.price}
+                                quantity={item.quantity}
+                                title={item.title}
+                                setQuantity={setQuantity}
+                                removeItem={removeItem}
+                            />
+                        )}
+                        ListFooterComponent={
+                            <View style={styles.summaryContainer}>
+                                <View style={styles.summaryRow}>
+                                    <Text style={styles.summaryLabel}>Gross Total </Text>
+                                    <Text style={styles.summaryValue}>${totalPrice}</Text>
+                                </View>
+                                <View style={styles.summaryRow}>
+                                    <Text style={styles.summaryLabel}>Discount (-)</Text>
+                                    <Text style={[styles.summaryValue, { color: '#28a745' }]}>-${discount}</Text>
+                                </View>
+                                <View style={styles.summaryRow}>
+                                    <Text style={styles.summaryLabel}>Delivery Charges (+) </Text>
+                                    <Text style={styles.summaryValue}>${deliveryCharges}</Text>
+                                </View>
+                                <View style={[styles.summaryRow, styles.totalRow]}>
+                                    <Text style={styles.totalLabel}>Total </Text>
+                                    <Text style={styles.totalValue}>${totalPrice}</Text>
+                                </View>
+                            </View>
+                        }
+                        showsVerticalScrollIndicator={false}
                     />
-                )}
-                ListFooterComponent={
-                    <>
-                        <View style={{marginBottom: 90}}>
-                            <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                                <Text>Gross Total </Text>
-                                <Text>${totalPrice}</Text>
-                            </View>
-                            <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                                <Text>Discount (-)</Text>
-                                <Text>${discount}</Text>
-                            </View>
-                            <View style={{ borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 8, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                                <Text>Delivery Charges (+) </Text>
-                                <Text>${deliveryCharges}</Text>
-                            </View>
-                            <View style={{ borderBottomWidth: 1, borderTopWidth: 1, borderColor: "#ced4da", marginHorizontal: 15, paddingVertical: 12, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
-                                <Text style={styles.priceText}>Total </Text>
-                                <Text style={styles.priceText}>${totalPrice}</Text>
-                            </View>
-                        </View>
-                    </>
-                }
-            />
-            <TouchableOpacity onPress={() => navigation.navigate("Checkout")} style={{ backgroundColor: THEME_COLOR, borderRadius: 5, padding: 10, flexDirection: "row", justifyContent: "center", gap: 15, position: "absolute", bottom: 20, left: 20, right: 20 }}>
-                <Icon name='paid' size={27} color={"white"} />
-                <Text style={{ fontSize: 20, fontWeight: "bold", letterSpacing: 1, textAlign: "center", color: "white" }}>Proceed to checkout</Text>
-            </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("Checkout")}
+                        style={styles.checkoutButton}
+                    >
+                        <Icon name='paid' size={27} color={"white"} />
+                        <Text style={styles.checkoutButtonText}>
+                            Proceed to checkout
+                        </Text>
+                    </TouchableOpacity>
+                </>
+            )}
         </>
     )
 }
 
 const styles = StyleSheet.create({
-    priceText: {
+    headerTitle: {
+        fontSize: 24,
+        color: "#343a40",
+        fontWeight: "bold",
+        paddingHorizontal: 15,
+        paddingVertical: 10
+    },
+    summaryContainer: {
+        marginBottom: 90,
+        backgroundColor: '#fff',
+        marginHorizontal: 15,
+        borderRadius: 12,
+        padding: 15,
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+    },
+    summaryRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingVertical: 8,
+    },
+    summaryLabel: {
+        fontSize: 15,
+        color: '#6c757d'
+    },
+    summaryValue: {
+        fontSize: 15,
+        fontWeight: "500",
+        color: '#495057'
+    },
+    totalRow: {
+        borderTopWidth: 1,
+        borderColor: "#ced4da",
+        marginTop: 8,
+        paddingTop: 12
+    },
+    totalLabel: {
+        fontSize: 18,
+        fontWeight: "600",
+        color: '#212529'
+    },
+    totalValue: {
         fontSize: 20,
-        fontWeight: "500"
+        fontWeight: "600",
+        color: THEME_COLOR
+    },
+    checkoutButton: {
+        backgroundColor: THEME_COLOR,
+        borderRadius: 8,
+        padding: 15,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 15,
+        position: "absolute",
+        bottom: 20,
+        left: 20,
+        right: 20,
+        elevation: 3
+    },
+    checkoutButtonText: {
+        fontSize: 18,
+        fontWeight: "600",
+        letterSpacing: 0.5,
+        color: "white"
+    },
+    emptyContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        height: "80%",
+    },
+    emptyImage: {
+        width: 150,
+        height: 150,
+        opacity: 0.8,
+        marginBottom: 20
+    },
+    emptyTitle: {
+        fontSize: 24,
+        fontWeight: '600',
+        color: '#343a40',
+        marginBottom: 8
+    },
+    emptySubtitle: {
+        fontSize: 16,
+        color: '#6c757d',
+        marginBottom: 25
+    },
+    shopButton: {
+        backgroundColor: THEME_COLOR,
+        paddingVertical: 12,
+        paddingHorizontal: 30,
+        borderRadius: 8,
+        elevation: 2
+    },
+    shopButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600'
     }
-})
+});

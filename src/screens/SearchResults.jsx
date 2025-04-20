@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import Header from '../components/Header'
 import { FilterSection } from '../components/Filters'
 import { FlatList } from 'react-native'
@@ -9,39 +9,55 @@ import { useRoute } from '@react-navigation/native'
 const cardData = [
     {
         id: 1,
-        title: "Stylish Ja Stylish Jacket vStylish Jacket vStylish Jacket Stylish Jacket cket Stylish Jacket Stylish Jacket",
-        price: "₹1,299",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        title: "Stylish Leather Jacket",
+        discountedPrice: "₹1,299",
+        actualPrice: "₹2,499",
+        discountPercentage: 48,
+        image: "https://images.unsplash.com/photo-1551028719-00167b16eac5",
+        availability: "In Stock"
     },
     {
         id: 2,
-        title: "Running Shoes Running Shoes Running Shoes Running Shoes Running Shoes Running Shoes Running Shoes ",
-        price: "₹2,499",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        title: "Premium Running Shoes",
+        actualPrice: "₹2,499",
+        discountPercentage: 0,
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+        availability: "In Stock"
     },
     {
         id: 3,
-        title: "Leather Wallet",
-        price: "₹799",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        title: "Genuine Leather Wallet",
+        discountedPrice: "₹599",
+        actualPrice: "₹799",
+        discountPercentage: 25,
+        image: "https://images.unsplash.com/photo-1627123409982-9c693fccaaba",
+        availability: "Out of Stock"
     },
     {
         id: 4,
-        title: "Smart Watch",
-        price: "₹3,999",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        title: "Smart Watch Pro Series",
+        discountedPrice: "₹2,999",
+        actualPrice: "₹3,999",
+        discountPercentage: 25,
+        image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12",
+        availability: "In Stock"
     },
     {
         id: 5,
-        title: "Wireless Earbuds",
-        price: "₹1,999",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        title: "Wireless Earbuds with ANC",
+        discountedPrice: "₹1,499",
+        actualPrice: "₹1,999",
+        discountPercentage: 25,
+        image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df",
+        availability: "In Stock"
     },
     {
         id: 6,
-        title: "Classic Sunglasses",
-        price: "₹1,299",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        title: "Classic Aviator Sunglasses",
+        actualPrice: "₹1,299",
+        discountPercentage: 0,
+        image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
+        availability: "In Stock"
     },
 ];
 
@@ -68,7 +84,7 @@ export default function SearchResult({ navigation }) {
                     keyExtractor={(index) => String(Math.random() * 10000000)}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     ListHeaderComponent={
-                        <Text style={{ fontSize: 16, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15, paddingTop: 8 }}>Showing results for "{query}"</Text>
+                        <Text style={{ fontSize: 16, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15, paddingTop: 12 }}>Showing results for "{query}"</Text>
                     }
                     ListFooterComponent={
                         <View style={{margin: 75}}></View>
