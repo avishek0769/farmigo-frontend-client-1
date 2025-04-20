@@ -5,9 +5,10 @@ import { THEME_COLOR } from '../constant'
 import Header from '../components/Header'
 import { AppContext } from '../context/ContextProvider'
 import NoAccount from '../components/NoAccount'
+import ModalPopUp from '../components/ModalPopUp'
 
 export default function Account({ navigation }) {
-    const [showLogoutModal, setShowLogoutModal] = useState(false)
+    const [showLogoutModal, setShowLogoutModal] = useState(false) // Change to false initially
     const { isLoggedIn, user, setIsLoggedIn } = AppContext()
 
     const handleLogout = () => {
@@ -21,23 +22,16 @@ export default function Account({ navigation }) {
         try {
             const result = await Share.share({
                 message: 'Check out this amazing farming app! Download now from: https://play.google.com/store/apps/your-app-link',
-                title: 'Share Pedo App'
+                title: 'Share Pedo App',
+                url: 'https://play.google.com/store/apps/your-app-link' // Add this for iOS
             });
 
             if (result.action === Share.sharedAction) {
-                if (result.activityType) { // shared with activity type of result.activityType
-                    console.log('Shared with activity type');
-                }
-                else {// shared
-                    console.log('Shared');
-                }
-            }
-            else if (result.action === Share.dismissedAction) { // dismissed
-                console.log('Share dismissed');
+                console.log('Shared successfully');
             }
         }
         catch (error) {
-            console.error(error.message);
+            console.error('Error sharing:', error.message);
         }
     };
 
@@ -86,7 +80,7 @@ export default function Account({ navigation }) {
         }
     ]
 
-    return isLoggedIn? (
+    return isLoggedIn ? (
         <>
             <Header />
             <ScrollView style={styles.container}>
@@ -125,9 +119,23 @@ export default function Account({ navigation }) {
                 <View style={styles.menuContainer}>
                     {menuItems.map((item, index) => (
                         <Pressable
-                            key={index}
-                            style={styles.menuItem}
-                            onPress={() => item.route ? navigation.navigate(item.route) : item.action()}
+                            key={String(index)}
+                            style={({ pressed }) => [
+                                styles.menuItem,
+                                pressed && styles.menuItemPressed,
+                                Platform.OS === 'ios' && pressed && { opacity: 0.6 }
+                            ]}
+                            android_ripple={{
+                                color: '#e9ecef',
+                                borderless: false
+                            }}
+                            onPress={() => {
+                                if (item.route) {
+                                    navigation.navigate(item.route);
+                                } else if (item.action) {
+                                    item.action();
+                                }
+                            }}
                         >
                             <View style={styles.menuItemLeft}>
                                 <Icon name={item.icon} size={24} color="#495057" />
@@ -136,51 +144,28 @@ export default function Account({ navigation }) {
                                     <Text style={styles.menuItemSubtitle}>{item.subtitle}</Text>
                                 </View>
                             </View>
-                            <Icon naPressableme="chevron-right" size={24} color="#ced4da" />
+                            <Icon name="chevron-right" size={24} color="#ced4da" />
                         </Pressable>
                     ))}
                 </View>
 
                 <Text style={styles.version}>Version 1.0.0</Text>
             </ScrollView>
-            <Modal
-                visible={showLogoutModal}
-                transparent
-                animationType="fade"
-                onRequestClose={() => setShowLogoutModal(false)}
-            >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
-                        <View style={styles.modalHeader}>
-                            <Icon name="logout" size={32} color="#dc3545" />
-                            <Text style={styles.modalTitle}>Logout</Text>
-                        </View>
-
-                        <Text style={styles.modalText}>
-                            Are you sure you want to logout?
-                        </Text>
-
-                        <View style={styles.modalButtons}>
-                            <TouchableOpacity
-                                onPress={() => setShowLogoutModal(false)}
-                                style={[styles.modalButton, styles.modalButtonOutline]}
-                            >
-                                <Text style={styles.modalButtonTextOutline}>Cancel</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                onPress={handleLogout}
-                                style={[styles.modalButton, styles.modalButtonFilled]}
-                            >
-                                <Text style={styles.modalButtonTextFilled}>Logout</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+            
+            <ModalPopUp
+                actionBtnTxt={"Logout"}
+                handleAction={handleLogout}
+                icon={"logout"}
+                setShowLogoutModal={setShowLogoutModal}
+                showLogoutModal={showLogoutModal}
+                cancelBtnTxt={"Cancel"}
+                actionTxt={"Logout"}
+                actionDescriptionText={"Are you sure you want to logout from the Farmigo?"}
+            />
         </>
-    ) :
-    <NoAccount navigation={navigation} />
+    ) : (
+        <NoAccount navigation={navigation} />
+    )
 }
 
 const styles = StyleSheet.create({
@@ -288,69 +273,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginVertical: 20
     },
-    modalOverlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20
-    },
-    modalContent: {
-        backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 20,
-        width: '100%',
-        maxWidth: 320,
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4
-    },
-    modalHeader: {
-        alignItems: 'center',
-        marginBottom: 15
-    },
-    modalTitle: {
-        fontSize: 20,
-        fontWeight: '600',
-        color: '#dc3545',
-        marginTop: 8
-    },
-    modalText: {
-        fontSize: 16,
-        color: '#495057',
-        textAlign: 'center',
-        marginBottom: 20,
-        lineHeight: 22
-    },
-    modalButtons: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        gap: 12
-    },
-    modalButton: {
-        flex: 1,
-        paddingVertical: 12,
-        borderRadius: 8,
-        alignItems: 'center'
-    },
-    modalButtonOutline: {
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#ced4da'
-    },
-    modalButtonFilled: {
-        backgroundColor: '#dc3545'
-    },
-    modalButtonTextOutline: {
-        color: '#495057',
-        fontSize: 15,
-        fontWeight: '600'
-    },
-    modalButtonTextFilled: {
-        color: '#fff',
-        fontSize: 15,
-        fontWeight: '600'
+    menuItemPressed: {
+        backgroundColor: '#f8f9fa'
     }
 })

@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { THEME_COLOR } from '../constant'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useNavigation } from '@react-navigation/native'
+import ModalPopUp from './ModalPopUp'
 
 const PaymentMethodIcon = ({ method }) => {
     const getIcon = () => {
@@ -32,6 +34,7 @@ const PaymentMethodIcon = ({ method }) => {
 export const OrderCard = ({ item, onRateProduct }) => {
     const [rating, setRating] = useState(item.rating || 0)
     const [showCancelModal, setShowCancelModal] = useState(false)
+    const navigation = useNavigation()
 
     // Calculate total amount
     const totalAmount = item.products.reduce((sum, product) => 
@@ -67,14 +70,14 @@ export const OrderCard = ({ item, onRateProduct }) => {
             </View>
 
             {item.products.map((product, index) => (
-                <View key={index} style={styles.productItem}>
+                <Pressable onPress={() => navigation.navigate("ProductDetails", { productId: product.id })} key={index} style={styles.productItem}>
                     <Image source={{ uri: product.image }} style={styles.productImage} />
                     <View style={styles.productInfo}>
                         <Text numberOfLines={2} style={styles.productName}>{product.name}</Text>
                         <Text style={styles.quantity}>Quantity: {product.quantity}</Text>
                         <Text style={styles.price}>${product.price}</Text>
                     </View>
-                </View>
+                </Pressable>
             ))}
 
             <View style={styles.footer}>
@@ -133,41 +136,16 @@ export const OrderCard = ({ item, onRateProduct }) => {
             </View>
 
             {/* Cancel Confirmation Modal */}
-            <Modal
-                visible={showCancelModal}
-                transparent
-                animationType="fade"
-                onRequestClose={() => setShowCancelModal(false)}
-            >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
-                        <View style={styles.modalHeader}>
-                            <Icon name="alert-circle-outline" size={32} color="#dc3545" />
-                            <Text style={styles.modalTitle}>Cancel Order</Text>
-                        </View>
-                        
-                        <Text style={styles.modalText}>
-                            Are you sure you want to cancel this order?
-                        </Text>
-                        
-                        <View style={styles.modalButtons}>
-                            <TouchableOpacity 
-                                onPress={() => setShowCancelModal(false)}
-                                style={[styles.modalButton, styles.modalButtonOutline]}
-                            >
-                                <Text style={styles.modalButtonTextOutline}>No, Keep It</Text>
-                            </TouchableOpacity>
-                            
-                            <TouchableOpacity 
-                                onPress={handleCancelOrder}
-                                style={[styles.modalButton, styles.modalButtonFilled]}
-                            >
-                                <Text style={styles.modalButtonTextFilled}>Yes, Cancel</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+            <ModalPopUp 
+                showLogoutModal={showCancelModal}
+                setShowLogoutModal={setShowCancelModal}
+                handleAction={handleCancelOrder}
+                icon="info"
+                actionBtnTxt="Yes, Cancel"
+                cancelBtnTxt="No, Keep It"
+                actionTxt={"Cancel Order"}
+                actionDescription={`Are you sure you want to cancel Order #${item.orderId}?`}
+            />
         </View>
     )
 }

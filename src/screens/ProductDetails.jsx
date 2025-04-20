@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../components/Header';
 import { THEME_COLOR } from '../constant';
@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const width = Dimensions.get('window').width;
 
-export default function ProductDetails({ navigation, productA }) {
+export default function ProductDetails({ navigation, productId }) {
     const product = {
         id: 1,
         title: "Stylish Jacket Stylish Jacket Stylish Jacket Stylish Jacket Stylish Jacket Stylish ",
@@ -34,23 +34,40 @@ export default function ProductDetails({ navigation, productA }) {
         actualPrice: "₹2,499",
         discountedPrice: "₹1,299",
         discountPercentage: 48,
+        favorite: true,
     };
+    const [isWishlisted, setIsWishlisted] = useState(product.favorite);
+
 
     return (
         <>
             <Header />
             <ScrollView>
                 {/* Carousel */}
-                <Carousel
-                    width={width}
-                    height={width / 1.4}
-                    data={product.images}
-                    renderItem={({ item }) => (
-                        <View style={{ flex: 1, justifyContent: "center" }}>
-                            <Image source={{ uri: item }} style={styles.carouselImage} />
+                <View style={styles.carouselContainer}>
+                    <Carousel
+                        width={width}
+                        height={width / 1.4}
+                        data={product.images}
+                        renderItem={({ item }) => (
+                            <View style={{ flex: 1, justifyContent: "center" }}>
+                                <Image source={{ uri: item }} style={styles.carouselImage} />
+                            </View>
+                        )}
+                    />
+                    <TouchableOpacity
+                        style={styles.wishlistButton}
+                        onPress={() => setIsWishlisted(!isWishlisted)}
+                    >
+                        <View style={styles.heartIconContainer}>
+                            <Icon
+                                name={isWishlisted ? 'favorite' : 'favorite-border'}
+                                size={24}
+                                color={isWishlisted ? '#dc3545' : '#6c757d'}
+                            />
                         </View>
-                    )}
-                />
+                    </TouchableOpacity>
+                </View>
 
                 {/* Product Details */}
                 <View style={styles.detailsContainer}>
@@ -70,21 +87,29 @@ export default function ProductDetails({ navigation, productA }) {
                     <View style={styles.priceSection}>
                         <View>
                             <View style={styles.priceRow}>
-                                <Text style={styles.discountedPrice}>{product.discountedPrice}</Text>
-                                <Text style={styles.actualPrice}>{product.actualPrice}</Text>
-                                <View style={styles.discountBadge}>
-                                    <Text style={styles.discountText}>{product.discountPercentage}% OFF</Text>
-                                </View>
+                                {product.discountPercentage > 0 ? (
+                                    <>
+                                        <Text style={styles.discountedPrice}>{product.discountedPrice}</Text>
+                                        <Text style={styles.actualPrice}>{product.actualPrice}</Text>
+                                        <View style={styles.discountBadge}>
+                                            <Text style={styles.discountText}>
+                                                {product.discountPercentage}% OFF
+                                            </Text>
+                                        </View>
+                                    </>
+                                ) : (
+                                    <Text style={[styles.normalPrice, {color: "#343a40"}]}>{product.actualPrice}</Text>
+                                )}
                             </View>
                         </View>
                         <View style={[
                             styles.availabilityBadge,
                             product.availability === "Out of Stock" && styles.outOfStockBadge
                         ]}>
-                            <Icon 
-                                name={product.availability === "In Stock" ? "check-circle" : "remove-circle"} 
-                                size={16} 
-                                color={product.availability === "In Stock" ? THEME_COLOR : "#dc3545"} 
+                            <Icon
+                                name={product.availability === "In Stock" ? "check-circle" : "remove-circle"}
+                                size={16}
+                                color={product.availability === "In Stock" ? THEME_COLOR : "#dc3545"}
                             />
                             <Text style={[
                                 styles.availabilityText,
@@ -121,16 +146,16 @@ export default function ProductDetails({ navigation, productA }) {
                         <TouchableOpacity
                             onPress={() => alert("Added to Cart!")}
                             style={[
-                                styles.button, 
+                                styles.button,
                                 styles.addToCartButton,
                                 product.availability === "Out of Stock" && styles.disabledButton
                             ]}
                             disabled={product.availability === "Out of Stock"}
                         >
-                            <Icon 
-                                name="shopping-cart" 
-                                size={24} 
-                                color={product.availability === "Out of Stock" ? "#6c757d" : THEME_COLOR} 
+                            <Icon
+                                name="shopping-cart"
+                                size={24}
+                                color={product.availability === "Out of Stock" ? "#6c757d" : THEME_COLOR}
                             />
                             <Text style={[
                                 styles.buttonText,
@@ -143,20 +168,20 @@ export default function ProductDetails({ navigation, productA }) {
                         <TouchableOpacity
                             onPress={() => navigation.navigate("Checkout")}
                             style={[
-                                styles.button, 
+                                styles.button,
                                 styles.buyNowButton,
                                 product.availability === "Out of Stock" && styles.disabledButton
                             ]}
                             disabled={product.availability === "Out of Stock"}
                         >
-                            <Icon 
-                                name="flash-on" 
-                                size={24} 
-                                color={product.availability === "Out of Stock" ? "#6c757d" : "white"} 
+                            <Icon
+                                name="flash-on"
+                                size={24}
+                                color={product.availability === "Out of Stock" ? "#6c757d" : "white"}
                             />
                             <Text style={[
-                                styles.buttonText, 
-                                {color: "white"},
+                                styles.buttonText,
+                                { color: "white" },
                                 product.availability === "Out of Stock" && styles.disabledButtonText
                             ]}>
                                 Buy Now
@@ -386,5 +411,32 @@ const styles = StyleSheet.create({
     },
     disabledButtonText: {
         color: '#6c757d',
+    },
+    carouselContainer: {
+        position: 'relative',
+    },
+    wishlistButton: {
+        position: 'absolute',
+        bottom: 12,
+        right: 12,
+        zIndex: 10,
+    },
+    heartIconContainer: {
+        width: 40,
+        height: 40,
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    normalPrice: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: THEME_COLOR,
     }
 });

@@ -15,6 +15,7 @@ import ProductDetails from "./src/screens/ProductDetails";
 import Checkout from "./src/screens/Checkout";
 import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
+import Wishlist from "./src/screens/Wishlist";
 
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
               <Stack.Screen name="SearchResult" component={SearchResult} />
               <Stack.Screen name="ProductDetails" component={ProductDetails} />
               <Stack.Screen name="Checkout" component={Checkout} />
+              <Stack.Screen name="Wishlist" component={Wishlist} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Signup" component={Signup} />
 

@@ -8,9 +8,9 @@ export default function ProductCard({ data }) {
     const navigation = useNavigation();
 
     return (
-        <Pressable 
+        <Pressable
             style={styles.card}
-            onPress={() => navigation.navigate('ProductDetails', { product: data })}
+            onPress={() => navigation.navigate('ProductDetails', { productId: data.id })}
         >
             <View style={styles.imageContainer}>
                 <Image source={{ uri: data.image }} style={styles.imageStyle} resizeMode="cover" />
@@ -41,17 +41,21 @@ export default function ProductCard({ data }) {
                 </View>
             </View>
 
-            <TouchableOpacity 
+            <Pressable
                 style={styles.addToCartButton}
                 onPress={(e) => {
                     e.stopPropagation(); // Prevents triggering the card's onPress
                     // Add to cart logic here
                     
                 }}
+                android_ripple={{
+                    color: '#e9ecef',
+                    borderless: false
+                }}
             >
                 <Icon name='shopping-cart' size={20} color={THEME_COLOR} />
-                <Text style={{color: THEME_COLOR}}>Add to Cart</Text>
-            </TouchableOpacity>
+                <Text style={{ color: THEME_COLOR }}>Add to Cart</Text>
+            </Pressable>
         </Pressable>
     );
 };

@@ -1,15 +1,17 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import QuantityController from './QuantityController'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { THEME_COLOR } from '../constant'
+import { useNavigation } from '@react-navigation/native';
 
 export default function CartProductCard({ id, price, title, image, quantity, setQuantity, removeItem }) {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
+            <Pressable onPress={() => navigation.navigate("ProductDetails", { productId: id })} style={styles.imageContainer}>
                 <Image source={{ uri: image }} style={styles.image} />
-            </View>
+            </Pressable>
 
             <View style={styles.contentContainer}>
                 <Text
