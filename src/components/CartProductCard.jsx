@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     totalPrice: {
         fontSize: 18,
         fontWeight: "600",
-        color: THEME_COLOR,
+        color: "#212529",
     },
     removeButton: {
         flexDirection: "row",

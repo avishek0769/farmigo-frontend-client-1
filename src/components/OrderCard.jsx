@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { THEME_COLOR } from '../constant'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -31,11 +31,19 @@ const PaymentMethodIcon = ({ method }) => {
 
 export const OrderCard = ({ item, onRateProduct }) => {
     const [rating, setRating] = useState(item.rating || 0)
+    const [showCancelModal, setShowCancelModal] = useState(false)
 
     // Calculate total amount
     const totalAmount = item.products.reduce((sum, product) => 
         sum + (product.price * product.quantity), 0
     )
+
+    // Add cancel order handler
+    const handleCancelOrder = () => {
+        // Add your cancel order logic here
+        setShowCancelModal(false)
+        Alert.prompt('Order cancelled successfully')
+    }
 
     return (
         <View style={styles.orderCard}>
@@ -70,21 +78,34 @@ export const OrderCard = ({ item, onRateProduct }) => {
             ))}
 
             <View style={styles.footer}>
-                <Text style={styles.dateInfo}>
-                    {item.status === 'Delivered'
-                        ? `Delivered on ${item.deliveryDate}`
-                        : `Expected by ${item.expectedDate}`
-                    }
-                </Text>
-
-                <Text style={styles.paymentStatus}>
-                    {item.status === 'Delivered' 
-                        ? 'Payment Completed'
-                        : item.paymentMethod === 'COD'
-                            ? 'Payment on Delivery'
-                            : 'Payment Processed'
-                    }
-                </Text>
+                <View style={styles.footerTop}>
+                    <View>
+                        <Text style={styles.dateInfo}>
+                            {item.status === 'Delivered'
+                                ? `Delivered on ${item.deliveryDate}`
+                                : `Expected by ${item.expectedDate}`
+                            }
+                        </Text>
+                        <Text style={styles.paymentStatus}>
+                            {item.status === 'Delivered' 
+                                ? 'Payment Completed'
+                                : item.paymentMethod === 'COD'
+                                    ? 'Payment on Delivery'
+                                    : 'Payment Processed'
+                            }
+                        </Text>
+                    </View>
+                    
+                    {item.status !== 'Delivered' && (
+                        <TouchableOpacity 
+                            onPress={() => setShowCancelModal(true)}
+                            style={styles.cancelButton}
+                        >
+                            <Icon name="close-circle-outline" size={18} color="#dc3545" />
+                            <Text style={styles.cancelButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
 
                 {item.status === 'Delivered' && (
                     <View style={styles.ratingContainer}>
@@ -110,6 +131,43 @@ export const OrderCard = ({ item, onRateProduct }) => {
                     </View>
                 )}
             </View>
+
+            {/* Cancel Confirmation Modal */}
+            <Modal
+                visible={showCancelModal}
+                transparent
+                animationType="fade"
+                onRequestClose={() => setShowCancelModal(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <View style={styles.modalHeader}>
+                            <Icon name="alert-circle-outline" size={32} color="#dc3545" />
+                            <Text style={styles.modalTitle}>Cancel Order</Text>
+                        </View>
+                        
+                        <Text style={styles.modalText}>
+                            Are you sure you want to cancel this order?
+                        </Text>
+                        
+                        <View style={styles.modalButtons}>
+                            <TouchableOpacity 
+                                onPress={() => setShowCancelModal(false)}
+                                style={[styles.modalButton, styles.modalButtonOutline]}
+                            >
+                                <Text style={styles.modalButtonTextOutline}>No, Keep It</Text>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity 
+                                onPress={handleCancelOrder}
+                                style={[styles.modalButton, styles.modalButtonFilled]}
+                            >
+                                <Text style={styles.modalButtonTextFilled}>Yes, Cancel</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -241,5 +299,91 @@ const styles = StyleSheet.create({
         color: '#6c757d',
         marginTop: 4,
         fontStyle: 'italic'
-    }
+    },
+    footerTop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
+    cancelButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff5f5',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: '#ffcdd2',
+    },
+    cancelButtonText: {
+        color: '#dc3545',
+        fontSize: 14,
+        fontWeight: '600',
+        marginLeft: 4,
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 20,
+        width: '100%',
+        maxWidth: 320,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+    },
+    modalHeader: {
+        alignItems: 'center',
+        marginBottom: 15,
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: '#dc3545',
+        marginTop: 8,
+    },
+    modalText: {
+        fontSize: 16,
+        color: '#495057',
+        textAlign: 'center',
+        marginBottom: 20,
+        lineHeight: 22,
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 12,
+    },
+    modalButton: {
+        flex: 1,
+        paddingVertical: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    modalButtonOutline: {
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#ced4da',
+    },
+    modalButtonFilled: {
+        backgroundColor: '#dc3545',
+    },
+    modalButtonTextOutline: {
+        color: '#495057',
+        fontSize: 15,
+        fontWeight: '600',
+    },
+    modalButtonTextFilled: {
+        color: '#fff',
+        fontSize: 15,
+        fontWeight: '600',
+    },
 })

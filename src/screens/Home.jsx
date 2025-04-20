@@ -9,10 +9,10 @@ import Header from '../components/Header';
 
 const width = Dimensions.get('window').width;
 const data = [
-    { id: 1, src: require('../assets/images/img1.jpg') },
-    { id: 2, src: require('../assets/images/img1.jpg') },
-    { id: 3, src: require('../assets/images/img1.jpg') },
-    { id: 4, src: require('../assets/images/img1.jpg') },
+    { id: 1, src: require('../assets/images/carousel-1.jpg') },
+    { id: 2, src: require('../assets/images/carousel-2.jpeg') },
+    { id: 3, src: require('../assets/images/carousel-3.jpeg') },
+    { id: 4, src: require('../assets/images/carousel-4.jpeg') },
 ];
 
 const cardData = [

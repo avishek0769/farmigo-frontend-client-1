@@ -9,7 +9,7 @@ import { View } from 'moti'
 const EmptyCart = ({ navigation }) => (
     <View style={styles.emptyContainer}>
         <Image
-            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2038/2038854.png' }}
+            source={require("../assets/icons/emptyCart.png")}
             style={styles.emptyImage}
         />
         <Text style={styles.emptyTitle}>Your cart is empty</Text>
