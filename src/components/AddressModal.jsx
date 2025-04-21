@@ -6,7 +6,6 @@ import Geolocation from 'react-native-geolocation-service';
 import { AppContext } from '../context/ContextProvider';
 
 export default function AddressModal({ visible, onClose, onSave, currentAddress }) {
-    const { user, setUser } = AppContext()
     const [address, setAddress] = useState(currentAddress);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -77,10 +76,6 @@ export default function AddressModal({ visible, onClose, onSave, currentAddress 
         if (address.trim()) {
             onSave(address.trim());
             onClose();
-            setUser({
-                ...user,
-                address: address.trim()
-            })
         }
     };
 

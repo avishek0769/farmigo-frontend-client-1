@@ -7,16 +7,23 @@ import { AppContext } from '../context/ContextProvider'
 import NoAccount from '../components/NoAccount'
 import ModalPopUp from '../components/ModalPopUp'
 import AddressModal from '../components/AddressModal'
+import EditProfileModal from '../components/EditProfileModal';
 
 export default function Account({ navigation }) {
     const [showLogoutModal, setShowLogoutModal] = useState(false) // Change to false initially
-    const { isLoggedIn, user, setIsLoggedIn } = AppContext()
+    const { isLoggedIn, user, setIsLoggedIn, setUser } = AppContext()
     const [showAddressModal, setShowAddressModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     const handleAddressUpdate = (newAddress) => {
         // Update address in your state management system
         // For now, we'll just console.log
-        console.log('New address:', newAddress);
+        setUser({ ...user, address: newAddress });
+    };
+
+    const handleProfileUpdate = (updatedData) => {
+        // Update user data in your context
+        setUser({ ...user, ...updatedData });
     };
 
     const handleLogout = () => {
@@ -105,7 +112,7 @@ export default function Account({ navigation }) {
                         </View>
                         <TouchableOpacity
                             style={styles.editButton}
-                            onPress={() => navigation.navigate('EditProfile')}
+                            onPress={() => setShowEditModal(true)}
                         >
                             <Icon name="pencil" size={20} color={THEME_COLOR} />
                         </TouchableOpacity>
@@ -176,6 +183,12 @@ export default function Account({ navigation }) {
                 onClose={() => setShowAddressModal(false)}
                 onSave={handleAddressUpdate}
                 currentAddress={user.address}
+            />
+            <EditProfileModal
+                visible={showEditModal}
+                onClose={() => setShowEditModal(false)}
+                onSave={handleProfileUpdate}
+                userData={user}
             />
         </>
     ) : (
