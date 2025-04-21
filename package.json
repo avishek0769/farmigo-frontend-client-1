@@ -17,6 +17,7 @@
     "react": "19.0.0",
     "react-native": "0.79.1",
     "react-native-bouncy-checkbox": "^4.1.2",
+    "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-reanimated": "^3.17.4",
     "react-native-reanimated-carousel": "^4.0.2",

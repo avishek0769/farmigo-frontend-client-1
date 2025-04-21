@@ -6,10 +6,18 @@ import Header from '../components/Header'
 import { AppContext } from '../context/ContextProvider'
 import NoAccount from '../components/NoAccount'
 import ModalPopUp from '../components/ModalPopUp'
+import AddressModal from '../components/AddressModal'
 
 export default function Account({ navigation }) {
     const [showLogoutModal, setShowLogoutModal] = useState(false) // Change to false initially
     const { isLoggedIn, user, setIsLoggedIn } = AppContext()
+    const [showAddressModal, setShowAddressModal] = useState(false);
+
+    const handleAddressUpdate = (newAddress) => {
+        // Update address in your state management system
+        // For now, we'll just console.log
+        console.log('New address:', newAddress);
+    };
 
     const handleLogout = () => {
         // Add your logout logic here
@@ -107,7 +115,8 @@ export default function Account({ navigation }) {
                         <View style={styles.addressHeader}>
                             <Icon name="map-marker-outline" size={20} color="#6c757d" />
                             <Text style={styles.addressLabel}>Delivery Address</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('EditAddress')}>
+                            
+                            <TouchableOpacity onPress={() => setShowAddressModal(true)}>
                                 <Text style={styles.changeText}>Change</Text>
                             </TouchableOpacity>
                         </View>
@@ -151,7 +160,7 @@ export default function Account({ navigation }) {
 
                 <Text style={styles.version}>Version 1.0.0</Text>
             </ScrollView>
-            
+
             <ModalPopUp
                 actionBtnTxt={"Logout"}
                 handleAction={handleLogout}
@@ -161,6 +170,12 @@ export default function Account({ navigation }) {
                 cancelBtnTxt={"Cancel"}
                 actionTxt={"Logout"}
                 actionDescriptionText={"Are you sure you want to logout from the Farmigo?"}
+            />
+            <AddressModal
+                visible={showAddressModal}
+                onClose={() => setShowAddressModal(false)}
+                onSave={handleAddressUpdate}
+                currentAddress={user.address}
             />
         </>
     ) : (
