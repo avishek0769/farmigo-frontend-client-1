@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, Pressable, FlatList, StyleSheet, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, BackHandler, Keyboard } from 'react-native';
+import { View, Text, Image, TextInput, Pressable, FlatList, StyleSheet, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, BackHandler, Keyboard, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { MotiView, AnimatePresence } from 'moti';
@@ -13,15 +13,12 @@ export default function Header({ inCartScreen = false }) {
     const [topSearches, setTopSearches] = useState(["Fertilisers", "Seeds", "Pesticides"]);
     const [searchHistory, setSearchHistory] = useState(["Fertilisers", "Seeds", "Pesticides", "Kalkarama Fertilisers", "Pesticides"]);
     const [suggestions, setSuggestions] = useState(['Kalkarama Fertilisers', 'Pesticides', 'Mannu Neem Cake', 'Borne Fertilisers', 'Fertilisers', 'Seeds', 'Pesticides', 'Fertilizers', 'Organic Fertilizers', 'Bio Pesticides']);
+    const [keyboardVisible, setKeyboardVisible] = useState(false);
     const inputRef = useRef(null);
 
     const handleSearchToggle = () => {
         setShowSearch(prev => !prev);
     }
-
-    const handleOpenKeyboard = () => {
-        inputRef.current?.focus(); // 👈 This opens the keyboard
-    };
 
     const handleSearchSubmit = useCallback((pressedQuery) => {
         if (pressedQuery?.length > 0) {
@@ -35,77 +32,122 @@ export default function Header({ inCartScreen = false }) {
         item.toLowerCase().includes(query.toLowerCase())
     );
 
-    const handleCloseDropdown = () => {
-        console.log("LOL")
-        setQuery("")
-        setShowSearch(false);
-        Keyboard.dismiss();
-    }
-
     useEffect(() => {
-        console.log(showSearch)
-        const handleBackPress = () => {
-            if (showSearch) {
-                setShowSearch(false);
-                return true;
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => setKeyboardVisible(true)
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false);
+                // Blur the input when keyboard hides
+                inputRef.current?.blur();
             }
-            return false;
+        );
+
+        return () => {
+            keyboardDidShowListener.remove();
+            keyboardDidHideListener.remove();
         };
+    }, []);
 
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-
-        return () => backHandler.remove();
-    }, [showSearch]);
+    const handleCloseDropdown = () => {
+        if (keyboardVisible) {
+            Keyboard.dismiss();
+            inputRef.current?.blur(); // Also blur when manually closing
+        } else {
+            setQuery("");
+            setShowSearch(false);
+        }
+    };
 
 
     return (
         <View style={styles.container}>
             {/* Header Bar */}
             <View style={styles.header}>
-                <Image source={require("../assets/icons/brandLogo.png")} style={{ width: 140, height: 75 }} />
+                <Image
+                    source={require("../assets/icons/brandLogo.png")}
+                    style={styles.logo}
+                    resizeMode="cover"
+                />
                 <View style={styles.iconRow}>
-                    <Icon onPress={handleSearchToggle} name='search' size={30} />
+                    <TouchableOpacity
+                        style={styles.iconButton}
+                        onPress={handleSearchToggle}
+                        activeOpacity={0.7}
+                    >
+                        <Icon name='search' size={24} color="#333" />
+                    </TouchableOpacity>
+
                     {!inCartScreen && (
-                        <Icon onPress={() => navigation.navigate("Cart")} name='shopping-cart' size={30} />
+                        <TouchableOpacity
+                            style={styles.iconButton}
+                            onPress={() => navigation.navigate("Cart")}
+                            activeOpacity={0.7}
+                        >
+                            <Icon name='shopping-cart' size={24} color="#333" />
+                            {/* Add cart badge if needed */}
+                            <View style={styles.cartBadge}>
+                                <Text style={styles.cartBadgeText}>2</Text>
+                            </View>
+                        </TouchableOpacity>
                     )}
                 </View>
             </View>
+
+            {/* Search Overlay */}
             {showSearch && (
-                <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ backgroundColor: 'rgba(0, 0, 0, 0.55)', height: Dimensions.get("screen").height, position: "absolute", top: 0, left: 0, right: 0, zIndex: 10000000000000 }}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    style={styles.searchOverlay}
+                >
                     <TouchableWithoutFeedback onPress={handleCloseDropdown}>
-                        {/* Floating Dropdown */}
-                        <View style={{ flex: 1, height: Dimensions.get("screen").height, width: "100%" }}>
+                        <View style={styles.overlayContent}>
                             <AnimatePresence>
-                                {/* {showSearch && ( */}
                                 <MotiView
-                                    from={{ opacity: 0, translateY: -10 }}
+                                    from={{ opacity: 0, translateY: -20 }}
                                     animate={{ opacity: 1, translateY: 0 }}
-                                    exit={{ opacity: 0, translateY: -10 }}
-                                    transition={{ type: "timing", duration: 300 }}
+                                    exit={{ opacity: 0, translateY: -20 }}
+                                    transition={{
+                                        type: "spring",
+                                        damping: 18,
+                                        stiffness: 250
+                                    }}
                                     style={styles.dropdown}
                                 >
-                                    <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+                                    <View style={styles.searchInputContainer}>
+                                        <Icon name="search" size={20} color="#666" style={styles.searchIcon} />
                                         <TextInput
                                             ref={inputRef}
                                             placeholder="Search products..."
                                             value={query}
                                             onChangeText={setQuery}
                                             style={styles.input}
-                                            onPress={handleOpenKeyboard}
+                                            placeholderTextColor="#999"
+                                            autoFocus={true} // Add this
+                                            onFocus={() => setKeyboardVisible(true)} // Add this
+                                            blurOnSubmit={false} // Add this
                                         />
-                                        <Pressable onPress={() => handleSearchSubmit(query)} style={styles.searchButton} >
-                                            <Icon name='search' size={20} color="#fff" />
-                                        </Pressable>
+                                        {query.length > 0 && (
+                                            <TouchableOpacity
+                                                onPress={() => setQuery('')}
+                                                style={styles.clearButton}
+                                            >
+                                                <Icon name="close" size={20} color="#666" />
+                                            </TouchableOpacity>
+                                        )}
                                     </View>
 
                                     {searchHistory.length > 0 && query.length <= 0 && (
                                         <View style={{ marginTop: 10 }}>
-                                            <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 5 }}>Search History</Text>
+                                            <Text style={styles.sectionTitle}>Search History</Text>
                                             <FlatList
                                                 data={searchHistory}
                                                 keyExtractor={(item, index) => index.toString()}
                                                 renderItem={({ item }) => (
-                                                    <Pressable style={{ flexDirection: "row", alignItems: "center" }} onPress={() => {
+                                                    <Pressable android_ripple={{ color: "#e9ecef" }} style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 16 }} onPress={() => {
                                                         console.log("History")
                                                         handleSearchSubmit(item);
                                                     }}>
@@ -120,12 +162,12 @@ export default function Header({ inCartScreen = false }) {
                                     {/* TOP Seraches */}
                                     {topSearches.length > 0 && query.length <= 0 && (
                                         <View style={{ marginTop: 10 }}>
-                                            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Top Searches</Text>
+                                            <Text style={styles.sectionTitle}>Top Searches</Text>
                                             <FlatList
                                                 data={topSearches}
                                                 keyExtractor={(item, index) => String(index + 30)}
                                                 renderItem={({ item }) => (
-                                                    <Pressable style={{ flexDirection: "row", alignItems: "center" }} onPress={() => {
+                                                    <Pressable android_ripple={{ color: "#e9ecef" }} style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 16 }} onPress={() => {
                                                         console.log("TOP")
                                                         handleSearchSubmit(item);
                                                     }}>
@@ -140,14 +182,14 @@ export default function Header({ inCartScreen = false }) {
 
                                     {/* Suggestions */}
                                     {query.length > 0 && (
-                                        <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 5 }}>Suggestions</Text>
+                                        <Text style={styles.sectionTitle}>Suggestions</Text>
                                     )}
                                     {query.length > 0 && filteredSuggestions.length > 0 && (
                                         <FlatList
                                             data={filteredSuggestions}
                                             keyExtractor={(item, index) => String(index + 60)}
                                             renderItem={({ item }) => (
-                                                <Pressable onPress={() => {
+                                                <Pressable android_ripple={{ color: "#e9ecef" }} onPress={() => {
                                                     handleSearchSubmit(item);
                                                 }}>
                                                     <Text style={styles.suggestionText}>{item}</Text>
@@ -157,11 +199,10 @@ export default function Header({ inCartScreen = false }) {
                                         />
                                     )}
                                 </MotiView>
-                                {/* )} */}
                             </AnimatePresence>
                         </View>
                     </TouchableWithoutFeedback>
-                </KeyboardAvoidingView >
+                </KeyboardAvoidingView>
             )}
         </View>
     );
@@ -170,56 +211,121 @@ export default function Header({ inCartScreen = false }) {
 const styles = StyleSheet.create({
     container: {
         position: "relative",
-        zIndex: 1000
+        zIndex: 1000,
+        backgroundColor: '#fff',
+        elevation: 4,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
     header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingHorizontal: 15,
-        backgroundColor: "#f6f5f3",
-        paddingVertical: 5,
-        zIndex: 2
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        backgroundColor: "#fff",
+    },
+    logo: {
+        width: 120,
+        height: 40,
     },
     iconRow: {
         flexDirection: "row",
-        gap: 25,
-        paddingRight: 5
+        gap: 16,
+        alignItems: 'center',
+    },
+    iconButton: {
+        padding: 8,
+        borderRadius: 20,
+        backgroundColor: '#f5f5f5',
+    },
+    cartBadge: {
+        position: 'absolute',
+        top: -5,
+        right: -5,
+        backgroundColor: THEME_COLOR,
+        borderRadius: 10,
+        minWidth: 20,
+        height: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cartBadgeText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+    searchOverlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        height: Dimensions.get("screen").height,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+    },
+    overlayContent: {
+        flex: 1,
+        height: '100%',
+        width: '100%',
     },
     dropdown: {
         position: "absolute",
         top: 80,
-        left: 10,
-        right: 10,
+        left: 16,
+        right: 16,
         backgroundColor: "#fff",
-        borderRadius: 8,
-        padding: 10,
+        borderRadius: 12,
+        paddingTop: 16,
+        paddingBottom: 16,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        elevation: 5,
-        zIndex: 999
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 12,
+        elevation: 8,
+    },
+    searchInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#f5f5f5',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        marginBottom: 16,
+        marginHorizontal: 16,
+    },
+    searchIcon: {
+        marginRight: 8,
     },
     input: {
-        borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 8,
-        padding: 10,
-        marginBottom: 10,
+        flex: 1,
+        paddingVertical: 12,
         fontSize: 16,
-        width: "85%",
+        color: '#333',
+    },
+    clearButton: {
+        padding: 4,
     },
     suggestionText: {
-        paddingVertical: 8,
-        paddingHorizontal: 10,
-        fontSize: 15
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        fontSize: 15,
+        color: '#333',
     },
     searchButton: {
         backgroundColor: THEME_COLOR,
-        padding: 10,
-        marginTop: -10,
+        padding: 12,
         borderRadius: 8,
-        alignItems: "center"
-    }
+        alignItems: "center",
+        justifyContent: 'center',
+    },
+    sectionTitle: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: '#333',
+        marginBottom: 8,
+        marginTop: 6,
+        paddingHorizontal: 16
+    },
 });

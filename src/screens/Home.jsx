@@ -69,7 +69,7 @@ export default function Home({ navigation }) {
                             // autoPlay
                             autoPlayInterval={2000}
                             width={width}
-                            height={width / 1.4}
+                            height={width / 1.5}
                             data={data}
                             renderItem={({ item }) => (
                                 <View style={{ flex: 1, justifyContent: "center" }}>
