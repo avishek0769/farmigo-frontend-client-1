@@ -66,7 +66,7 @@ export default function Home({ navigation }) {
                     <>
                         {/* Carousel */}
                         <Carousel
-                            autoPlay
+                            // autoPlay
                             autoPlayInterval={2000}
                             width={width}
                             height={width / 1.5}

@@ -26,7 +26,7 @@ export default function App() {
       <SafeAreaProvider>
         <ContextProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }} >
+            <Stack.Navigator initialRouteName="Signup" screenOptions={{ headerShown: false }} >
 
               <Stack.Screen name="Splash" component={SplashScreen} />
               <Stack.Screen name="UserTypeSelection" component={UserTypeSelectionScreen} />

@@ -5,26 +5,27 @@ import { THEME_COLOR } from '../constant';
 import Geolocation from 'react-native-geolocation-service';
 import { AppContext } from '../context/ContextProvider';
 
+
+export const requestLocationPermission = async () => {
+    if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+                title: 'Location Permission',
+                message: 'App needs access to your location',
+                buttonPositive: 'OK',
+            }
+        );
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+    }
+    return true;
+};
+
 export default function AddressModal({ visible, onClose, onSave, currentAddress }) {
     const [address, setAddress] = useState(currentAddress);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-
-    const requestLocationPermission = async () => {
-        if (Platform.OS === 'android') {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-                {
-                    title: 'Location Permission',
-                    message: 'App needs access to your location',
-                    buttonPositive: 'OK',
-                }
-            );
-            return granted === PermissionsAndroid.RESULTS.GRANTED;
-        }
-        return true;
-    };
 
     const detectLocation = async () => {
         setLoading(true);
