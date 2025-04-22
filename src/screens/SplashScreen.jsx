@@ -12,8 +12,8 @@ export default function SplashScreen({ navigation }) {
     return (
         <View style={{ backgroundColor: "white", height: "100%", width: "100%", justifyContent: "center", alignItems: "center" }}>
             <MotiImage
-                source={require('../assets/icons/logo.png')}
-                style={{ width: 200, height: 200, borderRadius: 100 }}
+                source={require('../assets/icons/brandLogo.png')}
+                style={{ width: 250, height: 250, borderRadius: 100 }}
                 from={{ opacity: 0, scale: 0.7 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
@@ -30,7 +30,7 @@ export default function SplashScreen({ navigation }) {
                     duration: 1000,
                 }}
             >
-                Something
+                w
             </MotiText>
         </View>
     )
@@ -38,9 +38,9 @@ export default function SplashScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     brandName: {
-        color: "#29bf12",
+        color: "white",
         fontWeight: "bold",
-        fontSize: 65,
+        fontSize: 25,
         letterSpacing: 2.7
     }
 })

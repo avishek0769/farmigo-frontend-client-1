@@ -52,6 +52,24 @@ export default function Header({ inCartScreen = false }) {
         };
     }, []);
 
+    useEffect(() => {
+        const handleBackPress = () => {
+            if (showSearch) {
+                if (keyboardVisible) {
+                    Keyboard.dismiss();
+                    return true;
+                }
+                setShowSearch(false);
+                return true;
+            }
+            return false;
+        };
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    
+        return () => backHandler.remove();
+    }, [showSearch, keyboardVisible]);
+
     const handleCloseDropdown = () => {
         if (keyboardVisible) {
             Keyboard.dismiss();

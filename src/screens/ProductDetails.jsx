@@ -20,7 +20,7 @@ export default function ProductDetails({ navigation, productId }) {
         ],
         seller: "Fresh Farm Foods",
         rating: 4.5,
-        reviews: 128,
+        noOfPeopleRated: 128,
         category: "Organic Produce",
         availability: "In Stock",
         stockCount: 10,
@@ -35,7 +35,7 @@ export default function ProductDetails({ navigation, productId }) {
         discountedPrice: "₹1,299",
         discountPercentage: 48,
         favorite: true,
-    };
+    }
     const [isWishlisted, setIsWishlisted] = useState(product.favorite);
 
 
@@ -75,11 +75,14 @@ export default function ProductDetails({ navigation, productId }) {
 
                     {/* Seller and Rating Section */}
                     <View style={styles.sellerContainer}>
-                        <Text style={styles.sellerName}>Sold by: {product.seller}</Text>
+                        <View style={styles.infoItem}>
+                            <Icon name="category" size={18} color="#6c757d" />
+                            <Text style={styles.infoText}>{product.category}</Text>
+                        </View>
                         <View style={styles.ratingContainer}>
                             <Icon name="star" size={18} color="#ffc107" />
                             <Text style={styles.rating}>{product.rating}</Text>
-                            <Text style={styles.reviews}>({product.reviews} reviews)</Text>
+                            <Text style={styles.noOfPeopleRated}>({product.noOfPeopleRated} raters)</Text>
                         </View>
                     </View>
 
@@ -98,7 +101,7 @@ export default function ProductDetails({ navigation, productId }) {
                                         </View>
                                     </>
                                 ) : (
-                                    <Text style={[styles.normalPrice, {color: "#343a40"}]}>{product.actualPrice}</Text>
+                                    <Text style={[styles.normalPrice, { color: "#343a40" }]}>{product.actualPrice}</Text>
                                 )}
                             </View>
                         </View>
@@ -238,10 +241,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 15,
+        paddingVertical: 5,
     },
-    sellerName: {
+    infoItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+    },
+    infoText: {
         fontSize: 14,
         color: '#495057',
+        fontWeight: '500',
     },
     ratingContainer: {
         flexDirection: 'row',
@@ -253,7 +263,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#495057',
     },
-    reviews: {
+    noOfPeopleRated: {
         fontSize: 14,
         color: '#6c757d',
     },
