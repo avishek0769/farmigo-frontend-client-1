@@ -13,14 +13,14 @@ import {
     Pressable
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import DocumentPicker from '@react-native-documents/picker';
+import { pick, types, isErrorWithCode } from '@react-native-documents/picker';
 import { THEME_COLOR } from '../../constant';
 import { detectLocation } from '../../utils/DetectLocation';
 
 
 export default function SellerRegistration({ navigation }) {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
     const [formData, setFormData] = useState({
         businessName: '',
         phone: '',
@@ -41,17 +41,17 @@ export default function SellerRegistration({ navigation }) {
 
     const handleFileUpload = async () => {
         try {
-            const result = await DocumentPicker.pick({
-                type: [DocumentPicker.types.images, DocumentPicker.types.pdf],
+            const result = await pick({
+                type: [types.images, types.pdf],
             });
+            // console.log(result)
             setFormData(prev => ({
                 ...prev,
                 licenseProof: result[0]
             }));
-        } catch (err) {
-            if (!DocumentPicker.isCancel(err)) {
-                setError('Error uploading file');
-            }
+        }
+        catch (err) {
+            setError('Failed to upload file');
         }
     };
 
@@ -90,7 +90,7 @@ export default function SellerRegistration({ navigation }) {
         }
     };
 
-    function argumentFuncOfDetectLoc (data) {
+    function argumentFuncOfDetectLoc(data) {
         setFormData(prev => ({
             ...prev,
             areaLocation: data.display_name || ''
@@ -132,8 +132,8 @@ export default function SellerRegistration({ navigation }) {
 
     useEffect(() => {
         setError('');
-    }, [formData])
-    
+    }, 
+    [formData])
 
     return (
         <KeyboardAvoidingView
@@ -345,7 +345,8 @@ export default function SellerRegistration({ navigation }) {
                 </View>
             </ScrollView>
 
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+            {error && <Text style={styles.errorText}>{error}</Text> }
+            {/* <Text style={styles.errorText}>{error.length}</Text>  */}
 
             <View style={styles.bottomContainer}>
                 <TouchableOpacity
