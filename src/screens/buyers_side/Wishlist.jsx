@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../../components/buyers_side/Header'
-import ProductCard from '../components/ProductCard'
+import ProductCard from '../../components/buyers_side/ProductCard'
 import { THEME_COLOR } from '../../constant'
 
 const EmptyWishlist = () => (
     <View style={styles.emptyContainer}>
         <Image 
-            source={require('../assets/icons/empty-wishlist.png')} 
+            source={require('../../assets/icons/empty-wishlist.png')} 
             style={styles.emptyImage}
         />
         <Text style={styles.emptyTitle}>Your wishlist is empty</Text>

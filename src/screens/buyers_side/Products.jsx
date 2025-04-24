@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import Header from '../../components/buyers_side/Header'
 import { FilterSection } from '../../components/buyers_side/Filters'
 import { FlatList } from 'react-native'
-import ProductCard from '../components/ProductCard'
+import ProductCard from '../../components/buyers_side/ProductCard'
 
 const cardData = [
     {

@@ -6,17 +6,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import Header from '../../components/buyers_side/Header'
 import { View } from 'moti'
 
+
 const EmptyCart = ({ navigation }) => (
     <View style={styles.emptyContainer}>
         <Image
-            source={require("../assets/icons/emptyCart.png")}
+            source={require("../../assets/icons/emptyCart.png")}
             style={styles.emptyImage}
         />
         <Text style={styles.emptyTitle}>Your cart is empty</Text>
         <Text style={styles.emptySubtitle}>Add items to start shopping</Text>
         <TouchableOpacity
             style={styles.shopButton}
-            onPress={() => navigation.navigate("Main")}
+            onPress={() => navigation.navigate("BuyersTab")}
         >
             <Text style={styles.shopButtonText}>Start Shopping</Text>
         </TouchableOpacity>

@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert, Pressable } from 'react-native'
 import React, { useState } from 'react'
-import { THEME_COLOR } from '../constant'
+import { THEME_COLOR } from '../../constant'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
-import ModalPopUp from './common/ModalPopUp'
+import ModalPopUp from '../common/ModalPopUp'
 
 const PaymentMethodIcon = ({ method }) => {
     const getIcon = () => {

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { THEME_COLOR } from '../../constant'
 import Header from '../../components/buyers_side/Header'
 import { AppContext } from '../../context/ContextProvider'
-import NoAccount from '../components/NoAccount'
+import NoAccount from '../../components/buyers_side/NoAccount'
 import ModalPopUp from '../../components/common/ModalPopUp'
 import AddressModal from '../../components/buyers_side/AddressModal'
 import EditProfileModal from '../../components/buyers_side/EditProfileModal';

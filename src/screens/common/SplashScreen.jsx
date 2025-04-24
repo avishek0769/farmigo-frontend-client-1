@@ -12,7 +12,7 @@ export default function SplashScreen({ navigation }) {
     return (
         <View style={{ backgroundColor: "white", height: "100%", width: "100%", justifyContent: "center", alignItems: "center" }}>
             <MotiImage
-                source={require('../assets/icons/brandLogo.png')}
+                source={require('../../assets/icons/brandLogo.png')}
                 style={{ width: 250, height: 250, borderRadius: 100 }}
                 from={{ opacity: 0, scale: 0.7 }}
                 animate={{ opacity: 1, scale: 1 }}

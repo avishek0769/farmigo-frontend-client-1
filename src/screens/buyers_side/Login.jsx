@@ -247,7 +247,7 @@ export default function Login({ navigation }) {
                 showsVerticalScrollIndicator={false}
             >
                 <Image 
-                    source={require('../assets/icons/brandLogo.png')}
+                    source={require('../../assets/icons/brandLogo.png')}
                     style={styles.logo}
                     resizeMode="cover"
                 />

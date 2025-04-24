@@ -20,7 +20,12 @@ export default function UserTypeSelectionScreen({ navigation }) {
     }, [setBuyerChecked, sellerChecked, setSellerChecked])
 
     const handleEnter = useCallback(() => {
-        navigation.replace("Main")
+        if (buyerChecked) {
+            navigation.navigate("BuyersTab")
+        }
+        else if (sellerChecked) {
+            navigation.navigate("SellerRegistration")
+        }
     }, [])
 
     useEffect(() => {
@@ -34,13 +39,13 @@ export default function UserTypeSelectionScreen({ navigation }) {
 
     return (
         <View style={{ justifyContent: "center", alignItems: "center", height: "100%" }}>
-            <Image source={require("../assets/images/userType.png")} style={{ width: 230, height: 230 }} />
+            <Image source={require("../../assets/images/userType.png")} style={{ width: 230, height: 230 }} />
 
             <Text style={style.title}>Select your user type</Text>
 
             <View>
-                <Pressable onTouchEnd={handleBuyerCheckBox} style={style.optionView}>
-                    <Image source={require("../assets/images/farmer.png")} style={{ width: 50, height: 50 }} />
+                <Pressable onPress={handleBuyerCheckBox} style={style.optionView}>
+                    <Image source={require("../../assets/images/farmer.png")} style={{ width: 50, height: 50 }} />
                     <Text style={style.optionText}>Buyer / Farmer</Text>
                     <BouncyCheckbox
                         isChecked={buyerChecked}
@@ -52,8 +57,8 @@ export default function UserTypeSelectionScreen({ navigation }) {
                         innerIconStyle={{ borderWidth: 1 }}
                     />
                 </Pressable>
-                <Pressable onTouchEnd={handleSellerCheckBox} style={style.optionView}>
-                    <Image source={require("../assets/images/seller.jpg")} style={{ width: 50, height: 50 }} />
+                <Pressable onPress={handleSellerCheckBox} style={style.optionView}>
+                    <Image source={require("../../assets/images/seller.jpg")} style={{ width: 50, height: 50 }} />
                     <Text style={style.optionText}>Seller / Vendor</Text>
                     <BouncyCheckbox
                         isChecked={sellerChecked}
@@ -65,6 +70,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
                         innerIconStyle={{ borderWidth: 1 }}
                     />
                 </Pressable>
+
                 <TouchableOpacity disabled={enterBtnDisabled} onPress={handleEnter} style={{ backgroundColor: enterBtnDisabled ? "#92e6a7" : "#29bf12", padding: 10, borderRadius: 5, marginTop: 90 }}>
                     <Text style={{ color: "white", fontWeight: "bold", fontSize: 24, textAlign: "center", letterSpacing: 3 }}>Enter</Text>
                 </TouchableOpacity>

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { THEME_COLOR } from '../constant';
+import { THEME_COLOR } from '../../constant';
 import { useNavigation } from '@react-navigation/native';
 
 export default function ProductCard({ data }) {

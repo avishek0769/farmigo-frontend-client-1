@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import { THEME_COLOR } from '../constant'
+import { THEME_COLOR } from '../../constant'
 
 export default function NoAccount({ navigation }) {
     
     return (
         <View style={styles.container}>
             <Image
-                source={require('../assets/icons/no-account.png')}
+                source={require('../../assets/icons/no-account.png')}
                 style={styles.image}
             />
 

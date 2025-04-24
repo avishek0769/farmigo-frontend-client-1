@@ -2,17 +2,17 @@ import React from 'react'
 import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel';
 import Separator from '../../components/common/Separator';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../../components/buyers_side/ProductCard';
 import { THEME_COLOR } from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/buyers_side/Header';
 
 const width = Dimensions.get('window').width;
 const data = [
-    { id: 1, src: require('../assets/images/carousel-1.jpg') },
-    { id: 2, src: require('../assets/images/carousel-2.jpeg') },
-    { id: 3, src: require('../assets/images/carousel-3.jpeg') },
-    { id: 4, src: require('../assets/images/carousel-4.jpeg') },
+    { id: 1, src: require('../../assets/images/carousel-1.jpg') },
+    { id: 2, src: require('../../assets/images/carousel-2.jpeg') },
+    { id: 3, src: require('../../assets/images/carousel-3.jpeg') },
+    { id: 4, src: require('../../assets/images/carousel-4.jpeg') },
 ];
 
 const cardData = [

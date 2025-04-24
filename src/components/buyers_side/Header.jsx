@@ -86,7 +86,7 @@ export default function Header({ inCartScreen = false }) {
             {/* Header Bar */}
             <View style={styles.header}>
                 <Image
-                    source={require("../assets/icons/brandLogo.png")}
+                    source={require("../../assets/icons/brandLogo.png")}
                     style={styles.logo}
                     resizeMode="cover"
                 />

@@ -194,7 +194,7 @@ export default function Signup({ navigation }) {
     return (
         <View style={styles.container}>
             <Image 
-                source={require('../assets/icons/brandLogo.png')}
+                source={require('../../assets/icons/brandLogo.png')}
                 style={styles.logo}
                 resizeMode="cover"
             />

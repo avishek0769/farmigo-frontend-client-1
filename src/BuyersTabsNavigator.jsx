@@ -9,7 +9,7 @@ import Order from './screens/buyers_side/Order';
 
 const Tab = createBottomTabNavigator();
 
-export default function Tabs() {
+export default function BuyerTabs() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
