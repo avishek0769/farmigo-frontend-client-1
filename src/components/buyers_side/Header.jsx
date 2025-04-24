@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { MotiView, AnimatePresence } from 'moti';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { THEME_COLOR } from '../constant';
+import { THEME_COLOR } from '../../constant';
 
 
 export default function Header({ inCartScreen = false }) {

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ActivityIndicator, PermissionsAndroid, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { THEME_COLOR } from '../constant';
+import { THEME_COLOR } from '../../constant';
 import Geolocation from 'react-native-geolocation-service';
-import { AppContext } from '../context/ContextProvider';
+import { AppContext } from '../../context/ContextProvider';
 
 
 export const requestLocationPermission = async () => {

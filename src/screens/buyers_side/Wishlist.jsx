@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
-import Header from '../components/Header'
+import Header from '../../components/buyers_side/Header'
 import ProductCard from '../components/ProductCard'
-import { THEME_COLOR } from '../constant'
+import { THEME_COLOR } from '../../constant'
 
 const EmptyWishlist = () => (
     <View style={styles.emptyContainer}>

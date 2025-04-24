@@ -1,11 +1,11 @@
 import React from 'react'
 import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel';
-import Separator from '../components/Separator';
+import Separator from '../../components/common/Separator';
 import ProductCard from '../components/ProductCard';
-import { THEME_COLOR } from '../constant';
+import { THEME_COLOR } from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Header from '../components/Header';
+import Header from '../../components/buyers_side/Header';
 
 const width = Dimensions.get('window').width;
 const data = [

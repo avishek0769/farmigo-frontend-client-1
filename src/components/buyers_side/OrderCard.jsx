@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { THEME_COLOR } from '../constant'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
-import ModalPopUp from './ModalPopUp'
+import ModalPopUp from './common/ModalPopUp'
 
 const PaymentMethodIcon = ({ method }) => {
     const getIcon = () => {

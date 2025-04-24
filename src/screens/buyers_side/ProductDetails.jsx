@@ -1,8 +1,8 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import Carousel from 'react-native-reanimated-carousel';
-import Header from '../components/Header';
-import { THEME_COLOR } from '../constant';
+import Header from '../../components/buyers_side/Header';
+import { THEME_COLOR } from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const width = Dimensions.get('window').width;

@@ -1,9 +1,9 @@
 import { Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import CartProductCard from '../components/CartProductCard'
-import { THEME_COLOR } from '../constant'
+import CartProductCard from '../../components/buyers_side/CartProductCard'
+import { THEME_COLOR } from '../../constant'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import Header from '../components/Header'
+import Header from '../../components/buyers_side/Header'
 import { View } from 'moti'
 
 const EmptyCart = ({ navigation }) => (

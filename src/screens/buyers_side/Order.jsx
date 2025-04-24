@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { OrderCard } from '../components/OrderCard'
-import Header from '../components/Header'
+import Header from '../../components/buyers_side/Header'
 
 
 export default function Order() {

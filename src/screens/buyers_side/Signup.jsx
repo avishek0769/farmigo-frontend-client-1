@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, Dimensions, Pressable, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { THEME_COLOR } from '../constant';
+import { THEME_COLOR } from '../../constant';
 import Geolocation from 'react-native-geolocation-service';
-import { requestLocationPermission } from '../components/AddressModal';
+import { requestLocationPermission } from '../../components/buyers_side/AddressModal';
 
-const { width } = Dimensions.get('window');
 
 export default function Signup({ navigation }) {
     const [activeStep, setActiveStep] = useState(0);

@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Pressable, Share, Modal } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { THEME_COLOR } from '../constant'
-import Header from '../components/Header'
-import { AppContext } from '../context/ContextProvider'
+import { THEME_COLOR } from '../../constant'
+import Header from '../../components/buyers_side/Header'
+import { AppContext } from '../../context/ContextProvider'
 import NoAccount from '../components/NoAccount'
-import ModalPopUp from '../components/ModalPopUp'
-import AddressModal from '../components/AddressModal'
-import EditProfileModal from '../components/EditProfileModal';
+import ModalPopUp from '../../components/common/ModalPopUp'
+import AddressModal from '../../components/buyers_side/AddressModal'
+import EditProfileModal from '../../components/buyers_side/EditProfileModal';
 
 export default function Account({ navigation }) {
     const [showLogoutModal, setShowLogoutModal] = useState(false) // Change to false initially

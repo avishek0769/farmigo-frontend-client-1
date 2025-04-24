@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { THEME_COLOR } from '../constant';
+import { THEME_COLOR } from '../../constant';
 
 export default function EditProfileModal({ visible, onClose, onSave, userData }) {
     const [name, setName] = useState(userData?.name || '');
