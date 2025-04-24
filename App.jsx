@@ -17,6 +17,7 @@ import Signup from "./src/screens/buyers_side/Signup";
 import Wishlist from "./src/screens/buyers_side/Wishlist";
 import BuyerTabs from "./src/BuyersTabsNavigator";
 import SellerRegistration from "./src/screens/sellers_side/SellerRegistration";
+import Dashboard from "./src/screens/sellers_side/Dashboard";
 
 
 export default function App() {
@@ -27,7 +28,7 @@ export default function App() {
       <SafeAreaProvider>
         <ContextProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="SellerRegistration" screenOptions={{ headerShown: false }} >
+            <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }} >
 
               {/* Common Screens */}
               <Stack.Screen name="Splash" component={SplashScreen} />
@@ -45,6 +46,7 @@ export default function App() {
 
               {/* Seller Side Screens */}
               <Stack.Screen name="SellerRegistration" component={SellerRegistration} />
+              <Stack.Screen name="Dashboard" component={Dashboard} />
 
 
 

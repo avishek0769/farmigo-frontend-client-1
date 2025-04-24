@@ -13,7 +13,7 @@ import {
     Pressable
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { pick, types, isErrorWithCode } from '@react-native-documents/picker';
+import { pick, types } from '@react-native-documents/picker';
 import { THEME_COLOR } from '../../constant';
 import { detectLocation } from '../../utils/DetectLocation';
 

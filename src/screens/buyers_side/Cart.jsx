@@ -126,19 +126,19 @@ export default function Cart({ navigation }) {
                             <View style={styles.summaryContainer}>
                                 <View style={styles.summaryRow}>
                                     <Text style={styles.summaryLabel}>Gross Total </Text>
-                                    <Text style={styles.summaryValue}>${totalPrice}</Text>
+                                    <Text style={styles.summaryValue}>₹{totalPrice}</Text>
                                 </View>
                                 <View style={styles.summaryRow}>
                                     <Text style={styles.summaryLabel}>Discount (-)</Text>
-                                    <Text style={[styles.summaryValue, { color: '#28a745' }]}>-${discount}</Text>
+                                    <Text style={[styles.summaryValue, { color: '#28a745' }]}>-₹{discount}</Text>
                                 </View>
                                 <View style={styles.summaryRow}>
                                     <Text style={styles.summaryLabel}>Delivery Charges (+) </Text>
-                                    <Text style={styles.summaryValue}>${deliveryCharges}</Text>
+                                    <Text style={styles.summaryValue}>₹{deliveryCharges}</Text>
                                 </View>
                                 <View style={[styles.summaryRow, styles.totalRow]}>
                                     <Text style={styles.totalLabel}>Total </Text>
-                                    <Text style={styles.totalValue}>${totalPrice}</Text>
+                                    <Text style={styles.totalValue}>₹{totalPrice}</Text>
                                 </View>
                             </View>
                         }

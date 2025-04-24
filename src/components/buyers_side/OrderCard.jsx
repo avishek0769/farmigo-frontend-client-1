@@ -65,7 +65,7 @@ export const OrderCard = ({ item, onRateProduct }) => {
                 <PaymentMethodIcon method={item.paymentMethod} />
                 <View style={styles.amountContainer}>
                     <Text style={styles.amountLabel}>Total Amount:</Text>
-                    <Text style={styles.amount}>${totalAmount}</Text>
+                    <Text style={styles.amount}>₹{totalAmount}</Text>
                 </View>
             </View>
 
@@ -75,7 +75,7 @@ export const OrderCard = ({ item, onRateProduct }) => {
                     <View style={styles.productInfo}>
                         <Text numberOfLines={2} style={styles.productName}>{product.name}</Text>
                         <Text style={styles.quantity}>Quantity: {product.quantity}</Text>
-                        <Text style={styles.price}>${product.price}</Text>
+                        <Text style={styles.price}>₹{product.price}</Text>
                     </View>
                 </Pressable>
             ))}

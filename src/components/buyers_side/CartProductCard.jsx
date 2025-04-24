@@ -24,7 +24,7 @@ export default function CartProductCard({ id, price, title, image, quantity, set
 
                 <View style={styles.priceContainer}>
                     <Text style={styles.priceLabel}>Unit Price:</Text>
-                    <Text style={styles.priceValue}>${price}</Text>
+                    <Text style={styles.priceValue}>₹{price}</Text>
                 </View>
 
                 <QuantityController id={id} quantity={quantity} setQuantity={setQuantity} />
@@ -36,8 +36,8 @@ export default function CartProductCard({ id, price, title, image, quantity, set
                     <Text style={styles.removeButtonText}>Remove</Text>
                 </TouchableOpacity>
                 <View style={styles.totalContainer}>
-                    <Text style={styles.totalLabel}>{quantity} × ${price} = </Text>
-                    <Text style={styles.totalPrice}>${price * quantity}</Text>
+                    <Text style={styles.totalLabel}>{quantity} × ₹{price} = </Text>
+                    <Text style={styles.totalPrice}>₹{price * quantity}</Text>
                 </View>
 
             </View>
