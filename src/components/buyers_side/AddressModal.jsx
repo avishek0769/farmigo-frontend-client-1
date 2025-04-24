@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ActivityIndicator, PermissionsAndroid, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
 import Geolocation from 'react-native-geolocation-service';
 import { AppContext } from '../../context/ContextProvider';
+import { detectLocation } from '../../utils/DetectLocation';
 
 
 export const requestLocationPermission = async () => {
@@ -26,51 +27,13 @@ export default function AddressModal({ visible, onClose, onSave, currentAddress 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
+    function argumentFuncOfDetectLoc(data) {
+        setAddress(data.display_name || 'Unknown address');
+    }
 
-    const detectLocation = async () => {
-        setLoading(true);
-        setError('');
-
-        const hasPermission = await requestLocationPermission();
-        if (!hasPermission) {
-            setError('Location permission denied');
-            setLoading(false);
-            return;
-        }
-
-        Geolocation.getCurrentPosition(
-            async (position) => {
-                const { latitude, longitude } = position.coords;
-                console.log(latitude, longitude);
-                try {
-                    // OpenStreetMap reverse geocoding (Nominatim)
-                    const res = await fetch(
-                        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
-                    );
-                    const data = await res.json();
-                    setAddress(data.display_name || 'Unknown address');
-                } catch (err) {
-                    console.error(err);
-                    setError('Failed to get address');
-                } finally {
-                    setLoading(false);
-                }
-            },
-            (error) => {
-                if(error.code == 2){
-                    setError("Location service is not enabled");
-                    setLoading(false);
-                }
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 30000, // longer timeout for GPS
-                maximumAge: 0,
-                forceRequestLocation: true,
-                showLocationDialog: true,
-            }
-        );
-    };
+    const handleDetectLocation = useCallback(async () => {
+        await detectLocation(argumentFuncOfDetectLoc, setLoading, setError)
+    }, [setLoading, setError]);
 
 
     const handleSave = () => {
@@ -100,6 +63,7 @@ export default function AddressModal({ visible, onClose, onSave, currentAddress 
                         style={styles.input}
                         value={address}
                         onChangeText={setAddress}
+                        onPress={() => setError("")}
                         placeholder="Enter your delivery address"
                         multiline
                         numberOfLines={3}
@@ -109,7 +73,7 @@ export default function AddressModal({ visible, onClose, onSave, currentAddress 
 
                     <TouchableOpacity
                         style={styles.detectButton}
-                        onPress={detectLocation}
+                        onPress={handleDetectLocation}
                         disabled={loading}
                     >
                         {loading ? (

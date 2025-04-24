@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, Dimensions, Pressable, ScrollView } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, Pressable, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
-import Geolocation from 'react-native-geolocation-service';
-import { requestLocationPermission } from '../../components/buyers_side/AddressModal';
+import { detectLocation } from '../../utils/DetectLocation';
 
 
 export default function Signup({ navigation }) {
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(2);
     const [loading, setLoading] = useState(false);
+    const [locationLoading, setLocationLoading] = useState(false);
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({
         name: '',
@@ -18,50 +18,17 @@ export default function Signup({ navigation }) {
     });
     const [showOtpInput, setShowOtpInput] = useState(false);
 
-    const detectLocation = async () => {
-        setLoading(true);
-        setError('');
-        
-        const hasPermission = await requestLocationPermission();
-        if (!hasPermission) {
-            setError('Location permission denied');
-            setLoading(false);
-            return;
-        }
+    function argumentFuncOfDetectLoc(data) {
+        setFormData(prev => ({
+            ...prev,
+            address: data.display_name || 'Unknown address'
+        }));
+    }
 
-        Geolocation.getCurrentPosition(
-            async (position) => {
-                const { latitude, longitude } = position.coords;
-                try {
-                    const res = await fetch(
-                        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
-                    );
-                    const data = await res.json();
-                    setFormData(prev => ({
-                        ...prev,
-                        address: data.display_name || 'Unknown address'
-                    }));
-                } catch (err) {
-                    setError('Failed to get address');
-                } finally {
-                    setLoading(false);
-                }
-            },
-            (error) => {
-                if(error.code === 2) {
-                    setError("Location service is not enabled");
-                }
-                setLoading(false);
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 30000,
-                maximumAge: 0,
-                forceRequestLocation: true,
-                showLocationDialog: true,
-            }
-        );
-    };
+    const handleDetectLocation = useCallback(async () => {
+        await detectLocation(argumentFuncOfDetectLoc, setLocationLoading, setError)
+    }, [setLocationLoading, setError]);
+
 
     const handleNextStep = async () => {
         try {
@@ -112,7 +79,7 @@ export default function Signup({ navigation }) {
         switch (activeStep) {
             case 0:
                 return (
-                    <View style={styles.stepContainer}>
+                    <ScrollView style={styles.stepContainer}>
                         <Text style={styles.stepTitle}>Create Account</Text>
                         <Text style={styles.stepSubtitle}>Enter your details to get started</Text>
 
@@ -138,7 +105,7 @@ export default function Signup({ navigation }) {
                                 keyboardType="phone-pad"
                             />
                         </View>
-                    </View>
+                    </ScrollView>
                 );
 
             case 1:
@@ -163,7 +130,7 @@ export default function Signup({ navigation }) {
 
             case 2:
                 return (
-                    <ScrollView style={styles.stepContainer}>
+                    <View style={styles.stepContainer}>
                         <Text style={styles.stepTitle}>Delivery Address</Text>
                         <Text style={styles.stepSubtitle}>Where should we deliver your orders?</Text>
 
@@ -171,7 +138,10 @@ export default function Signup({ navigation }) {
                             <TextInput
                                 style={[styles.input, styles.addressInput]}
                                 value={formData.address}
-                                onChangeText={(text) => setFormData(prev => ({ ...prev, address: text }))}
+                                onChangeText={(text) => {
+                                    setError('');
+                                    setFormData(prev => ({ ...prev, address: text }))
+                                }}
                                 placeholder="Enter your delivery address"
                                 multiline
                                 numberOfLines={3}
@@ -180,20 +150,26 @@ export default function Signup({ navigation }) {
 
                         <TouchableOpacity
                             style={styles.detectButton}
-                            onPress={detectLocation}
+                            onPress={handleDetectLocation}
                             disabled={loading}
                         >
-                            <Icon name="crosshairs-gps" size={20} color={THEME_COLOR} />
-                            <Text style={styles.detectButtonText}>Detect Current Location</Text>
+                            {locationLoading ? (
+                                <ActivityIndicator color={THEME_COLOR} />
+                            ) : (
+                                <>
+                                    <Icon name="crosshairs-gps" size={20} color={THEME_COLOR} />
+                                    <Text style={styles.detectButtonText}>Detect Current Location</Text>
+                                </>
+                            )}
                         </TouchableOpacity>
-                    </ScrollView>
+                    </View>
                 );
         }
     };
 
     return (
         <View style={styles.container}>
-            <Image 
+            <Image
                 source={require('../../assets/icons/brandLogo.png')}
                 style={styles.logo}
                 resizeMode="cover"
@@ -202,8 +178,8 @@ export default function Signup({ navigation }) {
             {/* Progress Indicator */}
             <View style={styles.progressContainer}>
                 {[0, 1, 2].map((step) => (
-                    <View 
-                        key={step} 
+                    <View
+                        key={step}
                         style={[
                             styles.progressDot,
                             activeStep >= step && styles.progressDotActive

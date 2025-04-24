@@ -26,7 +26,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
         else if (sellerChecked) {
             navigation.navigate("SellerRegistration")
         }
-    }, [])
+    }, [buyerChecked, sellerChecked, navigation])
 
     useEffect(() => {
         if (!buyerChecked && !sellerChecked) {
