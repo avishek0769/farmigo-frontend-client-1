@@ -9,7 +9,8 @@ import {
     TextInput,
     ScrollView,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    Pressable
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
@@ -19,7 +20,7 @@ import SellerHeader from '../../components/sellers_side/SellersHeader';
 
 
 export default function Dashboard() {
-    const [showAddModal, setShowAddModal] = useState(false);
+    const [showAddModal, setShowAddModal] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -81,18 +82,35 @@ export default function Dashboard() {
 
     const handleImagePick = async () => {
         try {
+            // Check how many more images can be added
+            const remainingSlots = 5 - formData.images.length;
+            
+            if (remainingSlots <= 0) {
+                setError('Maximum 5 images already selected');
+                return;
+            }
+    
             const result = await pick({
                 type: [types.images],
                 allowMultiSelection: true,
-                maxCount: 5
             });
-            setFormData(prev => ({
-                ...prev,
-                images: [...prev.images, ...result]
-            }));
-        }
-        catch (err) {
-            console.error(err);
+    
+            // Calculate how many images we can actually add
+            if (result.length > remainingSlots) {
+                setError(`Maximum 5 images allowed. Only first ${remainingSlots} ${remainingSlots === 1 ? 'image' : 'images'} will be selected.`);
+                setFormData(prev => ({
+                    ...prev,
+                    images: [...prev.images, ...result.slice(0, remainingSlots)]
+                }));
+            } else {
+                setError('');
+                setFormData(prev => ({
+                    ...prev,
+                    images: [...prev.images, ...result]
+                }));
+            }
+        } catch (err) {
+            setError(err.message);
         }
     };
 
@@ -114,6 +132,25 @@ export default function Dashboard() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const resetForm = () => {
+        setFormData({
+            name: '',
+            description: '',
+            quantity: '',
+            price: '',
+            images: []
+        });
+        setError('');
+    };
+
+    // Add this function near your other handlers
+    const removeImage = (indexToRemove) => {
+        setFormData(prev => ({
+            ...prev,
+            images: prev.images.filter((_, index) => index !== indexToRemove)
+        }));
     };
 
     return (
@@ -211,11 +248,18 @@ export default function Dashboard() {
                                     style={styles.imagePreviewContainer}
                                 >
                                     {formData.images.map((image, index) => (
-                                        <Image
-                                            key={index}
-                                            source={{ uri: image.uri }}
-                                            style={styles.imagePreview}
-                                        />
+                                        <View key={index} style={styles.imagePreviewWrapper}>
+                                            <Image
+                                                source={{ uri: image.uri }}
+                                                style={styles.imagePreview}
+                                            />
+                                            <TouchableOpacity
+                                                style={styles.removeImageButton}
+                                                onPress={() => removeImage(index)}
+                                            >
+                                                <Icon name="minus-circle" size={20} color="#dc3545" />
+                                            </TouchableOpacity>
+                                        </View>
                                     ))}
                                 </ScrollView>
                             )}
@@ -225,17 +269,33 @@ export default function Dashboard() {
                     </ScrollView>
 
                     <View style={styles.modalFooter}>
-                        <TouchableOpacity
-                            style={styles.submitButton}
-                            onPress={handleSubmit}
-                            disabled={loading}
-                        >
-                            {loading ? (
-                                <ActivityIndicator color="#fff" />
-                            ) : (
-                                <Text style={styles.submitButtonText}>Submit for Approval</Text>
-                            )}
-                        </TouchableOpacity>
+                        <View style={styles.buttonContainer}>
+                            <Pressable
+                                android_ripple={{ color: '#ddd' }}
+                                style={[styles.footerButton, styles.resetButton]}
+                                onPress={resetForm}
+                                disabled={loading}
+                            >
+                                <Icon name="refresh" size={20} color={THEME_COLOR} />
+                                <Text style={styles.resetButtonText}>Reset Form</Text>
+                            </Pressable>
+
+                            <Pressable
+                                android_ripple={{ color: '#ddd' }}
+                                style={[styles.footerButton, styles.submitButton]}
+                                onPress={handleSubmit}
+                                disabled={loading}
+                            >
+                                {loading ? (
+                                    <ActivityIndicator color="#fff" />
+                                ) : (
+                                    <>
+                                        <Icon name="check" size={20} color="#fff" />
+                                        <Text style={styles.submitButtonText}>Submit request</Text>
+                                    </>
+                                )}
+                            </Pressable>
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -334,29 +394,70 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     imagePreviewContainer: {
-        marginTop: 12
+        marginTop: 12,
+        paddingVertical: 9,
+    },
+    imagePreviewWrapper: {
+        position: 'relative',
+        marginRight: 8,
     },
     imagePreview: {
         width: 80,
         height: 80,
         borderRadius: 8,
-        marginRight: 8
+    },
+    removeImageButton: {
+        position: 'absolute',
+        top: -8,
+        right: -8,
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 2,
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
     },
     modalFooter: {
         padding: 16,
         borderTopWidth: 1,
-        borderTopColor: '#dee2e6'
+        borderTopColor: '#dee2e6',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        gap: 12,
+    },
+    footerButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 15,
+        borderRadius: 8,
+        gap: 8,
+    },
+    resetButton: {
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: THEME_COLOR,
+    },
+    resetButtonText: {
+        color: THEME_COLOR,
+        fontSize: 16,
+        fontWeight: '600',
     },
     submitButton: {
         backgroundColor: THEME_COLOR,
-        padding: 16,
-        borderRadius: 8,
-        alignItems: 'center'
+        flexDirection: 'row',
     },
     submitButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     errorText: {
         color: '#dc3545',
