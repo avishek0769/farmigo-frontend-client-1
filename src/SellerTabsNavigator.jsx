@@ -1,14 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from './constant';
-import Home from './screens/buyers_side/Home';
-import Products from './screens/buyers_side/Products';
-import Order from './screens/buyers_side/Order';
-import Account from './screens/buyers_side/Account';
+import Dashboard from './screens/sellers_side/Dashboard';
+import Chat from './screens/sellers_side/Chat';
+import Account from './screens/sellers_side/Account';
+import Analytics from './screens/sellers_side/Analytics';
 
 const Tab = createBottomTabNavigator();
 
-export default function BuyersTabs() {
+export default function SellersTabs() {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -23,34 +23,34 @@ export default function BuyersTabs() {
             }}
         >
             <Tab.Screen
-                name="Home"
-                component={Home}
+                name="SellerDashboard"
+                component={Dashboard}
                 options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'Dashboard',
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="home" size={size} color={color} />
+                        <Icon name="view-dashboard" size={size} color={color} />
                     ),
                 }}
             />
             <Tab.Screen
-                name="Products"
-                component={Products}
+                name="Analytics"
+                component={Analytics}
                 options={{
-                    tabBarLabel: 'Products',
+                    tabBarLabel: 'Analytics',
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="store" size={size} color={color} />
+                        <Icon name="chart-line" size={size} color={color} />
                     ),
                 }}
             />
             <Tab.Screen
-                name="Order"
-                component={Order}
+                name="Chat"
+                component={Chat}
                 options={{
-                    tabBarLabel: 'Orders',
+                    tabBarLabel: 'Chat',
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="truck-delivery" size={size} color={color} />
+                        <Icon name="chat" size={size} color={color} />
                     ),
-                    tabBarBadge: 2, // Optional: Show number of active orders
+                    tabBarBadge: 3, // Add this if you want to show unread messages
                 }}
             />
             <Tab.Screen

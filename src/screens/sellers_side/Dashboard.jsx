@@ -122,11 +122,18 @@ export default function Dashboard() {
 
             <FlatList
                 data={productRequests}
-                renderItem={({item}) => <ProductRequestCard item={item} />}
+                renderItem={({ item }) => <ProductRequestCard item={item} />}
                 keyExtractor={item => item.id.toString()}
                 contentContainerStyle={styles.listContainer}
                 showsVerticalScrollIndicator={false}
             />
+
+            <TouchableOpacity
+                style={styles.fab}
+                onPress={() => setShowAddModal(true)}
+            >
+                <Icon name="plus" size={24} color="#fff" />
+            </TouchableOpacity>
 
             <Modal
                 visible={showAddModal}
@@ -187,7 +194,7 @@ export default function Dashboard() {
 
                         <View style={styles.inputContainer}>
                             <Text style={styles.label}>Product Images</Text>
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={styles.imageUploadButton}
                                 onPress={handleImagePick}
                             >
@@ -196,10 +203,10 @@ export default function Dashboard() {
                                     Add Images (max 5)
                                 </Text>
                             </TouchableOpacity>
-                            
+
                             {formData.images.length > 0 && (
-                                <ScrollView 
-                                    horizontal 
+                                <ScrollView
+                                    horizontal
                                     showsHorizontalScrollIndicator={false}
                                     style={styles.imagePreviewContainer}
                                 >
@@ -271,7 +278,6 @@ const styles = StyleSheet.create({
         padding: 16,
         gap: 16
     },
-    
     modalContainer: {
         flex: 1,
         backgroundColor: '#fff'
@@ -355,5 +361,24 @@ const styles = StyleSheet.create({
     errorText: {
         color: '#dc3545',
         marginTop: 8
-    }
+    },
+    fab: {
+        position: 'absolute',
+        right: 26,
+        bottom: 20,
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        backgroundColor: THEME_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 4,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
 });

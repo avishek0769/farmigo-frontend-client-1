@@ -15,9 +15,9 @@ import Checkout from "./src/screens/buyers_side/Checkout";
 import Login from "./src/screens/buyers_side/Login";
 import Signup from "./src/screens/buyers_side/Signup";
 import Wishlist from "./src/screens/buyers_side/Wishlist";
-import BuyerTabs from "./src/BuyersTabsNavigator";
+import BuyersTabs from "./src/BuyersTabsNavigator";
 import SellerRegistration from "./src/screens/sellers_side/SellerRegistration";
-import Dashboard from "./src/screens/sellers_side/Dashboard";
+import SellersTabs from "./src/SellerTabsNavigator";
 
 
 export default function App() {
@@ -28,11 +28,12 @@ export default function App() {
       <SafeAreaProvider>
         <ContextProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }} >
+            <Stack.Navigator initialRouteName="SellersTabs" screenOptions={{ headerShown: false }} >
 
               {/* Common Screens */}
               <Stack.Screen name="Splash" component={SplashScreen} />
               <Stack.Screen name="UserTypeSelection" component={UserTypeSelectionScreen} />
+
               {/* Buyer Side Screens */}
               <Stack.Screen name="Cart" component={Cart} />
               <Stack.Screen name="SearchResult" component={SearchResult} />
@@ -41,14 +42,11 @@ export default function App() {
               <Stack.Screen name="Wishlist" component={Wishlist} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Signup" component={Signup} />
-
-              <Stack.Screen name="BuyersTab" component={BuyerTabs} />
+              <Stack.Screen name="BuyersTab" component={BuyersTabs} />
 
               {/* Seller Side Screens */}
               <Stack.Screen name="SellerRegistration" component={SellerRegistration} />
-              <Stack.Screen name="Dashboard" component={Dashboard} />
-
-
+              <Stack.Screen name="SellersTabs" component={SellersTabs} />
 
             </Stack.Navigator>
           </NavigationContainer>
