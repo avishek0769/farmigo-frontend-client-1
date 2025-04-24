@@ -203,6 +203,11 @@ export default function Dashboard() {
         }));
     };
 
+    useEffect(() => {
+        setError('');
+    }, [formData.description, formData.name, formData.price, formData.quantity, formData.unit]);
+    
+
     return (
         <View style={styles.container}>
             <SellerHeader />
@@ -235,46 +240,62 @@ export default function Dashboard() {
                         </TouchableOpacity>
                     </View>
 
-                    <ScrollView contentContainerStyle={styles.formContainer}>
-                        <View style={styles.inputContainer}>
-                            <Text style={styles.label}>Product Name*</Text>
-                            <TextInput
-                                style={styles.input}
-                                value={formData.name}
-                                onChangeText={(text) => setFormData(prev => ({ ...prev, name: text }))}
-                                placeholder="Enter product name"
-                            />
+                    {error ? (
+                        <View style={styles.errorContainer}>
+                            <Icon name="alert-circle" size={20} color="#dc3545" />
+                            <Text style={styles.errorText}>{error}</Text>
+                        </View>
+                    ) : null}
+
+                    <ScrollView
+                        contentContainerStyle={styles.formContainer}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <View style={styles.formSection}>
+                            <Text style={styles.sectionTitle}>Basic Details</Text>
+                            <View style={styles.inputContainer}>
+                                <Text style={styles.label}>Product Name<Text style={styles.required}>*</Text></Text>
+                                <TextInput
+                                    style={[styles.input, styles.elevation]}
+                                    value={formData.name}
+                                    onChangeText={(text) => setFormData(prev => ({ ...prev, name: text }))}
+                                    placeholder="e.g., Fresh Organic Tomatoes"
+                                    placeholderTextColor="#adb5bd"
+                                />
+                            </View>
                         </View>
 
-                        <View style={styles.inputContainer}>
-                            <Text style={styles.label}>Description</Text>
-                            <TextInput
-                                style={[styles.input, styles.textArea]}
-                                value={formData.description}
-                                onChangeText={(text) => setFormData(prev => ({ ...prev, description: text }))}
-                                placeholder="Enter product description"
-                                multiline
-                                numberOfLines={4}
-                            />
-                        </View>
-
-                        <View style={styles.pricingSection}>
-                            <View style={styles.priceTypeHeader}>
-                                <Text style={styles.sectionTitle}>Pricing Details*</Text>
-                                <TouchableOpacity
-                                    style={styles.priceTypeToggle}
+                        <View style={styles.formSection}>
+                            <Text style={[styles.sectionTitle, { fontSize: 14, color: '#495057' }]}>Pricing Details<Text style={styles.required}>*</Text></Text>
+                            <View style={[styles.priceTypeToggleContainer, styles.elevation]}>
+                                <Pressable
+                                    android_ripple={{ color: '#ddd' }}
+                                    style={[
+                                        styles.priceTypeButton,
+                                        priceType === 'per_unit' && styles.activepriceTypeButton
+                                    ]}
                                     onPress={handlePriceTypeToggle}
                                 >
-                                    <Icon
-                                        name={priceType === 'per_unit' ? 'package-variant' : 'weight-kilogram'}
-                                        size={16}
-                                        color={THEME_COLOR}
-                                    />
-                                    <Text style={styles.priceTypeText}>
-                                        {priceType === 'per_unit' ? 'Per Unit' : 'Per Quantity'}
-                                    </Text>
-                                    <Icon name="swap-horizontal" size={16} color={THEME_COLOR} />
-                                </TouchableOpacity>
+                                    <Icon name="package-variant" size={18} color={priceType === 'per_unit' ? '#fff' : THEME_COLOR} />
+                                    <Text style={[
+                                        styles.priceTypeButtonText,
+                                        priceType === 'per_unit' && styles.activePriceTypeButtonText
+                                    ]}>Per Unit</Text>
+                                </Pressable>
+                                <Pressable
+                                    android_ripple={{ color: '#ddd' }}
+                                    style={[
+                                        styles.priceTypeButton,
+                                        priceType === 'per_quantity' && styles.activepriceTypeButton
+                                    ]}
+                                    onPress={handlePriceTypeToggle}
+                                >
+                                    <Icon name="weight-kilogram" size={18} color={priceType === 'per_quantity' ? '#fff' : THEME_COLOR} />
+                                    <Text style={[
+                                        styles.priceTypeButtonText,
+                                        priceType === 'per_quantity' && styles.activePriceTypeButtonText
+                                    ]}>Per Quantity</Text>
+                                </Pressable>
                             </View>
 
                             {priceType === 'per_unit' ? (
@@ -282,22 +303,24 @@ export default function Dashboard() {
                                     <View style={styles.inputContainer}>
                                         <Text style={styles.label}>Available Stock*</Text>
                                         <TextInput
-                                            style={styles.input}
+                                            style={[styles.input, styles.elevation]}
                                             value={formData.quantity}
                                             onChangeText={(text) => setFormData(prev => ({ ...prev, quantity: text }))}
                                             placeholder="Enter total number of items"
                                             keyboardType="numeric"
+                                            placeholderTextColor="#adb5bd"
                                         />
                                     </View>
 
                                     <View style={styles.inputContainer}>
                                         <Text style={styles.label}>Price per unit (₹)*</Text>
                                         <TextInput
-                                            style={styles.input}
+                                            style={[styles.input, styles.elevation]}
                                             value={formData.price}
                                             onChangeText={(text) => setFormData(prev => ({ ...prev, price: text }))}
                                             placeholder="Enter price per unit"
                                             keyboardType="numeric"
+                                            placeholderTextColor="#adb5bd"
                                         />
                                     </View>
                                 </>
@@ -311,18 +334,16 @@ export default function Dashboard() {
                                             style={styles.unitsContainer}
                                         >
                                             {units.map((unit) => (
-                                                <TouchableOpacity
+                                                <Pressable
                                                     key={unit.value}
+                                                    android_ripple={{ color: '#ddd' }}
                                                     style={[
                                                         styles.unitButton,
                                                         selectedUnit === unit.value && styles.selectedUnitButton
                                                     ]}
                                                     onPress={() => {
                                                         setSelectedUnit(unit.value);
-                                                        setFormData(prev => ({
-                                                            ...prev,
-                                                            unit: unit.value
-                                                        }));
+                                                        setFormData(prev => ({ ...prev, unit: unit.value }));
                                                     }}
                                                 >
                                                     <Icon
@@ -336,7 +357,7 @@ export default function Dashboard() {
                                                     ]}>
                                                         {unit.label}
                                                     </Text>
-                                                </TouchableOpacity>
+                                                </Pressable>
                                             ))}
                                         </ScrollView>
                                     </View>
@@ -344,66 +365,86 @@ export default function Dashboard() {
                                     <View style={styles.inputContainer}>
                                         <Text style={styles.label}>Price per {selectedUnit || 'unit'} (₹)*</Text>
                                         <TextInput
-                                            style={styles.input}
+                                            style={[styles.input, styles.elevation]}
                                             value={formData.price}
                                             onChangeText={(text) => setFormData(prev => ({ ...prev, price: text }))}
                                             placeholder={`Enter price per ${selectedUnit || 'unit'}`}
                                             keyboardType="numeric"
+                                            placeholderTextColor="#adb5bd"
                                         />
                                     </View>
 
                                     <View style={styles.inputContainer}>
-                                        <Text style={styles.label}>Total Quantity ({selectedUnit})*</Text>
+                                        <Text style={styles.label}>Total Quantity*</Text>
                                         <TextInput
-                                            style={styles.input}
+                                            style={[styles.input, styles.elevation]}
                                             value={formData.quantity}
                                             onChangeText={(text) => setFormData(prev => ({ ...prev, quantity: text }))}
                                             placeholder={`Enter total quantity in ${selectedUnit || 'selected unit'}`}
                                             keyboardType="numeric"
+                                            placeholderTextColor="#adb5bd"
                                         />
                                     </View>
                                 </>
                             )}
                         </View>
 
-                        <View style={styles.inputContainer}>
-                            <Text style={styles.label}>Product Images</Text>
-                            <Pressable
-                                android_ripple={{ color: '#ddd' }}
-                                style={styles.imageUploadButton}
-                                onPress={handleImagePick}
-                            >
-                                <Icon name="image-plus" size={24} color={THEME_COLOR} />
-                                <Text style={styles.imageUploadText}>
-                                    Add Images (max 5)
-                                </Text>
-                            </Pressable>
-
-                            {formData.images.length > 0 && (
-                                <ScrollView
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    style={styles.imagePreviewContainer}
+                        <View style={styles.formSection}>
+                            <Text style={styles.sectionTitle}>Product Images</Text>
+                            <Text style={styles.helperText}>Add up to 5 images of your product</Text>
+                            <View style={styles.inputContainer}>
+                                <Pressable
+                                    android_ripple={{ color: '#ddd' }}
+                                    style={styles.imageUploadButton}
+                                    onPress={handleImagePick}
                                 >
-                                    {formData.images.map((image, index) => (
-                                        <View key={index} style={styles.imagePreviewWrapper}>
-                                            <Image
-                                                source={{ uri: image.uri }}
-                                                style={styles.imagePreview}
-                                            />
-                                            <TouchableOpacity
-                                                style={styles.removeImageButton}
-                                                onPress={() => removeImage(index)}
-                                            >
-                                                <Icon name="minus-circle" size={20} color="#dc3545" />
-                                            </TouchableOpacity>
-                                        </View>
-                                    ))}
-                                </ScrollView>
-                            )}
+                                    <Icon name="image-plus" size={24} color={THEME_COLOR} />
+                                    <Text style={styles.imageUploadText}>
+                                        Add Images (max 5)
+                                    </Text>
+                                </Pressable>
+
+                                {formData.images.length > 0 && (
+                                    <ScrollView
+                                        horizontal
+                                        showsHorizontalScrollIndicator={false}
+                                        style={styles.imagePreviewContainer}
+                                    >
+                                        {formData.images.map((image, index) => (
+                                            <View key={index} style={styles.imagePreviewWrapper}>
+                                                <Image
+                                                    source={{ uri: image.uri }}
+                                                    style={styles.imagePreview}
+                                                />
+                                                <TouchableOpacity
+                                                    style={styles.removeImageButton}
+                                                    onPress={() => removeImage(index)}
+                                                >
+                                                    <Icon name="minus-circle" size={20} color="#dc3545" />
+                                                </TouchableOpacity>
+                                            </View>
+                                        ))}
+                                    </ScrollView>
+                                )}
+                            </View>
                         </View>
 
-                        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+                        <View style={styles.formSection}>
+                            <Text style={styles.sectionTitle}>Additional Details</Text>
+                            <View style={styles.inputContainer}>
+                                <Text style={styles.label}>Description</Text>
+                                <TextInput
+                                    style={[styles.input, styles.textArea, styles.elevation]}
+                                    value={formData.description}
+                                    onChangeText={(text) => setFormData(prev => ({ ...prev, description: text }))}
+                                    placeholder="Describe your product (quality, features, storage instructions etc.)"
+                                    placeholderTextColor="#adb5bd"
+                                    multiline
+                                    numberOfLines={6}
+                                    textAlignVertical="top"
+                                />
+                            </View>
+                        </View>
                     </ScrollView>
 
                     <View style={styles.modalFooter}>
@@ -478,7 +519,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#f8f9fa',
     },
     modalHeader: {
         flexDirection: 'row',
@@ -494,11 +535,11 @@ const styles = StyleSheet.create({
         color: '#212529'
     },
     formContainer: {
-        padding: 16,
-        gap: 16
+        padding: 20,
     },
     inputContainer: {
-        gap: 8
+        gap: 8,
+        marginTop: 10
     },
     label: {
         fontSize: 14,
@@ -506,15 +547,17 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     input: {
+        backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#dee2e6',
-        borderRadius: 8,
-        padding: 12,
-        fontSize: 16
+        borderColor: '#e9ecef',
+        borderRadius: 12,
+        padding: 16,
+        fontSize: 16,
+        color: '#212529',
     },
     textArea: {
-        minHeight: 100,
-        textAlignVertical: 'top'
+        minHeight: 120,
+        lineHeight: 24,
     },
     imageUploadButton: {
         flexDirection: 'row',
@@ -597,10 +640,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
     },
-    errorText: {
-        color: '#dc3545',
-        marginTop: 8
-    },
     fab: {
         position: 'absolute',
         right: 26,
@@ -669,7 +708,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     sectionTitle: {
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '600',
         color: '#212529',
         marginBottom: 4,
@@ -701,4 +740,68 @@ const styles = StyleSheet.create({
     selectedUnitText: {
         color: '#fff',
     },
+    formSection: {
+        marginBottom: 24,
+    },
+    required: {
+        color: '#dc3545',
+        marginLeft: 4,
+    },
+    helperText: {
+        fontSize: 14,
+        color: '#6c757d',
+        marginBottom: 12,
+    },
+    elevation: {
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+    },
+    priceTypeToggleContainer: {
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 4,
+        marginBottom: 16,
+    },
+    priceTypeButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        paddingVertical: 12,
+        borderRadius: 8,
+    },
+    activepriceTypeButton: {
+        backgroundColor: THEME_COLOR,
+    },
+    priceTypeButtonText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: THEME_COLOR,
+    },
+    activePriceTypeButtonText: {
+        color: '#fff',
+    },
+    errorContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        backgroundColor: '#dc354520',
+        padding: 16,
+        marginHorizontal: 20,
+        marginTop: 16,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#dc354530',
+    },
+    errorText: {
+        color: '#dc3545',
+        fontSize: 14,
+        flex: 1,
+        lineHeight: 20,
+    }
 });
