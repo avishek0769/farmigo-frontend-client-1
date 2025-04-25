@@ -20,11 +20,12 @@ import SellerHeader from '../../components/sellers_side/SellersHeader';
 
 
 export default function Dashboard() {
-    const [showAddModal, setShowAddModal] = useState(true);
+    const [showAddModal, setShowAddModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [priceType, setPriceType] = useState('per_unit');
     const [selectedUnit, setSelectedUnit] = useState('');
+    const [editingProduct, setEditingProduct] = useState(null);
 
     const units = [
         { label: 'Kilogram', value: 'kg', icon: 'weight-kilogram' },
@@ -51,7 +52,7 @@ export default function Dashboard() {
             name: 'Organic Tomatoes Organic Tomatoes Organic Tomatoes Organic Tomatoes Organic Tomatoes',
             image: 'https://images.pexels.com/photos/4596568/pexels-photo-4596568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Add image URLs
             quantity: '1000',
-            price: 250,
+            price: '250',
             status: 'Pending',
             date: '24 Apr 2025'
         },
@@ -76,7 +77,7 @@ export default function Dashboard() {
             name: 'Organic Tomatoes',
             image: 'https://images.pexels.com/photos/4596568/pexels-photo-4596568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', // Add image URLs
             quantity: '1000',
-            price: 250, // Total price
+            price: '250', // Total price
             status: 'Pending',
             date: '24 Apr 2025'
         },
@@ -154,18 +155,49 @@ export default function Dashboard() {
                     ? `${formData.quantity} ${formData.unit}`
                     : formData.quantity
             };
-            console.log(requestData)
+
             // API call would go here
             await new Promise(resolve => setTimeout(resolve, 1500));
 
             // Reset form on success
             setShowAddModal(false);
             resetForm();
+            setEditingProduct(null);
         } catch (err) {
             setError('Failed to submit request');
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleEdit = (product) => {
+        // Convert the product data to form format
+        const isPerQuantity = typeof product.price === 'string' && product.price.includes('/');
+        const priceValue = isPerQuantity
+            ? product.price.split('/')[0].replace('₹', '')
+            : product.price.toString();
+        const unitValue = isPerQuantity
+            ? product.price.split('/')[1]
+            : '';
+
+        setFormData({
+            name: product.name,
+            description: product.description || '',
+            priceType: isPerQuantity ? 'per_quantity' : 'per_unit',
+            quantity: product.quantity.split(' ')[0],
+            price: priceValue,
+            unit: unitValue,
+            images: [
+                // Add some dummy images for demonstration
+                { uri: product.image },
+                { uri: product.image },
+            ],
+        });
+
+        setPriceType(isPerQuantity ? 'per_quantity' : 'per_unit');
+        setSelectedUnit(unitValue);
+        setEditingProduct(product);
+        setShowAddModal(true);
     };
 
     const resetForm = () => {
@@ -181,6 +213,7 @@ export default function Dashboard() {
         setPriceType('per_unit');
         setSelectedUnit('');
         setError('');
+        setEditingProduct(null);
     };
 
     // Add this function near your other handlers
@@ -206,7 +239,7 @@ export default function Dashboard() {
     useEffect(() => {
         setError('');
     }, [formData.description, formData.name, formData.price, formData.quantity, formData.unit]);
-    
+
 
     return (
         <View style={styles.container}>
@@ -214,7 +247,12 @@ export default function Dashboard() {
 
             <FlatList
                 data={productRequests}
-                renderItem={({ item }) => <ProductRequestCard item={item} />}
+                renderItem={({ item }) => (
+                    <ProductRequestCard
+                        item={item}
+                        onEdit={handleEdit}
+                    />
+                )}
                 keyExtractor={item => item.id.toString()}
                 contentContainerStyle={styles.listContainer}
                 showsVerticalScrollIndicator={false}
@@ -230,14 +268,25 @@ export default function Dashboard() {
             <Modal
                 visible={showAddModal}
                 animationType="slide"
-                onRequestClose={() => setShowAddModal(false)}
+                onRequestClose={() => {
+                    setShowAddModal(false);
+                    resetForm();
+                }}
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>
-                        <Text style={styles.modalTitle}>Add New Product</Text>
-                        <TouchableOpacity onPress={() => setShowAddModal(false)}>
+                        <Text style={styles.modalTitle}>
+                            {editingProduct ? 'Edit Product' : 'Add New Product'}
+                        </Text>
+                        <Pressable
+                            android_ripple={{ color: '#ddd' }}
+                            onPress={() => {
+                                setShowAddModal(false);
+                                resetForm();
+                            }}
+                        >
                             <Icon name="close" size={24} color="#6c757d" />
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
 
                     {error ? (
@@ -604,7 +653,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1.41,
     },
     modalFooter: {
-        padding: 16,
+        padding: 10,
         borderTopWidth: 1,
         borderTopColor: '#dee2e6',
     },

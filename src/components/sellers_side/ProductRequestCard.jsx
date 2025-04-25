@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, Pressable } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
+import { useNavigation } from '@react-navigation/native';
 
-export default function ProductRequestCard({ item, onPress }) {
+export default function ProductRequestCard({ item, onEdit }) {
+    const navigation = useNavigation();
+
     const getStatusColor = (status) => {
         switch (status) {
             case 'Approved': return '#198754';
@@ -120,11 +123,27 @@ export default function ProductRequestCard({ item, onPress }) {
                     </View>
                 </View>
 
+                <View style={styles.footerSection}>
+                    <Pressable
+                        android_ripple={{ color: '#ddd' }}
+                        style={styles.footerButton}
+                        onPress={() => onEdit(item)}
+                    >
+                        <Icon name="pencil" size={18} color={THEME_COLOR} />
+                        <Text style={styles.footerButtonText}>Edit</Text>
+                    </Pressable>
 
-                <TouchableOpacity style={styles.moreButton}>
-                    <Text style={styles.moreButtonText}>View Details</Text>
-                    <Icon name="chevron-right" size={20} color={THEME_COLOR} />
-                </TouchableOpacity>
+                    <View style={styles.verticalDivider} />
+
+                    <Pressable
+                        android_ripple={{ color: '#ddd' }}
+                        style={styles.footerButton}
+                        onPress={() => navigation.navigate('ProductRequestDetails', { itemId: item.id })}
+                    >
+                        <Text style={styles.footerButtonText}>View Details</Text>
+                        <Icon name="chevron-right" size={20} color={THEME_COLOR} />
+                    </Pressable>
+                </View>
             </View>
         </View>
     )
@@ -138,6 +157,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 12,
         padding: 16,
+        paddingBottom: 0,
         elevation: 2,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -193,6 +213,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         gap: 4,
         alignSelf: 'flex-start',
+        marginRight: "-2%"
     },
     statusIcon: {
         marginRight: 2,
@@ -245,19 +266,29 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 2,
     },
-    moreButton: {
+    footerSection: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
         marginTop: 12,
-        paddingTop: 12,
         borderTopWidth: 1,
         borderTopColor: '#dee2e6',
     },
-    moreButtonText: {
+    footerButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 14,
+        gap: 4,
+    },
+    footerButtonText: {
         color: THEME_COLOR,
         fontSize: 14,
         fontWeight: '500',
-        marginRight: 4,
+    },
+    verticalDivider: {
+        width: 1,
+        height: 24,
+        backgroundColor: '#dee2e6',
     },
 });

@@ -18,6 +18,7 @@ import Wishlist from "./src/screens/buyers_side/Wishlist";
 import BuyersTabs from "./src/BuyersTabsNavigator";
 import SellerRegistration from "./src/screens/sellers_side/SellerRegistration";
 import SellersTabs from "./src/SellerTabsNavigator";
+import ProductRequestDetails from "./src/screens/sellers_side/ProductRequestDetails";
 
 
 export default function App() {
@@ -46,6 +47,7 @@ export default function App() {
 
               {/* Seller Side Screens */}
               <Stack.Screen name="SellerRegistration" component={SellerRegistration} />
+              <Stack.Screen name="ProductRequestDetails" component={ProductRequestDetails} />
               <Stack.Screen name="SellersTabs" component={SellersTabs} />
 
             </Stack.Navigator>
