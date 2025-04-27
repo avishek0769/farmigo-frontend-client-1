@@ -29,7 +29,7 @@ export default function App() {
       <SafeAreaProvider>
         <ContextProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="SellersTabs" screenOptions={{ headerShown: false }} >
+            <Stack.Navigator initialRouteName="SellersTab" screenOptions={{ headerShown: false }} >
 
               {/* Common Screens */}
               <Stack.Screen name="Splash" component={SplashScreen} />
@@ -48,7 +48,7 @@ export default function App() {
               {/* Seller Side Screens */}
               <Stack.Screen name="SellerRegistration" component={SellerRegistration} />
               <Stack.Screen name="ProductRequestDetails" component={ProductRequestDetails} />
-              <Stack.Screen name="SellersTabs" component={SellersTabs} />
+              <Stack.Screen name="SellersTab" component={SellersTabs} />
 
             </Stack.Navigator>
           </NavigationContainer>

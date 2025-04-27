@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
 import { AppContext } from '../../context/ContextProvider';
+import ErrorPopup from '../../components/common/ErrorPopup';
 
 
 export default function Login({ navigation }) {
@@ -271,11 +272,7 @@ export default function Login({ navigation }) {
             </ScrollView>
 
             {/* Move error message here */}
-            {error ? (
-                <View style={styles.errorContainer}>
-                    <Text style={styles.errorText}>{error}</Text>
-                </View>
-            ) : null}
+            {error && <ErrorPopup error={error} />}
 
             <View style={styles.bottomContainer}>
                 <TouchableOpacity

@@ -5,6 +5,7 @@ import { THEME_COLOR } from '../../constant';
 import Geolocation from 'react-native-geolocation-service';
 import { AppContext } from '../../context/ContextProvider';
 import { detectLocation } from '../../utils/DetectLocation';
+import ErrorPopup from '../common/ErrorPopup';
 
 
 export const requestLocationPermission = async () => {
@@ -69,7 +70,7 @@ export default function AddressModal({ visible, onClose, onSave, currentAddress 
                         numberOfLines={3}
                     />
 
-                    {error ? <Text style={styles.errorText}>{error}</Text> : null}
+                    {error && <ErrorPopup error={error} />}
 
                     <TouchableOpacity
                         style={styles.detectButton}

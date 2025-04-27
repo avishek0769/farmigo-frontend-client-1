@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityInd
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
 import { detectLocation } from '../../utils/DetectLocation';
+import ErrorPopup from '../../components/common/ErrorPopup';
 
 
 export default function Signup({ navigation }) {
@@ -190,7 +191,7 @@ export default function Signup({ navigation }) {
 
             {renderStep()}
 
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+            {error && <ErrorPopup error={error} />}
 
             <Pressable
                 android_ripple={{ color: '#e9ecef' }}

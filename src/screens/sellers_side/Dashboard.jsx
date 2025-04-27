@@ -17,6 +17,7 @@ import { THEME_COLOR } from '../../constant';
 import { pick, types } from '@react-native-documents/picker';
 import ProductRequestCard from '../../components/sellers_side/ProductRequestCard';
 import SellerHeader from '../../components/sellers_side/SellersHeader';
+import ErrorPopup from '../../components/common/ErrorPopup';
 
 
 export default function Dashboard() {
@@ -289,12 +290,7 @@ export default function Dashboard() {
                         </Pressable>
                     </View>
 
-                    {error ? (
-                        <View style={styles.errorContainer}>
-                            <Icon name="alert-circle" size={20} color="#dc3545" />
-                            <Text style={styles.errorText}>{error}</Text>
-                        </View>
-                    ) : null}
+                    {error && <ErrorPopup error={error} />}
 
                     <ScrollView
                         contentContainerStyle={styles.formContainer}
@@ -600,7 +596,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#e9ecef',
         borderRadius: 12,
-        padding: 16,
+        padding: 14,
         fontSize: 16,
         color: '#212529',
     },
@@ -802,7 +798,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     elevation: {
-        elevation: 2,
+        elevation: 0.5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,

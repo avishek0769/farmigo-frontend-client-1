@@ -156,7 +156,7 @@ export default function EditProfileModal({ visible, onClose, onSave, userData })
                             </View>
                         )}
 
-                        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+                        {error && <ErrorPopup error={error} />}
                     </View>
 
                     {/* Buttons */}

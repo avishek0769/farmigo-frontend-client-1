@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pick, types } from '@react-native-documents/picker';
 import { THEME_COLOR } from '../../constant';
 import { detectLocation } from '../../utils/DetectLocation';
+import ErrorPopup from '../../components/common/ErrorPopup';
 
 
 export default function SellerRegistration({ navigation }) {
@@ -345,8 +346,7 @@ export default function SellerRegistration({ navigation }) {
                 </View>
             </ScrollView>
 
-            {error && <Text style={styles.errorText}>{error}</Text> }
-            {/* <Text style={styles.errorText}>{error.length}</Text>  */}
+            {error && <ErrorPopup error={error} />}
 
             <View style={styles.bottomContainer}>
                 <TouchableOpacity
