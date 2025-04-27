@@ -18,6 +18,7 @@ import { pick, types } from '@react-native-documents/picker';
 import ProductRequestCard from '../../components/sellers_side/ProductRequestCard';
 import SellerHeader from '../../components/sellers_side/SellersHeader';
 import ErrorPopup from '../../components/common/ErrorPopup';
+import FilterProductRequest from '../../components/sellers_side/FilterProductRequest';
 
 
 export default function Dashboard() {
@@ -245,6 +246,11 @@ export default function Dashboard() {
     return (
         <View style={styles.container}>
             <SellerHeader />
+            <FilterProductRequest
+                onFilterChange={(filters) => {
+                    console.log('Selected filters:', filters);
+                }}
+            />
 
             <FlatList
                 data={productRequests}
@@ -560,7 +566,8 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         padding: 16,
-        gap: 16
+        paddingTop: 8,
+        zIndex: 1, // Add this
     },
     modalContainer: {
         flex: 1,

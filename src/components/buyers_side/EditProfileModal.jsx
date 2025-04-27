@@ -155,7 +155,7 @@ export default function EditProfileModal({ visible, onClose, onSave, userData })
                                 />
                             </View>
                         )}
-
+ 
                         {error && <ErrorPopup error={error} />}
                     </View>
 
