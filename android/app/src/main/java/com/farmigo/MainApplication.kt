@@ -1,4 +1,4 @@
-package com.pedo_app
+package com.farmigo
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -1,4 +1,4 @@
-package com.pedo_app
+package com.farmigo
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
