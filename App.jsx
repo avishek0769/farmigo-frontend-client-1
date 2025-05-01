@@ -19,6 +19,7 @@ import BuyersTabs from "./src/BuyersTabsNavigator";
 import SellerRegistration from "./src/screens/sellers_side/SellerRegistration";
 import SellersTabs from "./src/SellerTabsNavigator";
 import ProductRequestDetails from "./src/screens/sellers_side/ProductRequestDetails";
+import SearchScreen from "./src/screens/buyers_side/Search";
 
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
               {/* Buyer Side Screens */}
               <Stack.Screen name="Cart" component={Cart} />
               <Stack.Screen name="SearchResult" component={SearchResult} />
+              <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
               <Stack.Screen name="ProductDetails" component={ProductDetails} />
               <Stack.Screen name="Checkout" component={Checkout} />
               <Stack.Screen name="Wishlist" component={Wishlist} />
