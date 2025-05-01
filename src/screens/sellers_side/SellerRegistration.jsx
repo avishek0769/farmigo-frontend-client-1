@@ -38,6 +38,7 @@ export default function SellerRegistration({ navigation }) {
     const [showOtp, setShowOtp] = useState(false);
     const [otp, setOtp] = useState('');
     const [verifyLoading, setVerifyLoading] = useState(false);
+    const [sendOtpLoading, setSendOtpLoading] = useState(false);
     const [locationLoading, setLocationLoading] = useState(false);
 
     const handleFileUpload = async () => {
@@ -62,14 +63,14 @@ export default function SellerRegistration({ navigation }) {
             return;
         }
         try {
-            setVerifyLoading(true);
+            setSendOtpLoading(true);
             // API call to send OTP would go here
             await new Promise(resolve => setTimeout(resolve, 1500));
             setShowOtp(true);
         } catch (err) {
             setError('Failed to send OTP');
         } finally {
-            setVerifyLoading(false);
+            setSendOtpLoading(false);
         }
     };
 
@@ -123,7 +124,7 @@ export default function SellerRegistration({ navigation }) {
 
             // API call would go here
             await new Promise(resolve => setTimeout(resolve, 2000));
-            navigation.replace('SellerHome');
+            navigation.replace('SellersTab');
         } catch (err) {
             setError('Registration failed');
         } finally {
@@ -188,9 +189,9 @@ export default function SellerRegistration({ navigation }) {
                                         isVerified && styles.verifiedButton
                                     ]}
                                     onPress={handlePhoneVerify}
-                                    disabled={isVerified || verifyLoading}
+                                    disabled={isVerified || sendOtpLoading}
                                 >
-                                    {verifyLoading ? (
+                                    {sendOtpLoading ? (
                                         <ActivityIndicator color={THEME_COLOR} size="small" />
                                     ) : (
                                         <Text style={[styles.verifyButtonText, { color: isVerified ? '#fff' : THEME_COLOR }]}>

@@ -21,10 +21,10 @@ export default function UserTypeSelectionScreen({ navigation }) {
 
     const handleEnter = useCallback(() => {
         if (buyerChecked) {
-            navigation.navigate("BuyersTab")
+            navigation.replace("BuyersTab")
         }
         else if (sellerChecked) {
-            navigation.navigate("SellerRegistration")
+            navigation.replace("SellerRegistration")
         }
     }, [buyerChecked, sellerChecked, navigation])
 
@@ -48,6 +48,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
                     <Image source={require("../../assets/images/farmer.png")} style={{ width: 50, height: 50 }} />
                     <Text style={style.optionText}>Buyer / Farmer</Text>
                     <BouncyCheckbox
+                        onPress={handleBuyerCheckBox}
                         isChecked={buyerChecked}
                         size={25}
                         style={style.checkBox}
@@ -61,6 +62,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
                     <Image source={require("../../assets/images/seller.jpg")} style={{ width: 50, height: 50 }} />
                     <Text style={style.optionText}>Seller / Vendor</Text>
                     <BouncyCheckbox
+                        onPress={handleSellerCheckBox}
                         isChecked={sellerChecked}
                         style={style.checkBox}
                         size={25}
