@@ -4,6 +4,8 @@ import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/buyers_side/Header';
 import { THEME_COLOR } from '../../constant';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import RatingStats from '../../components/buyers_side/RatingStats';
+import Reviews from '../../components/buyers_side/Reviews';
 
 const width = Dimensions.get('window').width;
 
@@ -36,13 +38,48 @@ export default function ProductDetails({ navigation, productId }) {
         discountPercentage: 48,
         favorite: true,
     }
+    const ratingStats = {
+        5: 84,
+        4: 32,
+        3: 8,
+        2: 4,
+        1: 2
+    };
+
+    const reviews = [
+        {
+            id: 1,
+            userName: "John Doe",
+            userImage: "https://randomuser.me/api/portraits/men/1.jpg",
+            rating: 5,
+            date: "2 days ago",
+            comment: "Great product! Very satisfied with the quality."
+        },
+        {
+            id: 2,
+            userName: "John Doe",
+            userImage: "https://randomuser.me/api/portraits/men/1.jpg",
+            rating: 5,
+            date: "2 days ago",
+            comment: "Great product! Very satisfied with the quality."
+        },
+        {
+            id: 3,
+            userName: "John Doe",
+            userImage: "https://randomuser.me/api/portraits/men/1.jpg",
+            rating: 5,
+            date: "2 days ago",
+            comment: "Great product! Very satisfied with the quality."
+        },
+        
+    ];
     const [isWishlisted, setIsWishlisted] = useState(product.favorite);
 
 
     return (
-        <>
+        <View style={styles.container}>
             <Header />
-            <ScrollView>
+            <ScrollView style={styles.scrollView}>
                 {/* Carousel */}
                 <View style={styles.carouselContainer}>
                     <Carousel
@@ -144,56 +181,65 @@ export default function ProductDetails({ navigation, productId }) {
                     <Text style={styles.descriptionTitle}>Product Description</Text>
                     <Text style={styles.description}>{product.description}</Text>
 
-                    {/* Buttons */}
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity
-                            onPress={() => alert("Added to Cart!")}
-                            style={[
-                                styles.button,
-                                styles.addToCartButton,
-                                product.availability === "Out of Stock" && styles.disabledButton
-                            ]}
-                            disabled={product.availability === "Out of Stock"}
-                        >
-                            <Icon
-                                name="shopping-cart"
-                                size={24}
-                                color={product.availability === "Out of Stock" ? "#6c757d" : THEME_COLOR}
-                            />
-                            <Text style={[
-                                styles.buttonText,
-                                product.availability === "Out of Stock" && styles.disabledButtonText
-                            ]}>
-                                Add to Cart
-                            </Text>
-                        </TouchableOpacity>
+                    {/* Ratings & Reviews */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Customer Ratings</Text>
+                        <RatingStats ratings={ratingStats} />
+                    </View>
 
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("Checkout")}
-                            style={[
-                                styles.button,
-                                styles.buyNowButton,
-                                product.availability === "Out of Stock" && styles.disabledButton
-                            ]}
-                            disabled={product.availability === "Out of Stock"}
-                        >
-                            <Icon
-                                name="flash-on"
-                                size={24}
-                                color={product.availability === "Out of Stock" ? "#6c757d" : "white"}
-                            />
-                            <Text style={[
-                                styles.buttonText,
-                                { color: "white" },
-                                product.availability === "Out of Stock" && styles.disabledButtonText
-                            ]}>
-                                Buy Now
-                            </Text>
-                        </TouchableOpacity>
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Customer Reviews</Text>
+                        <Reviews reviews={reviews} />
                     </View>
                 </View>
             </ScrollView >
-        </>
+            <View style={styles.bottomButtons}>
+                <TouchableOpacity
+                    onPress={() => alert("Added to Cart!")}
+                    style={[
+                        styles.button,
+                        styles.addToCartButton,
+                        product.availability === "Out of Stock" && styles.disabledButton
+                    ]}
+                    disabled={product.availability === "Out of Stock"}
+                >
+                    <Icon
+                        name="shopping-cart"
+                        size={24}
+                        color={product.availability === "Out of Stock" ? "#6c757d" : THEME_COLOR}
+                    />
+                    <Text style={[
+                        styles.buttonText,
+                        product.availability === "Out of Stock" && styles.disabledButtonText
+                    ]}>
+                        Add to Cart
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Checkout")}
+                    style={[
+                        styles.button,
+                        styles.buyNowButton,
+                        product.availability === "Out of Stock" && styles.disabledButton
+                    ]}
+                    disabled={product.availability === "Out of Stock"}
+                >
+                    <Icon
+                        name="flash-on"
+                        size={24}
+                        color={product.availability === "Out of Stock" ? "#6c757d" : "white"}
+                    />
+                    <Text style={[
+                        styles.buttonText,
+                        { color: "white" },
+                        product.availability === "Out of Stock" && styles.disabledButtonText
+                    ]}>
+                        Buy Now
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
 }
 
@@ -448,5 +494,36 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         color: THEME_COLOR,
-    }
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    scrollView: {
+        flex: 1,
+        marginBottom: 80, // Height of bottom buttons
+    },
+    bottomButtons: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#fff',
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        borderTopWidth: 1,
+        borderTopColor: '#e9ecef',
+        flexDirection: 'row',
+        gap: 10,
+    },
+    section: {
+        marginTop: 24,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#212529',
+        marginBottom: 12,
+        paddingHorizontal: 16,
+    },
 });
