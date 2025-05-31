@@ -240,7 +240,7 @@ export default function Home({ navigation }) {
                 justifyContent: 'center',
                 borderColor: '#e9ecef',
             }}
-            onPress={() => navigation.navigate('Products', { category: item })}
+            onPress={() => navigation.navigate('Products', { category: item.name })}
             activeOpacity={0.7}
         >
             <View style={{ width: '100%', height: '82%', backgroundColor: '#fff', borderRadius: 6, alignItems: 'center', justifyContent: 'center', marginBottom: 8, }}>

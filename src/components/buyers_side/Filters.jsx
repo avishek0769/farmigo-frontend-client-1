@@ -15,9 +15,11 @@ const filters = [
 ];
 
 
-export const FilterSection = () => {
+export const FilterSection = ({ category }) => {
     const [openFilterKey, setOpenFilterKey] = useState(null);
-    const [selectedFilters, setSelectedFilters] = useState({})
+    const [selectedFilters, setSelectedFilters] = useState({
+        category: category || undefined,
+    })
 
     const handleFilterPress = (key) => {
         if (openFilterKey === key) {
@@ -28,7 +30,7 @@ export const FilterSection = () => {
         }
     }
     useEffect(() => {
-        console.log(selectedFilters)
+        console.log(selectedFilters, "\n")
     }, [selectedFilters])
     
     const handleOptionSelect = useCallback((optionIndex) => {

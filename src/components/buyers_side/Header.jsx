@@ -141,7 +141,7 @@ export default function Header({ inCartScreen = false, category = false, default
                         renderItem={({ item }) => (
                             <SmallCategoryCard
                                 category={item}
-                                onPress={() => navigation.navigate('Products', { category: item })}
+                                onPress={() => navigation.navigate('Products', { category: item.name })}
                             />
                         )}
                     />

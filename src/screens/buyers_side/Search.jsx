@@ -108,7 +108,7 @@ export default function SearchScreen({ navigation }) {
             navigation.navigate("SearchResult", { query: searchQuery });
         }
     }, [navigation]);
-    
+
 
     return (
         <View style={styles.container}>
@@ -155,7 +155,7 @@ export default function SearchScreen({ navigation }) {
                             <>
                                 {searchHistory.length > 0 && (
                                     <>
-                                        <View style={[styles.section, {paddingTop: 2}]}>
+                                        <View style={[styles.section, { paddingTop: 2 }]}>
                                             <Text style={styles.sectionTitle}>Recent Searches</Text>
                                             {searchHistory.map((item, index) => (
                                                 <Pressable
@@ -200,7 +200,10 @@ export default function SearchScreen({ navigation }) {
                                             <CategoryCard
                                                 key={category.id}
                                                 category={category}
-                                                onPress={() => navigation.navigate('SearchResult', { category: category })}
+                                                onPress={() => navigation.navigate('BuyersTab', {
+                                                    screen: 'Products',
+                                                    params: { category: category.name }
+                                                })}
                                             />
                                         ))}
                                     </View>
@@ -214,7 +217,7 @@ export default function SearchScreen({ navigation }) {
                                         key={item.id}
                                         android_ripple={{ color: "#e9ecef" }}
                                         style={styles.suggestionItem}
-                                        onPress={() => navigation.navigate("ProductDetails", {productId: item.id})}
+                                        onPress={() => navigation.navigate("ProductDetails", { productId: item.id })}
                                     >
                                         <Image
                                             source={{ uri: item.image }}

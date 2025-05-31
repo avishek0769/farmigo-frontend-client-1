@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native';
 import { FlatList, Text, View } from 'react-native';
 import { FilterSection } from '../../components/buyers_side/Filters';
 import Header from '../../components/buyers_side/Header';
@@ -51,7 +52,10 @@ const cardData = [
     },
 ];
 
-export default function Products({ navigation }) {
+export default function Products({ navigation,  }) {
+    const route = useRoute()
+    const { category } = route.params || {};
+
     const renderProductCard = ({ item }) => (
         <ProductCard data={item} />
     );
@@ -60,7 +64,7 @@ export default function Products({ navigation }) {
         <>
             <Header showSearchIcon />
             <View style={{ zIndex: 100 }}>
-                <FilterSection />
+                <FilterSection category={category || undefined} />
             </View>
 
             <View style={{ marginBottom: 130 }}>

@@ -4,7 +4,6 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from "expo-status-bar";
 import 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { DefaultTheme } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import BuyersTabs from "../src/BuyersTabsNavigator";
 import { ContextProvider } from "../src/context/ContextProvider";
@@ -21,16 +20,6 @@ import UserTypeSelectionScreen from "../src/screens/common/UserTypeSelectionScre
 import ProductRequestDetails from "../src/screens/sellers_side/ProductRequestDetails";
 import SellerRegistration from "../src/screens/sellers_side/SellerRegistration";
 import SellersTabs from "../src/SellerTabsNavigator";
-
-const theme = {
-  ...DefaultTheme,
-  fonts: {
-    regular: { fontFamily: 'BalooBhai2' },
-    medium: { fontFamily: 'BalooBhai2' },
-    light: { fontFamily: 'BalooBhai2' },
-    thin: { fontFamily: 'BalooBhai2' },
-  },
-};
 
 
 export default function Layout() {
@@ -58,7 +47,7 @@ export default function Layout() {
               <StatusBar translucent backgroundColor="transparent" style="dark" />
 
               {/* <NavigationContainer> */}
-              <Stack.Navigator initialRouteName="Signup" screenOptions={{ headerShown: false }} >
+              <Stack.Navigator initialRouteName="BuyersTab" screenOptions={{ headerShown: false }} >
 
                 {/* Common Screens */}
                 <Stack.Screen name="Splash" component={SplashScreen} />
