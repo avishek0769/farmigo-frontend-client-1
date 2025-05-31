@@ -1,5 +1,4 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { THEME_COLOR } from '../../constant';
 
@@ -93,36 +92,37 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#fff',
         borderRadius: 12,
-        gap: 20, // Reduced from 32
+        gap: 20,
         elevation: 2,
     },
     overallRating: {
         alignItems: 'center',
-        paddingRight: 20, // Reduced from 32
+        paddingRight: 20,
         borderRightWidth: 1,
         borderRightColor: '#e9ecef',
-        width: '35%', // Added fixed width
+        width: '35%',
     },
     ratingNumber: {
-        fontSize: 40, // Reduced from 48
-        fontWeight: 'bold',
+        fontSize: 40,
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
     },
     starsRow: {
         flexDirection: 'row',
-        gap: 2, // Reduced from 4
-        marginVertical: 6, // Reduced from 8
+        gap: 2,
+        marginVertical: 6,
     },
     totalRatings: {
-        fontSize: 13, // Reduced from 14
+        fontSize: 13,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         marginTop: 4,
     },
     ratingBars: {
         flex: 1,
-        gap: 8, // Reduced from 12
+        gap: 8,
         justifyContent: 'center',
-        width: '65%', // Added fixed width
+        width: '65%',
     },
     ratingBar: {
         flexDirection: 'row',
@@ -130,10 +130,10 @@ const styles = StyleSheet.create({
         gap: 8, // Reduced from 12
     },
     starCount: {
-        width: 32, // Reduced from 36
-        fontSize: 14, // Reduced from 16
+        width: 32,
+        fontSize: 14,
         color: '#495057',
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     progressBarBackground: {
         flex: 1,
@@ -151,6 +151,6 @@ const styles = StyleSheet.create({
         fontSize: 13, // Reduced from 14
         color: '#6c757d',
         textAlign: 'right',
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
 });

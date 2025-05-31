@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ActivityIndicator, Modal, PermissionsAndroid, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
     },
     closeButton: {
@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
         borderColor: '#dee2e6',
         borderRadius: 8,
         padding: 12,
-        fontSize: 16,
+        fontSize: 15,
+        fontFamily: "Poppins-Regular",
         minHeight: 100,
         textAlignVertical: 'top',
         marginBottom: 15,
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
         color: THEME_COLOR,
         marginLeft: 8,
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -182,12 +183,12 @@ const styles = StyleSheet.create({
     cancelButtonText: {
         color: '#495057',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     saveButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     errorText: {
         color: '#dc3545',

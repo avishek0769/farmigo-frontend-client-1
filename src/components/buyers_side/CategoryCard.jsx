@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 13,
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
         color: '#495057',
         textAlign: 'center',
     },

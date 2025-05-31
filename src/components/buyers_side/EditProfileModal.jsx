@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useState } from 'react';
+import { ActivityIndicator, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
 
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
     },
     closeButton: {
@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
         color: '#495057',
         marginBottom: 8,
     },
@@ -230,6 +231,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 12,
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -252,12 +254,12 @@ const styles = StyleSheet.create({
     cancelButtonText: {
         color: '#495057',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     saveButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     errorText: {
         color: '#dc3545',
@@ -283,11 +285,12 @@ const styles = StyleSheet.create({
     },
     tabText: {
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d',
     },
     activeTabText: {
         color: THEME_COLOR,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     contentContainer: {
         minHeight: 150,

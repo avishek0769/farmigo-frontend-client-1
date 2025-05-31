@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import CartProductCard from '../../components/buyers_side/CartProductCard'
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 24,
         color: "#343a40",
-        fontWeight: "bold",
+        fontFamily: 'Poppins-Bold',
         paddingHorizontal: 15,
         paddingVertical: 10
     },
@@ -189,11 +189,12 @@ const styles = StyleSheet.create({
     },
     summaryLabel: {
         fontSize: 15,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d'
     },
     summaryValue: {
         fontSize: 15,
-        fontWeight: "500",
+        fontFamily: 'Poppins-Regular',
         color: '#495057'
     },
     totalRow: {
@@ -204,12 +205,12 @@ const styles = StyleSheet.create({
     },
     totalLabel: {
         fontSize: 18,
-        fontWeight: "600",
+        fontFamily: 'Poppins-Bold',
         color: '#212529'
     },
     totalValue: {
         fontSize: 20,
-        fontWeight: "600",
+        fontFamily: 'Poppins-Bold',
         color: THEME_COLOR
     },
     checkoutButton: {
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
     },
     checkoutButtonText: {
         fontSize: 18,
-        fontWeight: "600",
+        fontFamily: 'Poppins-Bold',
         letterSpacing: 0.5,
         color: "white"
     },
@@ -246,12 +247,13 @@ const styles = StyleSheet.create({
     },
     emptyTitle: {
         fontSize: 24,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#343a40',
         marginBottom: 8
     },
     emptySubtitle: {
         fontSize: 16,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         marginBottom: 25
     },
@@ -265,6 +267,6 @@ const styles = StyleSheet.create({
     shopButtonText: {
         color: 'white',
         fontSize: 16,
-        fontWeight: '600'
+        fontFamily: 'Poppins-Bold',
     }
 });

@@ -45,6 +45,7 @@ export default function Layout() {
     'Poppins-Regular': require('../src/assets/fonts/Poppins-Regular.ttf'),
     'Poppins-SemiBold': require('../src/assets/fonts/Poppins-SemiBold.ttf'),
     'Poppins-Thin': require('../src/assets/fonts/Poppins-Thin.ttf'),
+    'Poppins-Italic': require('../src/assets/fonts/Poppins-Italic.ttf'),
   });
 
 
@@ -57,7 +58,7 @@ export default function Layout() {
               <StatusBar translucent backgroundColor="transparent" style="dark" />
 
               {/* <NavigationContainer> */}
-              <Stack.Navigator initialRouteName="BuyersTab" screenOptions={{ headerShown: false }} >
+              <Stack.Navigator initialRouteName="Signup" screenOptions={{ headerShown: false }} >
 
                 {/* Common Screens */}
                 <Stack.Screen name="Splash" component={SplashScreen} />

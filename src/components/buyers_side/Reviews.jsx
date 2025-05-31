@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
-    Image, 
-    TextInput, 
+import { useState } from 'react';
+import {
+    FlatList,
+    Image,
+    StyleSheet,
+    Text,
+    TextInput,
     TouchableOpacity,
-    FlatList 
+    View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { THEME_COLOR } from '../../constant';
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         minHeight: 80,
         marginBottom: 12,
         textAlignVertical: 'top',
+        fontFamily: 'Poppins-Regular',
     },
     submitButton: {
         backgroundColor: THEME_COLOR,
@@ -92,7 +93,8 @@ const styles = StyleSheet.create({
     },
     submitButtonText: {
         color: '#fff',
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
+        letterSpacing: 0.5
     },
     reviewItem: {
         padding: 16,
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontSize: 14,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
     },
     ratingContainer: {
@@ -123,15 +125,18 @@ const styles = StyleSheet.create({
     },
     ratingValue: {
         fontSize: 12,
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
     },
     reviewDate: {
         fontSize: 12,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         marginLeft: 8,
     },
     reviewText: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
         lineHeight: 20,
     },

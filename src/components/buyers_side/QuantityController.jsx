@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 
 const QuantityController = ({ id, quantity, setQuantity }) => {
@@ -18,7 +17,7 @@ const QuantityController = ({ id, quantity, setQuantity }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 17, }}>Quantity :</Text>
+            <Text style={{fontSize: 15, fontFamily: 'Poppins-Regular'}}>Quantity :</Text>
             <TouchableOpacity onPress={decrease} style={[styles.button, {backgroundColor: "red"}]}>
                 <Text style={styles.btnText}>−</Text>
             </TouchableOpacity>
@@ -52,11 +51,11 @@ const styles = StyleSheet.create({
     btnText: {
         fontSize: 17,
         color: 'white',
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
     },
     quantity: {
         fontSize: 17,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         minWidth: 30,
         textAlign: 'center',
     },

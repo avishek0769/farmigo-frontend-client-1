@@ -1,8 +1,7 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Pressable } from 'react-native'
-import React from 'react'
-import QuantityController from './QuantityController'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import QuantityController from './QuantityController';
 
 export default function CartProductCard({ id, price, title, image, quantity, setQuantity, removeItem }) {
     const navigation = useNavigation();
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-SemiBold',
         color: "#1d1e18",
         marginBottom: 8,
         lineHeight: 22,
@@ -94,12 +93,13 @@ const styles = StyleSheet.create({
     },
     priceLabel: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         marginRight: 6,
     },
     priceValue: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: "#495057",
     },
     totalContainer: {
@@ -112,12 +112,12 @@ const styles = StyleSheet.create({
     },
     totalLabel: {
         fontSize: 14,
-        fontWeight: "500",
+        fontFamily: 'Poppins-SemiBold',
         color: '#495057',
     },
     totalPrice: {
         fontSize: 18,
-        fontWeight: "600",
+        fontFamily: 'Poppins-Bold',
         color: "#212529",
     },
     removeButton: {
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     },
     removeButtonText: {
         color: "#dc3545",
-        fontWeight: "600",
+        fontFamily: 'Poppins-Bold',
         fontSize: 14,
     },
     bottomActionsContainer: {

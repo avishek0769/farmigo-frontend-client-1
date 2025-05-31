@@ -200,7 +200,7 @@ export default function SearchScreen({ navigation }) {
                                             <CategoryCard
                                                 key={category.id}
                                                 category={category}
-                                                onPress={() => navigation.navigate('Category', { category })}
+                                                onPress={() => navigation.navigate('SearchResult', { category: category })}
                                             />
                                         ))}
                                     </View>
@@ -269,6 +269,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 12,
         fontSize: 16,
+        fontFamily: 'Poppins-Regular',
         color: '#212529',
     },
     clearButton: {
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
         paddingHorizontal: 16,
         marginBottom: 16,
@@ -296,6 +297,7 @@ const styles = StyleSheet.create({
     },
     historyText: {
         fontSize: 15,
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
     },
     suggestionItem: {
@@ -314,13 +316,14 @@ const styles = StyleSheet.create({
     },
     suggestionTitle: {
         fontSize: 15,
+        fontFamily: 'Poppins-Regular',
         color: '#212529',
         marginBottom: 4,
     },
     suggestionPrice: {
         fontSize: 14,
         color: THEME_COLOR,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     topSearchesContainer: {
         flexDirection: 'row',
@@ -340,7 +343,7 @@ const styles = StyleSheet.create({
     topSearchText: {
         fontSize: 14,
         color: '#495057',
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     categoriesGrid: {
         flexDirection: 'row',

@@ -1,8 +1,7 @@
-import React from 'react'
-import { FlatList, Text, View } from 'react-native'
-import { FilterSection } from '../../components/buyers_side/Filters'
-import Header from '../../components/buyers_side/Header'
-import ProductCard from '../../components/buyers_side/ProductCard'
+import { FlatList, Text, View } from 'react-native';
+import { FilterSection } from '../../components/buyers_side/Filters';
+import Header from '../../components/buyers_side/Header';
+import ProductCard from '../../components/buyers_side/ProductCard';
 
 const cardData = [
     {
@@ -53,7 +52,6 @@ const cardData = [
 ];
 
 export default function Products({ navigation }) {
-
     const renderProductCard = ({ item }) => (
         <ProductCard data={item} />
     );
@@ -74,7 +72,7 @@ export default function Products({ navigation }) {
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     style={{backgroundColor: "#fff"}}
                     ListHeaderComponent={
-                        <Text style={{ fontSize: 30, color: "#343a40", fontWeight: "bold", paddingHorizontal: 15, paddingVertical: 5 }}>Our Collection</Text>
+                        <Text style={{ fontSize: 26, color: "#343a40", fontFamily: 'Poppins-Bold', paddingHorizontal: 15, paddingVertical: 5, marginTop: 9 }}>Our Collection</Text>
                     }
                     ListFooterComponent={
                         <View style={{ height: 30 }} />

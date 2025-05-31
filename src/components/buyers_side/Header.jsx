@@ -80,10 +80,10 @@ export default function Header({ inCartScreen = false, category = false, default
     const navigation = useNavigation();
 
     return (
-        <View style={[styles.container, {height: category? 235 : 145}, {height: showSearchIcon? 100 : 235}]}>
+        <View style={[styles.container, { height: category ? 235 : 145 }, { height: showSearchIcon ? 100 : 235 }]}>
             <LinearGradient
                 colors={["#99d98c", '#ffffff']}
-                style={[styles.gradient, {height: category? 180 : 130}, {height: showSearchIcon? 100 : 180}]}
+                style={[styles.gradient, { height: category ? 180 : 130 }, { height: showSearchIcon ? 100 : 180 }]}
             >
                 <View style={styles.header}>
                     <Image
@@ -123,8 +123,8 @@ export default function Header({ inCartScreen = false, category = false, default
                         onPress={() => navigation.navigate('Search', { defaultQuery })}
                     >
                         <Icon name="search" size={20} color="#666" style={styles.searchIcon} />
-                        <Text style={[styles.searchPlaceholder, {color: defaultQuery.length ? "black" : "#adb5bd"}]}>
-                            {defaultQuery.length? defaultQuery : "Search products..."}
+                        <Text style={[styles.searchPlaceholder, { color: defaultQuery.length ? "black" : "#adb5bd" }]}>
+                            {defaultQuery.length ? defaultQuery : "Search products..."}
                         </Text>
                     </TouchableOpacity>
                 )}
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     cartBadgeText: {
         color: '#fff',
         fontSize: 12,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
     },
     searchOverlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 12,
         fontSize: 16,
+        fontFamily: 'Poppins-Regular',
         color: '#333',
     },
     clearButton: {
@@ -265,6 +266,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 16,
         fontSize: 15,
+        fontFamily: 'Poppins-Regular',
         color: '#333',
     },
     searchButton: {
@@ -276,7 +278,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 16,
-        fontWeight: "600",
+        fontFamily: 'Poppins-Bold',
         color: '#333',
         marginBottom: 8,
         marginTop: 6,
@@ -296,6 +298,7 @@ const styles = StyleSheet.create({
     },
     searchPlaceholder: {
         fontSize: 15,
+        fontFamily: 'Poppins-Regular',
         flex: 1,
     },
     suggestionItem: {
@@ -315,10 +318,12 @@ const styles = StyleSheet.create({
     },
     suggestionTitle: {
         fontSize: 15,
+        fontFamily: 'Poppins-Regular',
         color: '#333',
     },
     suggestionPrice: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#666',
     },
     suggestionsWrapper: {
@@ -344,7 +349,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 12,
-        fontWeight: '500',
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
         textAlign: 'center',
     }

@@ -1,13 +1,25 @@
-import React, { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, Pressable, ScrollView } from 'react-native';
+import { useCallback, useState } from 'react';
+import {
+    ActivityIndicator,
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import { THEME_COLOR } from '../../constant';
 import { detectLocation } from '../../utils/DetectLocation';
-import ErrorPopup from '../../components/common/ErrorPopup';
 
 
 export default function Signup({ navigation }) {
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(0);
     const [loading, setLoading] = useState(false);
     const [locationLoading, setLocationLoading] = useState(false);
     const [error, setError] = useState('');
@@ -66,7 +78,7 @@ export default function Signup({ navigation }) {
                     }
                     await new Promise(resolve => setTimeout(resolve, 1500));
                     // Navigate to home or wherever needed
-                    navigation.replace('Main');
+                    navigation.replace('BuyersTab');
                     break;
             }
         } catch (err) {
@@ -169,45 +181,52 @@ export default function Signup({ navigation }) {
     };
 
     return (
-        <View style={styles.container}>
-            <Image
-                source={require('../../assets/icons/brandLogo.png')}
-                style={styles.logo}
-                resizeMode="cover"
-            />
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.container}
+        >
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+                <Image
+                    source={require('../../assets/icons/brandLogo.png')}
+                    style={styles.logo}
+                    resizeMode="cover"
+                />
 
-            {/* Progress Indicator */}
-            <View style={styles.progressContainer}>
-                {[0, 1, 2].map((step) => (
-                    <View
-                        key={step}
-                        style={[
-                            styles.progressDot,
-                            activeStep >= step && styles.progressDotActive
-                        ]}
-                    />
-                ))}
+                {/* Progress Indicator */}
+                <View style={styles.progressContainer}>
+                    {[0, 1, 2].map((step) => (
+                        <View
+                            key={step}
+                            style={[
+                                styles.progressDot,
+                                activeStep >= step && styles.progressDotActive
+                            ]}
+                        />
+                    ))}
+                </View>
+
+                {renderStep()}
+
+                {error && <ErrorPopup error={error} />}
+            </ScrollView>
+
+            <View style={styles.buttonContainer}>
+                <Pressable
+                    android_ripple={{ color: '#e9ecef' }}
+                    style={styles.continueButton}
+                    onPress={handleNextStep}
+                    disabled={loading}
+                >
+                    {loading ? (
+                        <ActivityIndicator color="#fff" />
+                    ) : (
+                        <Text style={styles.continueButtonText}>
+                            {activeStep === 2 ? 'Complete Signup' : 'Continue'}
+                        </Text>
+                    )}
+                </Pressable>
             </View>
-
-            {renderStep()}
-
-            {error && <ErrorPopup error={error} />}
-
-            <Pressable
-                android_ripple={{ color: '#e9ecef' }}
-                style={styles.continueButton}
-                onPress={handleNextStep}
-                disabled={loading}
-            >
-                {loading ? (
-                    <ActivityIndicator color="#fff" />
-                ) : (
-                    <Text style={styles.continueButtonText}>
-                        {activeStep === 2 ? 'Complete Signup' : 'Continue'}
-                    </Text>
-                )}
-            </Pressable>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -246,12 +265,13 @@ const styles = StyleSheet.create({
     },
     stepTitle: {
         fontSize: 24,
-        fontWeight: '700',
+        fontFamily: "Poppins-Bold",
         color: '#212529',
         marginBottom: 8,
     },
     stepSubtitle: {
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d',
         marginBottom: 30,
     },
@@ -260,6 +280,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
         color: '#495057',
         marginBottom: 8,
     },
@@ -269,11 +290,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 12,
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
     },
     otpInput: {
         textAlign: 'center',
         letterSpacing: 8,
         fontSize: 24,
+        fontFamily: "Poppins-Regular",
     },
     addressInput: {
         minHeight: 100,
@@ -293,7 +316,7 @@ const styles = StyleSheet.create({
         color: THEME_COLOR,
         marginLeft: 8,
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
     },
     continueButton: {
         backgroundColor: THEME_COLOR,
@@ -305,11 +328,19 @@ const styles = StyleSheet.create({
     continueButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     errorText: {
         color: '#dc3545',
+        fontFamily: "Poppins-Regular",
         marginBottom: 8,
         textAlign: 'center',
+    },
+    scrollContent: {
+        flexGrow: 1,
+        justifyContent: 'center',
+    },
+    buttonContainer: {
+        paddingVertical: 10,
     },
 });

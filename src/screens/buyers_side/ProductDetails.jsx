@@ -194,6 +194,7 @@ export default function ProductDetails({ navigation, productId }) {
                     </View>
                 </View>
             </ScrollView >
+
             <View style={styles.bottomButtons}>
                 <TouchableOpacity
                     onPress={() => alert("Added to Cart!")}
@@ -255,17 +256,18 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
         color: '#343a40',
         marginBottom: 10,
     },
     price: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
         color: THEME_COLOR,
     },
     description: {
         fontSize: 16,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         marginBottom: 20,
     },
@@ -279,7 +281,7 @@ const styles = StyleSheet.create({
     },
     addToCartText: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
         color: 'white',
         marginLeft: 10,
     },
@@ -298,7 +300,7 @@ const styles = StyleSheet.create({
     infoText: {
         fontSize: 14,
         color: '#495057',
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     ratingContainer: {
         flexDirection: 'row',
@@ -307,11 +309,12 @@ const styles = StyleSheet.create({
     },
     rating: {
         fontSize: 14,
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
         color: '#495057',
     },
     noOfPeopleRated: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
     },
     priceSection: {
@@ -332,6 +335,7 @@ const styles = StyleSheet.create({
     availabilityText: {
         color: THEME_COLOR,
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
     },
     deliveryInfo: {
         flexDirection: 'row',
@@ -345,13 +349,14 @@ const styles = StyleSheet.create({
     deliveryText: {
         color: '#495057',
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
     },
     featuresContainer: {
         marginBottom: 20,
     },
     featuresTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#343a40',
         marginBottom: 10,
     },
@@ -363,11 +368,12 @@ const styles = StyleSheet.create({
     },
     featureText: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
     },
     descriptionTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#343a40',
         marginBottom: 10,
     },
@@ -388,11 +394,12 @@ const styles = StyleSheet.create({
     },
     discountedPrice: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
         color: THEME_COLOR,
     },
     actualPrice: {
         fontSize: 16,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         textDecorationLine: 'line-through',
     },
@@ -405,7 +412,7 @@ const styles = StyleSheet.create({
     discountText: {
         color: THEME_COLOR,
         fontSize: 12,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -432,7 +439,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
         marginLeft: 8,
         color: THEME_COLOR,
     },
@@ -493,7 +500,7 @@ const styles = StyleSheet.create({
     },
     normalPrice: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Poppins-Bold',
         color: THEME_COLOR,
     },
     container: {
@@ -506,7 +513,7 @@ const styles = StyleSheet.create({
     },
     bottomButtons: {
         position: 'absolute',
-        bottom: 0,
+        bottom: 6,
         left: 0,
         right: 0,
         backgroundColor: '#fff',
@@ -522,7 +529,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
         marginBottom: 12,
         paddingHorizontal: 16,

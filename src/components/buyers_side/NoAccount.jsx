@@ -1,5 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { THEME_COLOR } from '../../constant'
 
 export default function NoAccount({ navigation }) {
@@ -64,12 +63,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: '700',
+        fontFamily: "Poppins-Bold",
         color: '#212529',
         marginBottom: 12
     },
     subtitle: {
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d',
         textAlign: 'center',
         lineHeight: 24,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     loginButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
         textAlign: 'center'
     },
     registerButton: {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     registerButtonText: {
         color: THEME_COLOR,
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
         textAlign: 'center'
     },
     features: {
@@ -121,11 +121,12 @@ const styles = StyleSheet.create({
     },
     featureIcon: {
         fontSize: 24,
+        fontFamily: "Poppins-Regular",
         marginRight: 12
     },
     featureText: {
         fontSize: 15,
         color: '#495057',
-        fontWeight: '500'
+        fontFamily: "Poppins-SemiBold",
     }
 })

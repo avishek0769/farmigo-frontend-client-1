@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert, Pressable } from 'react-native'
-import React, { useState } from 'react'
-import { THEME_COLOR } from '../../constant'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
+import { Alert, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { THEME_COLOR } from '../../constant'
 import ModalPopUp from '../common/ModalPopUp'
 
 const PaymentMethodIcon = ({ method }) => {
@@ -166,19 +166,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // marginBottom: 15,
         paddingBottom: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#dee2e6'
     },
     orderId: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-SemiBold',
         color: '#495057'
     },
     status: {
         fontSize: 14,
-        fontWeight: '600'
+        fontFamily: 'Poppins-Bold',
     },
     productItem: {
         flexDirection: 'row',
@@ -198,22 +197,24 @@ const styles = StyleSheet.create({
     },
     productName: {
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
         color: '#212529',
         marginBottom: 4
     },
     quantity: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         marginBottom: 4
     },
     price: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: "#212529"
     },
     dateInfo: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d'
     },
     ratingContainer: {
@@ -221,6 +222,7 @@ const styles = StyleSheet.create({
     },
     ratingLabel: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
         marginBottom: 5
     },
@@ -234,7 +236,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: 12,
+        paddingVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#dee2e6',
         marginBottom: 15
@@ -250,7 +252,7 @@ const styles = StyleSheet.create({
     paymentText: {
         marginLeft: 6,
         fontSize: 14,
-        fontWeight: '600'
+        fontFamily: 'Poppins-Bold',
     },
     amountContainer: {
         flexDirection: 'row',
@@ -258,25 +260,23 @@ const styles = StyleSheet.create({
     },
     amountLabel: {
         fontSize: 14,
+        fontFamily: 'Poppins-Regular',
         color: '#6c757d',
         marginRight: 6
     },
     amount: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: "#212529"
     },
     footer: {
-        // marginTop: 12,
-        // paddingTop: 12,
-        // borderTopWidth: 1,
         borderTopColor: '#f1f3f5'
     },
     paymentStatus: {
         fontSize: 13,
+        fontFamily: 'Poppins-Italic',
         color: '#6c757d',
         marginTop: 4,
-        fontStyle: 'italic'
     },
     footerTop: {
         flexDirection: 'row',
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     cancelButtonText: {
         color: '#dc3545',
         fontSize: 14,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         marginLeft: 4,
     },
     modalOverlay: {
@@ -324,12 +324,13 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#dc3545',
         marginTop: 8,
     },
     modalText: {
         fontSize: 16,
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
         textAlign: 'center',
         marginBottom: 20,
@@ -357,11 +358,11 @@ const styles = StyleSheet.create({
     modalButtonTextOutline: {
         color: '#495057',
         fontSize: 15,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     modalButtonTextFilled: {
         color: '#fff',
         fontSize: 15,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
 })

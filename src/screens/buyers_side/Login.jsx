@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
-    Image, 
-    TextInput, 
-    TouchableOpacity, 
+import { useState } from 'react';
+import {
     ActivityIndicator,
+    Image,
     KeyboardAvoidingView,
+    Platform,
     ScrollView,
-    Platform
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import { THEME_COLOR } from '../../constant';
 import { AppContext } from '../../context/ContextProvider';
-import ErrorPopup from '../../components/common/ErrorPopup';
 
 
 export default function Login({ navigation }) {
@@ -37,11 +37,16 @@ export default function Login({ navigation }) {
             setLoading(true);
             // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 1500));
-            setIsLoggedIn(true);
-            navigation.replace('Main');
-        } catch (err) {
+            throw new Error()
+            // navigation.replace('BuyersTab');
+        }
+        catch (err) {
             setError('Invalid credentials');
-        } finally {
+            setTimeout(() => {
+                setError("")
+            }, 2500);
+        }
+        finally {
             setLoading(false);
         }
     };
@@ -242,6 +247,9 @@ export default function Login({ navigation }) {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
         >
+            {/* Move error message here */}
+            {error && <ErrorPopup error={error} />}
+            
             <ScrollView 
                 contentContainerStyle={styles.scrollContent}
                 keyboardShouldPersistTaps="handled"
@@ -271,9 +279,6 @@ export default function Login({ navigation }) {
                 {renderStep()}
             </ScrollView>
 
-            {/* Move error message here */}
-            {error && <ErrorPopup error={error} />}
-
             <View style={styles.bottomContainer}>
                 <TouchableOpacity
                     style={styles.continueButton}
@@ -301,6 +306,7 @@ export default function Login({ navigation }) {
                     </TouchableOpacity>
                 )}
             </View>
+
         </KeyboardAvoidingView>
     );
 }
@@ -343,12 +349,13 @@ const styles = StyleSheet.create({
     },
     stepTitle: {
         fontSize: 24,
-        fontWeight: '700',
+        fontFamily: "Poppins-Bold",
         color: '#212529',
         marginBottom: 8,
     },
     stepSubtitle: {
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d',
         marginBottom: 30,
     },
@@ -357,6 +364,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
         color: '#495057',
         marginBottom: 8,
     },
@@ -366,6 +374,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 12,
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
     },
     passwordContainer: {
         flexDirection: 'row',
@@ -378,6 +387,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 12,
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
         color: '#000',
     },
     eyeIcon: {
@@ -387,6 +397,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         letterSpacing: 8,
         fontSize: 24,
+        fontFamily: "Poppins-Regular",
     },
     forgotPassword: {
         alignSelf: 'flex-end',
@@ -395,6 +406,7 @@ const styles = StyleSheet.create({
     forgotPasswordText: {
         color: THEME_COLOR,
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
     },
     continueButton: {
         backgroundColor: THEME_COLOR,
@@ -406,7 +418,7 @@ const styles = StyleSheet.create({
     continueButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     createAccount: {
         marginTop: 16,
@@ -414,11 +426,12 @@ const styles = StyleSheet.create({
     },
     createAccountText: {
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d',
     },
     signupText: {
         color: THEME_COLOR,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     errorContainer: {
         backgroundColor: '#fff',
@@ -429,6 +442,7 @@ const styles = StyleSheet.create({
         color: '#dc3545',
         textAlign: 'center',
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
     },
     bottomContainer: {
         backgroundColor: '#fff',

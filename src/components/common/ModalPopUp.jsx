@@ -1,5 +1,4 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 export default function ModalPopUp({ showLogoutModal, setShowLogoutModal, handleAction, icon, actionBtnTxt, cancelBtnTxt, actionTxt, actionDescription }) {
@@ -84,12 +83,13 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
         color: '#dc3545',
         marginTop: 8
     },
     modalText: {
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
         color: '#495057',
         textAlign: 'center',
         marginBottom: 20,
@@ -117,11 +117,11 @@ const styles = StyleSheet.create({
     modalButtonTextOutline: {
         color: '#495057',
         fontSize: 15,
-        fontWeight: '600'
+        fontFamily: "Poppins-Bold",
     },
     modalButtonTextFilled: {
         color: '#fff',
         fontSize: 15,
-        fontWeight: '600'
+        fontFamily: "Poppins-Bold",
     }  
 })

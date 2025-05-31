@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { OrderCard } from '../../components/buyers_side/OrderCard'
 
@@ -104,12 +104,12 @@ export default function Order() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8f9fa',
+        backgroundColor: '#fff',
         paddingTop: 40
     },
     headerTitle: {
-        fontSize: 24,
-        fontWeight: "700",
+        fontSize: 26,
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
         padding: 15,
         paddingTop: 0

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useCallback, useEffect, useState } from 'react';
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 
@@ -93,7 +93,7 @@ const style = StyleSheet.create({
     },
     optionText: {
         fontSize: 20,
-        fontWeight: "500",
+        fontFamily: 'Poppins-SemiBold',
         paddingLeft: 10
     },
     checkBox: {
@@ -102,7 +102,7 @@ const style = StyleSheet.create({
     },
     title: {
         fontSize: 28,
-        fontWeight: "700",
+        fontFamily: 'Poppins-SemiBold',
         marginBottom: 30,
         color: '#2d3436',
         textAlign: 'center'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Image, Platform, Pressable, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import AddressModal from '../../components/buyers_side/AddressModal'
@@ -200,8 +200,7 @@ export default function Account({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8f9fa',
-        marginTop: 25,
+        paddingTop: 25,
         backgroundColor: "#fff",
         paddingBottom: 20
     },
@@ -227,7 +226,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
         marginBottom: 4
     },
@@ -253,16 +252,18 @@ const styles = StyleSheet.create({
     addressLabel: {
         flex: 1,
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d',
         marginLeft: 6
     },
     changeText: {
         color: THEME_COLOR,
         fontSize: 14,
-        fontWeight: '500'
+        fontFamily: "Poppins-SemiBold",
     },
     address: {
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
         color: '#495057',
         lineHeight: 20
     },
@@ -291,18 +292,20 @@ const styles = StyleSheet.create({
     },
     menuItemTitle: {
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
         marginBottom: 2
     },
     menuItemSubtitle: {
         fontSize: 13,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d'
     },
     version: {
         textAlign: 'center',
         color: '#adb5bd',
         fontSize: 12,
+        fontFamily: "Poppins-Regular",
         marginVertical: 20
     },
     menuItemPressed: {

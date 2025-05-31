@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -28,6 +27,7 @@ const styles = StyleSheet.create({
     errorText: {
         color: '#dc3545',
         fontSize: 14,
+        fontFamily: "Poppins-Regular",
         flex: 1,
         lineHeight: 20,
     },

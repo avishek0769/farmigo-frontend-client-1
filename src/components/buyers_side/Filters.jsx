@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
-    View,
+    ScrollView,
+    StyleSheet,
     Text,
     TouchableOpacity,
-    StyleSheet,
-    ScrollView,
+    View,
 } from 'react-native';
 
 const filters = [
@@ -158,17 +158,18 @@ const styles = StyleSheet.create({
     filterText: {
         fontSize: 14,
         color: '#495057',
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     activeFilterText: {
         color: '#2e7d32',
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     selectedFilterText: {
         color: '#2e7d32',
     },
     filterArrow: {
         fontSize: 12,
+        fontFamily: 'Poppins-Regular',
     },
     dropdown: {
         position: "absolute",
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
     },
     dropdownTitle: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
     },
     closeButton: {
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     closeButtonText: {
         color: '#dc3545',
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     dropdownItem: {
         padding: 16,
@@ -213,11 +214,12 @@ const styles = StyleSheet.create({
     },
     dropdownItemText: {
         fontSize: 15,
+        fontFamily: 'Poppins-Regular',
         color: '#495057',
     },
     selectedDropdownItemText: {
         color: '#2e7d32',
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
 });
 
