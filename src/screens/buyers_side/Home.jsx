@@ -89,49 +89,44 @@ const cardData = [
 const topSellingCategories = [
     {
         id: 1,
-        name: "Fresh Fruits",
+        name: "Bio pesticides",
         image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
     },
     {
         id: 2,
-        name: "Vegetables",
+        name: "Bio Fertilizers",
         image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37",
     },
     {
         id: 3,
-        name: "Dairy Products",
+        name: "Farm Machinery",
         image: "https://images.unsplash.com/photo-1550583724-b2692b85b150",
     },
     {
         id: 4,
-        name: "Organic Honey",
+        name: "Seeds-Vegetable",
         image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38",
     },
     {
         id: 5,
-        name: "Fresh Eggs",
+        name: "Seeds",
         image: "https://images.unsplash.com/photo-1598965675045-45c5e72c7d05",
     },
     {
         id: 6,
-        name: "Grains",
+        name: "Field crop",
         image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b",
     },
     {
         id: 7,
-        name: "Spices",
+        name: "Cash crop",
         image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d",
     },
     {
         id: 8,
-        name: "Dry Fruits",
+        name: "Tools & implements",
         image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4",
-    },
-    {
-        id: 9,
-        name: "Seeds",
-        image: "https://images.unsplash.com/photo-1574323347509-791df1b1d517",
-    },
+    }
 ];
 
 const generateMoreItems = (startIndex, count) => {

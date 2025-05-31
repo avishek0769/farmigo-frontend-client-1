@@ -9,7 +9,7 @@ import {
 
 const filters = [
     { key: 'price', label: 'Price', options: ['₹0–₹100', '₹101–₹500', '₹501+'] },
-    { key: 'category', label: 'Category', options: ['Natural Pesticides', 'Chemical Pesticides', 'Natural Fertilisers', 'Chemical Fertilisers'] },
+    { key: 'category', label: 'Category', options: ['Bio pesticides', 'Bio Fertilizers', 'Farm Machinery', 'Seeds-Vegetable', 'Seeds', 'Field crop', 'Cash crop', 'Tools & implements'] },
     { key: 'availability', label: 'Availability', options: ['In Stock', 'Out of Stock'] },
     { key: 'sort', label: 'Sort', options: ['Sort by price (Ascending)', 'Sort by price (Decending)'] },
 ];

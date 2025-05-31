@@ -196,13 +196,13 @@ export default function SearchScreen({ navigation }) {
                                 <View style={styles.section}>
                                     <Text style={styles.sectionTitle}>Shop by Category</Text>
                                     <View style={styles.categoriesGrid}>
-                                        {categories.map((category) => (
+                                        {categories.map((category, index) => (
                                             <CategoryCard
                                                 key={category.id}
                                                 category={category}
                                                 onPress={() => navigation.navigate('BuyersTab', {
                                                     screen: 'Products',
-                                                    params: { category: category.name }
+                                                    params: { category: index }
                                                 })}
                                             />
                                         ))}

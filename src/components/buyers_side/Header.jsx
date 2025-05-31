@@ -7,54 +7,44 @@ import { THEME_COLOR } from '../../constant';
 const categories = [
     {
         id: 1,
-        name: "Fruits",
+        name: "Bio pesticides",
         image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
     },
     {
         id: 2,
-        name: "Vegetables",
+        name: "Bio Fertilizers",
         image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37",
     },
     {
         id: 3,
-        name: "Dairy",
-        image: "https://images.unsplash.com/photo-1598965675045-45c5e72c7d05",
+        name: "Farm Machinery",
+        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150",
     },
     {
         id: 4,
-        name: "Honey",
+        name: "Seeds-Vegetable",
         image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38",
     },
     {
         id: 5,
-        name: "Grains",
-        image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b",
-    },
-    {
-        id: 6,
-        name: "Fruits",
-        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
-    },
-    {
-        id: 7,
-        name: "Vegetables",
-        image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37",
-    },
-    {
-        id: 8,
-        name: "Dairy",
+        name: "Seeds",
         image: "https://images.unsplash.com/photo-1598965675045-45c5e72c7d05",
     },
     {
-        id: 9,
-        name: "Honey",
-        image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38",
-    },
-    {
-        id: 10,
-        name: "Grains",
+        id: 6,
+        name: "Field crop",
         image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b",
     },
+    {
+        id: 7,
+        name: "Cash crop",
+        image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d",
+    },
+    {
+        id: 8,
+        name: "Tools & implements",
+        image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4",
+    }
 ];
 
 function SmallCategoryCard({ category, onPress, icon }) {
@@ -69,7 +59,7 @@ function SmallCategoryCard({ category, onPress, icon }) {
                 style={styles.image}
                 resizeMode='cover'
             />
-            <Text style={styles.name} numberOfLines={1}>
+            <Text style={styles.name} numberOfLines={1} lineBreakMode='tail'>
                 {category.name}
             </Text>
         </Pressable>
@@ -138,10 +128,10 @@ export default function Header({ inCartScreen = false, category = false, default
                         keyExtractor={(item) => item.id.toString()}
                         contentContainerStyle={styles.categoriesList}
                         ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
-                        renderItem={({ item }) => (
+                        renderItem={({ item, index }) => (
                             <SmallCategoryCard
                                 category={item}
-                                onPress={() => navigation.navigate('Products', { category: item.name })}
+                                onPress={() => navigation.navigate('Products', { category: index })}
                             />
                         )}
                     />
@@ -340,6 +330,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 8,
         padding: 2,
+        backgroundColor: "red",
+        width: 80
     },
     image: {
         width: 51,
@@ -352,5 +344,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Regular',
         color: '#495057',
         textAlign: 'center',
+        lineHeight: 18,
     }
 });
