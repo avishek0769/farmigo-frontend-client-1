@@ -59,7 +59,7 @@ function SmallCategoryCard({ category, onPress, icon }) {
                 style={styles.image}
                 resizeMode='cover'
             />
-            <Text style={styles.name} numberOfLines={1} lineBreakMode='tail'>
+            <Text style={styles.name} numberOfLines={2} lineBreakMode='tail'>
                 {category.name}
             </Text>
         </Pressable>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: '100%',
         width: '100%',
-        touchAction: 'none', // Add this
+        touchAction: 'none',
     },
     dropdown: {
         position: "absolute",
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     },
     categoriesContainer: {
         marginTop: 12,
-        height: 80,
+        height: 100,
     },
     categoriesList: {
         paddingHorizontal: 16,
@@ -330,8 +330,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 8,
         padding: 2,
-        backgroundColor: "red",
-        width: 80
+        backgroundColor: "transparent",
+        width: 75
     },
     image: {
         width: 51,

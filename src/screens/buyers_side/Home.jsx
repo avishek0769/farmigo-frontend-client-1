@@ -222,7 +222,7 @@ export default function Home({ navigation }) {
         </Pressable>
     );
 
-    const CategoryGridCard = ({ item }) => (
+    const CategoryGridCard = ({ item, index }) => (
         <Pressable android_ripple={{ color: '#rrr' }}
             style={{
                 width: (width - 48) / 3,
@@ -235,7 +235,7 @@ export default function Home({ navigation }) {
                 justifyContent: 'center',
                 borderColor: '#e9ecef',
             }}
-            onPress={() => navigation.navigate('Products', { category: item.name })}
+            onPress={() => navigation.navigate('Products', { category: index })}
             activeOpacity={0.7}
         >
             <View style={{ width: '100%', height: '82%', backgroundColor: '#fff', borderRadius: 6, alignItems: 'center', justifyContent: 'center', marginBottom: 8, }}>
@@ -245,10 +245,7 @@ export default function Home({ navigation }) {
                     resizeMode="cover"
                 />
             </View>
-            <Text
-                numberOfLines={1}
-                style={{ fontSize: 13, color: '#343a40', fontFamily: "Poppins-SemiBold", textAlign: 'center', lineHeight: 18, }}
-            >
+            <Text numberOfLines={1} style={{ fontSize: 12, color: '#343a40', fontFamily: "Poppins-SemiBold", textAlign: 'center', lineHeight: 18, width: "100%"}} >
                 {item.name}
             </Text>
         </Pressable>
@@ -256,7 +253,7 @@ export default function Home({ navigation }) {
 
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{ flex: 1, backgroundColor: '#fff' }}>
             <Header category={true} />
 
             <FlatList
@@ -264,7 +261,7 @@ export default function Home({ navigation }) {
                 numColumns={2}
                 renderItem={renderProductCard}
                 keyExtractor={(index) => String(Math.random() * 10000000000)}
-                style={{ backgroundColor: "#fff" }}
+                style={{ backgroundColor: "#fff", marginTop: 25 }}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 onEndReached={loadMoreItems}
                 onEndReachedThreshold={0.5}
@@ -305,8 +302,8 @@ export default function Home({ navigation }) {
                                 Top Selling Categories
                             </Text>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 12, justifyContent: 'center' }}>
-                                {topSellingCategories.map(item => (
-                                    <CategoryGridCard key={item.id} item={item} />
+                                {topSellingCategories.map((item, index) => (
+                                    <CategoryGridCard key={item.id} item={item} index={index} />
                                 ))}
                             </View>
                         </View>
@@ -367,7 +364,7 @@ const styles = StyleSheet.create({
     bannerContainer: {
         width: '100%',
         height: 150,
-        marginVertical: 20,
+        marginVertical: 30,
     },
     bannerImage: {
         width: '100%',

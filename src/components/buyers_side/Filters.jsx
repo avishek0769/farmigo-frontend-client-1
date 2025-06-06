@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
+    Pressable,
     ScrollView,
     StyleSheet,
     Text,
-    TouchableOpacity,
-    View,
+    View
 } from 'react-native';
 
 const filters = [
@@ -17,9 +17,14 @@ const filters = [
 
 export const FilterSection = ({ category }) => {
     const [openFilterKey, setOpenFilterKey] = useState(null);
-    const [selectedFilters, setSelectedFilters] = useState({
-        category: category || undefined,
-    })
+    const [selectedFilters, setSelectedFilters] = useState({});
+    
+    useEffect(() => {
+        setSelectedFilters(prev => ({
+            ...prev,
+            category: category,
+        }));
+    }, [category]);
 
     const handleFilterPress = (key) => {
         if (openFilterKey === key) {
@@ -32,9 +37,9 @@ export const FilterSection = ({ category }) => {
     useEffect(() => {
         console.log(selectedFilters, "\n")
     }, [selectedFilters])
-    
+
     const handleOptionSelect = useCallback((optionIndex) => {
-        if(selectedFilters[openFilterKey] == optionIndex) {
+        if (selectedFilters[openFilterKey] == optionIndex) {
             setSelectedFilters({
                 ...selectedFilters,
                 [openFilterKey]: undefined,
@@ -58,16 +63,17 @@ export const FilterSection = ({ category }) => {
                     <Text style={styles.dropdownTitle}>
                         Select {filters.find(f => f.key === openFilterKey)?.label}
                     </Text>
-                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                    <Pressable android_ripple={{ color: "#ddd" }} onPress={onClose} style={styles.closeButton}>
                         <Text style={styles.closeButtonText}>✕</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
+
                 {options.map((option, index) => (
-                    <TouchableOpacity 
-                        onPress={() => handleOptionSelect(index)} 
-                        key={index} 
+                    <Pressable android_ripple={{ color: "#ddd" }}
+                        onPress={() => handleOptionSelect(index)}
+                        key={index}
                         style={[
-                            styles.dropdownItem, 
+                            styles.dropdownItem,
                             selectedFilters[openFilterKey] === index && styles.selectedDropdownItem
                         ]}
                     >
@@ -77,7 +83,7 @@ export const FilterSection = ({ category }) => {
                         ]}>
                             {option}
                         </Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 ))}
             </View>
         );
@@ -85,14 +91,14 @@ export const FilterSection = ({ category }) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView 
-                horizontal 
-                showsHorizontalScrollIndicator={false} 
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
                 style={styles.filterBar}
                 contentContainerStyle={styles.filterBarContent}
             >
                 {filters.map((filter) => (
-                    <TouchableOpacity
+                    <Pressable android_ripple={{ color: "#ddd" }}
                         key={filter.key}
                         style={[
                             styles.filterButton,
@@ -106,12 +112,12 @@ export const FilterSection = ({ category }) => {
                             openFilterKey === filter.key && styles.activeFilterText,
                             selectedFilters[filter.key] !== undefined && styles.selectedFilterText
                         ]}>
-                            {filter.label} 
+                            {filter.label}
                             <Text style={styles.filterArrow}>
                                 {openFilterKey === filter.key ? ' ▲' : ' ▼'}
                             </Text>
                         </Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 ))}
             </ScrollView>
 
@@ -148,6 +154,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 1,
         borderColor: '#e9ecef',
+        overflow: 'hidden',
     },
     activeFilterButton: {
         backgroundColor: '#e8f5e9',
@@ -210,6 +217,7 @@ const styles = StyleSheet.create({
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: '#f0f0f0',
+        overflow: 'hidden',
     },
     selectedDropdownItem: {
         backgroundColor: '#e8f5e9',

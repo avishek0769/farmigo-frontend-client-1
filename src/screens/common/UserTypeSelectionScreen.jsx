@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 
@@ -7,6 +7,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
     const [buyerChecked, setBuyerChecked] = useState(false)
     const [sellerChecked, setSellerChecked] = useState(false)
     const [enterBtnDisabled, setEnterBtnDisabled] = useState(false)
+    const [showActivityInd, setShowActivityInd] = useState(false)
 
 
     const handleBuyerCheckBox = useCallback(() => {
@@ -20,6 +21,7 @@ export default function UserTypeSelectionScreen({ navigation }) {
     }, [setBuyerChecked, sellerChecked, setSellerChecked])
 
     const handleEnter = useCallback(() => {
+        setShowActivityInd(true)
         if (buyerChecked) {
             navigation.replace("BuyersTab")
         }
@@ -73,9 +75,12 @@ export default function UserTypeSelectionScreen({ navigation }) {
                     />
                 </Pressable>
 
-                <TouchableOpacity disabled={enterBtnDisabled} onPress={handleEnter} style={{ backgroundColor: enterBtnDisabled ? "#92e6a7" : "#29bf12", padding: 10, borderRadius: 5, marginTop: 90 }}>
-                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 24, textAlign: "center", letterSpacing: 3 }}>Enter</Text>
-                </TouchableOpacity>
+                <Pressable android_ripple={"#ddd"} disabled={enterBtnDisabled} onPress={handleEnter} style={{ backgroundColor: enterBtnDisabled ? "#92e6a7" : "#29bf12", padding: 10, borderRadius: 5, marginTop: 90 }}>
+                    {showActivityInd ?
+                        <ActivityIndicator size={"large"} color={"#fff"} />
+                        : <Text style={{ color: "white", fontFamily: 'Poppins-SemiBold', fontSize: 24, textAlign: "center", letterSpacing: 3 }}>Enter</Text>
+                    }
+                </Pressable>
             </View>
         </View>
     )

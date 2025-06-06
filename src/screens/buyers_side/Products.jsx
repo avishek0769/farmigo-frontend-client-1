@@ -55,7 +55,7 @@ const cardData = [
 export default function Products({ navigation,  }) {
     const route = useRoute()
     const { category } = route.params || {};
-
+    
     const renderProductCard = ({ item }) => (
         <ProductCard data={item} />
     );
@@ -64,7 +64,7 @@ export default function Products({ navigation,  }) {
         <>
             <Header showSearchIcon />
             <View style={{ zIndex: 100 }}>
-                <FilterSection category={category || undefined} />
+                <FilterSection category={category} />
             </View>
 
             <View style={{ marginBottom: 130 }}>
