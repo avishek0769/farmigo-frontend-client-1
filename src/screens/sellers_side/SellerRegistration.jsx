@@ -1,5 +1,5 @@
 import * as DocumentPicker from 'expo-document-picker';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     Image,
@@ -47,11 +47,11 @@ export default function SellerRegistration({ navigation }) {
                 copyToCacheDirectory: true,
                 multiple: false
             });
-
-            if (result.type === 'success') {
+            
+            if (!result.canceled) {
                 setFormData(prev => ({
                     ...prev,
-                    licenseProof: result
+                    licenseProof: result.assets[0]
                 }));
             } else {
                 // User cancelled the picker
@@ -63,6 +63,53 @@ export default function SellerRegistration({ navigation }) {
         }
     };
 
+    const FilePreview = ({ file }) => {
+        console.log(file)
+        if (!file) return null;
+
+        const isImage = file.mimeType?.startsWith('image/') || file.type?.startsWith('image/');
+        const isPDF = file.mimeType === 'application/pdf' || file.type === 'application/pdf';
+
+        return (
+            <View style={styles.previewContainer}>
+                <View style={styles.previewHeader}>
+                    <Text style={styles.previewTitle}>Selected File:</Text>
+                    <Pressable
+                        onPress={() => setFormData(prev => ({ ...prev, licenseProof: null }))}
+                        style={styles.removeButton}
+                    >
+                        <Icon name="close" size={20} color="#dc3545" />
+                    </Pressable>
+                </View>
+
+                {isImage && (
+                    <View style={styles.imagePreview}>
+                        <Image
+                            source={{ uri: file.uri }}
+                            style={styles.previewImage}
+                            resizeMode="cover"
+                        />
+                    </View>
+                )}
+
+                {isPDF && (
+                    <View style={styles.pdfPreview}>
+                        <Icon name="file-pdf-box" size={48} color="#dc3545" />
+                        <Text style={styles.pdfText}>PDF Document</Text>
+                    </View>
+                )}
+
+                <View style={styles.fileInfo}>
+                    <Text style={styles.fileName} numberOfLines={1}>
+                        {file.name}
+                    </Text>
+                    <Text style={styles.fileSize}>
+                        {file.size ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : 'Unknown size'}
+                    </Text>
+                </View>
+            </View>
+        );
+    };
 
     const handlePhoneVerify = async () => {
         if (!formData.phone) {
@@ -336,6 +383,10 @@ export default function SellerRegistration({ navigation }) {
 
                         <View style={styles.inputContainer}>
                             <Text style={styles.label}>License Proof*</Text>
+
+                            {/* Add File Preview */}
+                            <FilePreview file={formData.licenseProof} />
+
                             <Pressable
                                 android_ripple={{ color: '#e9ecef' }}
                                 style={styles.uploadButton}
@@ -343,10 +394,7 @@ export default function SellerRegistration({ navigation }) {
                             >
                                 <Icon name="file-upload" size={24} color={THEME_COLOR} />
                                 <Text style={styles.uploadButtonText}>
-                                    {formData.licenseProof ?
-                                        formData.licenseProof.name :
-                                        'Upload License Document'
-                                    }
+                                    {formData.licenseProof ? 'Change File' : 'Upload License Document'}
                                 </Text>
                             </Pressable>
                         </View>
@@ -390,13 +438,14 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: '700',
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
         textAlign: 'center',
         marginTop: 20,
     },
     subtitle: {
         fontSize: 16,
+        fontFamily: 'Poppins-Normal',
         color: '#6c757d',
         textAlign: 'center',
         marginTop: 8,
@@ -410,7 +459,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#343a40',
         marginBottom: 4,
     },
@@ -420,7 +469,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         color: '#495057',
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     input: {
         borderWidth: 1,
@@ -428,6 +477,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 12,
         fontSize: 16,
+        fontFamily: 'Poppins-Normal',
         color: '#212529',
     },
     uploadButton: {
@@ -443,7 +493,7 @@ const styles = StyleSheet.create({
     uploadButtonText: {
         color: THEME_COLOR,
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     bottomContainer: {
         padding: 20,
@@ -460,7 +510,7 @@ const styles = StyleSheet.create({
     submitButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     errorText: {
         color: '#dc3545',
@@ -490,7 +540,7 @@ const styles = StyleSheet.create({
     verifyButtonText: {
         color: THEME_COLOR,
         fontSize: 14,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     otpContainer: {
         flexDirection: 'row',
@@ -516,6 +566,74 @@ const styles = StyleSheet.create({
     detectButtonText: {
         color: THEME_COLOR,
         fontSize: 14,
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
+    },
+    previewContainer: {
+        backgroundColor: '#f8f9fa',
+        borderRadius: 8,
+        padding: 12,
+        borderWidth: 1,
+        borderColor: '#dee2e6',
+        marginBottom: 12,
+    },
+    previewHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    previewTitle: {
+        fontSize: 14,
+        fontFamily: 'Poppins-SemiBold',
+        color: '#495057',
+    },
+    removeButton: {
+        padding: 4,
+        borderRadius: 12,
+        backgroundColor: '#fff',
+    },
+    imagePreview: {
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    previewImage: {
+        width: '100%',
+        height: 200,
+        borderRadius: 8,
+        backgroundColor: '#e9ecef',
+    },
+    pdfPreview: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#dee2e6',
+        marginBottom: 12,
+    },
+    pdfText: {
+        fontSize: 16,
+        fontFamily: 'Poppins-SemiBold',
+        color: '#495057',
+        marginTop: 8,
+    },
+    fileInfo: {
+        backgroundColor: '#fff',
+        padding: 8,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: '#e9ecef',
+    },
+    fileName: {
+        fontSize: 14,
+        fontFamily: 'Poppins-SemiBold',
+        color: '#212529',
+        marginBottom: 4,
+    },
+    fileSize: {
+        fontSize: 12,
+        fontFamily: 'Poppins-Normal',
+        color: '#6c757d',
     },
 });

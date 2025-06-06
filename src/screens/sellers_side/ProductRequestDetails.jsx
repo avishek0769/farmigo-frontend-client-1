@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image, Pressable } from 'react-native';
-import React from 'react';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
 
@@ -35,7 +34,6 @@ export default function ProductRequestDetails({ route, navigation }) {
         }
     };
 
-
     // Helper Components
     const DetailItem = ({ icon, label, value, style }) => (
         <View style={[styles.detailItem, style]}>
@@ -46,15 +44,6 @@ export default function ProductRequestDetails({ route, navigation }) {
                 <Text style={styles.detailLabel}>{label}</Text>
                 <Text style={styles.detailValue} numberOfLines={2}>{value}</Text>
             </View>
-        </View>
-    );
-
-    const QualityTag = ({ icon, label, active }) => (
-        <View style={[styles.qualityTag, active && styles.activeQualityTag]}>
-            <Icon name={icon} size={16} color={active ? '#fff' : '#6c757d'} />
-            <Text style={[styles.qualityTagText, active && styles.activeQualityTagText]}>
-                {label}
-            </Text>
         </View>
     );
 
@@ -198,7 +187,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 16,
+        paddingTop: 32,
+        padding: 8,
         backgroundColor: '#fff',
         elevation: 2,
     },
@@ -208,7 +198,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
         color: '#212529',
     },
     content: {
@@ -225,7 +215,7 @@ const styles = StyleSheet.create({
     statusText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
     },
     section: {
         backgroundColor: '#fff',
@@ -236,18 +226,19 @@ const styles = StyleSheet.create({
     },
     productName: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
         color: '#212529',
         marginBottom: 8,
     },
     description: {
         fontSize: 14,
+        fontFamily: "Poppins-Normal",
         color: '#6c757d',
         lineHeight: 20,
     },
     sectionTitle: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
         color: '#212529',
         marginBottom: 16,
     },
@@ -300,7 +291,7 @@ const styles = StyleSheet.create({
     detailValue: {
         fontSize: 14,
         color: '#212529',
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
         flexShrink: 1, // Allow text to wrap
         flexWrap: 'wrap',
         width: 100,
@@ -328,9 +319,11 @@ const styles = StyleSheet.create({
     },
     qualityTagText: {
         fontSize: 14,
+        fontFamily: "Poppins-Normal",
         color: '#6c757d',
     },
     activeQualityTagText: {
         color: '#fff',
+        fontFamily: "Poppins-Normal",
     },
 });

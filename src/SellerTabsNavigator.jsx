@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from './constant';
-import Dashboard from './screens/sellers_side/Dashboard';
-import Chat from './screens/sellers_side/Chat';
 import Account from './screens/sellers_side/Account';
 import Analytics from './screens/sellers_side/Analytics';
+import Chat from './screens/sellers_side/Chat';
+import Dashboard from './screens/sellers_side/Dashboard';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +14,7 @@ export default function SellersTabs() {
             screenOptions={{
                 headerShown: false,
                 tabBarStyle: {
-                    height: 60,
+                    height: 63,
                     paddingTop: 6,
                     paddingBottom: 10,
                 },

@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 import {
-    View,
-    Text,
-    StyleSheet,
     Image,
-    TouchableOpacity,
     Platform,
+    Pressable,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { THEME_COLOR } from '../../constant';
-import { useNavigation } from '@react-navigation/native';
 
 
 export default function SellerHeader() {
     const navigation = useNavigation();
-    const [unreadNotifications] = useState(3); // Replace with actual notifications count
+    const [unreadNotifications] = useState(3);
 
     return (
         <View style={styles.container}>
@@ -28,7 +27,8 @@ export default function SellerHeader() {
                 </View>
 
                 <View style={styles.rightSection}>
-                    <TouchableOpacity
+                    <Pressable
+                        android_ripple={{ color: '#ddd' }}
                         style={styles.iconButton}
                         onPress={() => navigation.navigate('SellerNotifications')}
                     >
@@ -40,20 +40,18 @@ export default function SellerHeader() {
                                 </Text>
                             </View>
                         )}
-                    </TouchableOpacity>
+                    </Pressable>
 
-                    <TouchableOpacity
+                    <Pressable
+                        android_ripple={{ color: '#ddd' }}
                         style={styles.profileButton}
                         onPress={() => navigation.navigate('SellerProfile')}
                     >
                         <Icon name="account-circle" size={24} color="#333" />
                         <View style={styles.statusDot} />
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </View>
-
-            {/* Optional: Add a shadow separator */}
-            <View style={styles.separator} />
         </View>
     );
 }
@@ -61,7 +59,7 @@ export default function SellerHeader() {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        paddingTop: Platform.OS === 'ios' ? 44 : 0,
+        paddingTop: Platform.OS === 'ios' ? 44 : 20,
     },
     header: {
         flexDirection: 'row',
@@ -106,7 +104,7 @@ const styles = StyleSheet.create({
     badgeText: {
         color: '#fff',
         fontSize: 10,
-        fontWeight: 'bold',
+        fontFamily: "Poppins-SemiBold",
     },
     profileButton: {
         position: 'relative',

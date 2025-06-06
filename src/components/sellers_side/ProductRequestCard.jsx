@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Pressable } from 'react-native'
-import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
-import { useNavigation } from '@react-navigation/native';
 
 export default function ProductRequestCard({ item, onEdit }) {
     const navigation = useNavigation();
@@ -151,7 +150,7 @@ export default function ProductRequestCard({ item, onEdit }) {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 3,
+        marginVertical: 8,
     },
     requestItem: {
         backgroundColor: '#fff',
@@ -190,8 +189,8 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     productName: {
-        fontSize: 16,
-        fontWeight: '600',
+        fontSize: 14,
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
         lineHeight: 20,
         flex: 1,
@@ -203,6 +202,7 @@ const styles = StyleSheet.create({
     },
     dateText: {
         fontSize: 12,
+        fontFamily: "Poppins-Normal",
         color: '#6c757d',
     },
     statusBadge: {
@@ -215,13 +215,11 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginRight: "-2%"
     },
-    statusIcon: {
-        marginRight: 2,
-    },
     statusText: {
         color: '#fff',
         fontSize: 12,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
+        paddingRight: 2
     },
     divider: {
         height: 1,
@@ -253,17 +251,19 @@ const styles = StyleSheet.create({
     },
     detailLabel: {
         fontSize: 12,
+        fontFamily: "Poppins-SemiBold",
         color: '#6c757d',
         marginBottom: 4,
     },
     detailText: {
         color: '#212529',
         fontSize: 14,
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
     },
     perItemText: {
         color: '#6c757d',
         fontSize: 12,
+        fontFamily: "Poppins-Normal",
         marginTop: 2,
     },
     footerSection: {
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     footerButtonText: {
         color: THEME_COLOR,
         fontSize: 14,
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
     },
     verticalDivider: {
         width: 1,

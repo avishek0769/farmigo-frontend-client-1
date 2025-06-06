@@ -1,5 +1,5 @@
 import * as DocumentPicker from 'expo-document-picker';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     FlatList,
@@ -55,7 +55,7 @@ export default function Dashboard() {
             quantity: '1000',
             price: '250',
             status: 'Pending',
-            date: '24 Apr 2025'
+            date: '24/5/2025'
         },
         {
             id: 2,
@@ -80,7 +80,7 @@ export default function Dashboard() {
             quantity: '1000',
             price: '250', // Total price
             status: 'Pending',
-            date: '24 Apr 2025'
+            date: '24/5/2025'
         },
         {
             id: 5,
@@ -89,7 +89,7 @@ export default function Dashboard() {
             quantity: '50 kg',
             price: '₹25/kg', // Already formatted price
             status: 'Approved',
-            date: '23 Apr 2025'
+            date: '24/5/2025'
         }
     ]);
 
@@ -124,7 +124,6 @@ export default function Dashboard() {
             setError('Failed to pick image');
         }
     };
-
 
     const handleSubmit = async () => {
         try {
@@ -240,10 +239,10 @@ export default function Dashboard() {
         setError('');
     }, [formData.description, formData.name, formData.price, formData.quantity, formData.unit]);
 
-
     return (
         <View style={styles.container}>
             <SellerHeader />
+
             <FilterProductRequest
                 onFilterChange={(filters) => {
                     console.log('Selected filters:', filters);
@@ -315,7 +314,10 @@ export default function Dashboard() {
                         </View>
 
                         <View style={styles.formSection}>
-                            <Text style={[styles.sectionTitle, { fontSize: 14, color: '#495057' }]}>Pricing Details<Text style={styles.required}>*</Text></Text>
+                            <Text style={[styles.sectionTitle, { fontSize: 14, fontFamily: 'Poppins-SemiBold', color: '#495057' }]}>
+                                Pricing Details
+                                <Text style={styles.required}>*</Text>
+                            </Text>
                             <View style={[styles.priceTypeToggleContainer, styles.elevation]}>
                                 <Pressable
                                     android_ripple={{ color: '#ddd' }}
@@ -546,7 +548,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#212529'
     },
     addButton: {
@@ -560,9 +562,10 @@ const styles = StyleSheet.create({
     },
     addButtonText: {
         color: '#fff',
-        fontWeight: '600'
+        fontFamily: 'Poppins-Bold',
     },
     listContainer: {
+        backgroundColor: "#fff",
         padding: 16,
         paddingTop: 8,
         zIndex: 1, // Add this
@@ -581,7 +584,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#212529'
     },
     formContainer: {
@@ -594,7 +597,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         color: '#495057',
-        fontWeight: '500'
+        fontFamily: 'Poppins-SemiBold',
     },
     input: {
         backgroundColor: '#fff',
@@ -603,6 +606,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         padding: 14,
         fontSize: 16,
+        fontFamily: 'Poppins-Normal',
         color: '#212529',
     },
     textArea: {
@@ -622,7 +626,7 @@ const styles = StyleSheet.create({
     imageUploadText: {
         color: THEME_COLOR,
         fontSize: 16,
-        fontWeight: '500'
+        fontFamily: 'Poppins-SemiBold'
     },
     imagePreviewContainer: {
         marginTop: 12,
@@ -679,7 +683,7 @@ const styles = StyleSheet.create({
     resetButtonText: {
         color: THEME_COLOR,
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     submitButton: {
         backgroundColor: THEME_COLOR,
@@ -688,7 +692,7 @@ const styles = StyleSheet.create({
     submitButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
     },
     fab: {
         position: 'absolute',
@@ -732,7 +736,7 @@ const styles = StyleSheet.create({
     priceTypeText: {
         fontSize: 14,
         color: THEME_COLOR,
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     priceInputContainer: {
         flexDirection: 'row',
@@ -759,7 +763,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: '#212529',
         marginBottom: 4,
     },
@@ -785,7 +789,7 @@ const styles = StyleSheet.create({
     unitButtonText: {
         color: THEME_COLOR,
         fontSize: 14,
-        fontWeight: '500',
+        fontFamily: 'Poppins-SemiBold',
     },
     selectedUnitText: {
         color: '#fff',
@@ -799,6 +803,7 @@ const styles = StyleSheet.create({
     },
     helperText: {
         fontSize: 14,
+        fontFamily: 'Poppins-Normal',
         color: '#6c757d',
         marginBottom: 12,
     },
@@ -830,7 +835,7 @@ const styles = StyleSheet.create({
     },
     priceTypeButtonText: {
         fontSize: 14,
-        fontWeight: '600',
+        fontFamily: 'Poppins-Bold',
         color: THEME_COLOR,
     },
     activePriceTypeButtonText: {
@@ -851,6 +856,7 @@ const styles = StyleSheet.create({
     errorText: {
         color: '#dc3545',
         fontSize: 14,
+        fontFamily: 'Poppins-Normal',
         flex: 1,
         lineHeight: 20,
     }

@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, Image, ScrollView, Pressable, Share, Platform, Linking } from 'react-native'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { Image, Linking, Platform, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { THEME_COLOR } from '../../constant'
-import SellerHeader from '../../components/sellers_side/SellersHeader'
-import { AppContext } from '../../context/ContextProvider'
 import ModalPopUp from '../../components/common/ModalPopUp'
-import EditProfileModal from '../../components/sellers_side/EditProfileModal';
+import EditProfileModal from '../../components/sellers_side/EditProfileModal'
+import SellerHeader from '../../components/sellers_side/SellersHeader'
+import { THEME_COLOR } from '../../constant'
+import { AppContext } from '../../context/ContextProvider'
 
 export default function Account({ navigation }) {
     const [showLogoutModal, setShowLogoutModal] = useState(false)
@@ -241,17 +241,19 @@ const styles = StyleSheet.create({
     },
     businessName: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
         marginBottom: 4
     },
     ownerName: {
         fontSize: 14,
+        fontFamily: "Poppins-Normal",
         color: '#495057',
         marginBottom: 2
     },
     phone: {
         fontSize: 14,
+        fontFamily: "Poppins-Normal",
         color: '#6c757d'
     },
     ratingContainer: {
@@ -263,10 +265,11 @@ const styles = StyleSheet.create({
     rating: {
         fontSize: 14,
         color: '#495057',
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
     },
     totalOrders: {
         fontSize: 12,
+        fontFamily: "Poppins-Normal",
         color: '#6c757d',
     },
     editButton: {
@@ -296,15 +299,19 @@ const styles = StyleSheet.create({
     },
     detailLabel: {
         fontSize: 12,
+        fontFamily: "Poppins-Normal",
         color: '#6c757d',
         marginBottom: 2
     },
     detailValue: {
         fontSize: 14,
+        fontFamily: "Poppins-Normal",
+
         color: '#495057'
     },
     detailSubvalue: {
         fontSize: 12,
+        fontFamily: "Poppins-Normal",
         color: '#6c757d',
         marginTop: 2,
     },
@@ -338,6 +345,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#adb5bd',
         fontSize: 12,
+        fontFamily: "Poppins-Normal",
         marginVertical: 20
     },
     menuItemText: {
@@ -346,7 +354,7 @@ const styles = StyleSheet.create({
     },
     menuItemTitle: {
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
         marginBottom: 2
     },

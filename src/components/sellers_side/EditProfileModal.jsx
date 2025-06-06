@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { 
-    View, 
-    Text, 
-    Modal, 
-    StyleSheet, 
-    TextInput, 
-    Pressable, 
+import { useEffect, useState } from 'react';
+import {
+    ActivityIndicator,
+    Modal,
+    Pressable,
     ScrollView,
-    ActivityIndicator 
+    StyleSheet,
+    Text,
+    TextInput,
+    View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
@@ -130,17 +130,23 @@ export default function EditProfileModal({ visible, onClose, onSave, sellerData 
                             <Text style={styles.sectionTitle}>Contact Details</Text>
                             <View style={styles.inputContainer}>
                                 <Text style={styles.label}>Phone Number<Text style={styles.required}>*</Text></Text>
-                                <TextInput
-                                    style={[styles.input, styles.elevation]}
-                                    value={formData.phone}
-                                    onChangeText={(text) => {
-                                        setError('');
-                                        setFormData(prev => ({ ...prev, phone: text }));
-                                    }}
-                                    placeholder="Enter phone number"
-                                    keyboardType="phone-pad"
-                                    placeholderTextColor="#adb5bd"
-                                />
+                                <View style={styles.phoneInputContainer}>
+                                    <View style={styles.countryCodeContainer}>
+                                        <Text style={styles.countryCode}>+91</Text>
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.phoneInput, styles.elevation]}
+                                        value={formData.phone}
+                                        onChangeText={(text) => {
+                                            setError('');
+                                            setFormData(prev => ({ ...prev, phone: text }));
+                                        }}
+                                        placeholder="Enter phone number"
+                                        keyboardType="phone-pad"
+                                        placeholderTextColor="#adb5bd"
+                                        maxLength={10}
+                                    />
+                                </View>
                             </View>
 
                             <View style={styles.inputContainer}>
@@ -245,7 +251,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
         color: '#212529'
     },
     closeButton: {
@@ -262,7 +268,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
         color: '#212529',
         marginBottom: 16,
     },
@@ -273,7 +279,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         color: '#495057',
-        fontWeight: '500'
+        fontFamily: "Poppins-SemiBold",
     },
     required: {
         color: '#dc3545',
@@ -286,6 +292,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         padding: 14,
         fontSize: 16,
+        fontFamily: "Poppins-Normal",
         color: '#212529',
     },
     elevation: {
@@ -325,11 +332,47 @@ const styles = StyleSheet.create({
     cancelButtonText: {
         color: THEME_COLOR,
         fontSize: 16,
-        fontWeight: '500'
+        fontFamily: "Poppins-SemiBold",
     },
     saveButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '500'
-    }
+        fontFamily: "Poppins-SemiBold",
+    },
+    phoneInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#e9ecef',
+        borderRadius: 12,
+        elevation: 0.5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+    },
+    countryCodeContainer: {
+        paddingHorizontal: 14,
+        paddingVertical: 14,
+        borderRightWidth: 1,
+        borderRightColor: '#e9ecef',
+        backgroundColor: '#f8f9fa',
+        borderTopLeftRadius: 12,
+        borderBottomLeftRadius: 12,
+    },
+    countryCode: {
+        fontSize: 14,
+        fontFamily: "Poppins-SemiBold",
+        color: '#6c757d',
+    },
+    phoneInput: {
+        flex: 1,
+        borderWidth: 0,
+        borderRadius: 0,
+        borderTopRightRadius: 12,
+        borderBottomRightRadius: 12,
+        elevation: 0,
+        shadowOpacity: 0,
+    },
 });

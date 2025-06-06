@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
-    View,
+    ScrollView,
+    StyleSheet,
     Text,
     TouchableOpacity,
-    StyleSheet,
-    ScrollView,
+    View,
 } from 'react-native';
 import { THEME_COLOR } from '../../constant';
 
@@ -130,14 +130,12 @@ export default function FilterProductRequest({ onFilterChange }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        elevation: 2,
+        // elevation: 2,
         zIndex: 1000,
         position: 'relative',
     },
     filterBar: {
         backgroundColor: '#fff',
-        borderBottomWidth: 1,
-        borderBottomColor: '#f0f0f0',
     },
     filterBarContent: {
         padding: 12,
@@ -162,24 +160,25 @@ const styles = StyleSheet.create({
     },
     filterText: {
         fontSize: 14,
+        fontFamily: "Poppins-SemiBold",
         color: '#495057',
-        fontWeight: '500',
     },
     activeFilterText: {
         color: THEME_COLOR,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
     },
     selectedFilterText: {
         color: THEME_COLOR,
     },
     filterArrow: {
         fontSize: 12,
+        fontFamily: "Poppins-Normal",
     },
     dropdown: {
         position: 'absolute',
         left: 0,
         right: 0,
-        top: 55,
+        top: 75,
         backgroundColor: '#fff',
         borderRadius: 12,
         marginHorizontal: 12,
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
     },
     dropdownTitle: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
         color: '#212529',
     },
     closeButton: {
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     closeButtonText: {
         color: '#dc3545',
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: "Poppins-SemiBold",
     },
     dropdownItem: {
         padding: 16,
@@ -219,10 +218,11 @@ const styles = StyleSheet.create({
     },
     dropdownItemText: {
         fontSize: 15,
+        fontFamily: "Poppins-Normal",
         color: '#495057',
     },
     selectedDropdownItemText: {
         color: THEME_COLOR,
-        fontWeight: '500',
+        fontFamily: "Poppins-SemiBold",
     },
 });

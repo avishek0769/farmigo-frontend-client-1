@@ -1,16 +1,19 @@
-import { 
-    StyleSheet, 
-    Text, 
-    View, 
-    TextInput, 
-    FlatList, 
+import { useEffect, useRef, useState } from 'react';
+import {
+    FlatList,
+    KeyboardAvoidingView,
+    Platform,
     Pressable,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
 } from 'react-native';
-import React, { useState, useRef, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { THEME_COLOR } from '../../constant';
 
 export default function Chat() {
+    const [isOnline, setIsOnline] = useState(false);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([
         {
@@ -53,7 +56,7 @@ export default function Chat() {
             sender: "seller",
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
-        
+
         setMessages(prev => [...prev, newMessage]);
         setMessage('');
     };
@@ -75,7 +78,11 @@ export default function Chat() {
     );
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView 
+            style={styles.container}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+        >
             {/* Enhanced Header */}
             <View style={styles.header}>
                 <View style={styles.adminInfo}>
@@ -84,14 +91,19 @@ export default function Chat() {
                     </View>
                     <View>
                         <Text style={styles.adminName}>Admin Support</Text>
-                        <Text style={styles.onlineStatus}>
-                            <Icon name="circle" size={8} color="#198754" /> Online
-                        </Text>
+                        {isOnline ?
+                            <Text style={[styles.onOffStatus, { color: '#198754' }]}>
+                                <Icon name="circle" size={8} color="#198754" /> Online
+                            </Text> :
+                            <Text style={[styles.onOffStatus, { color: '#adb5bd' }]}>
+                                <Icon name="circle" size={8} color="#adb5bd" /> Offline
+                            </Text>
+                        }
                     </View>
                 </View>
             </View>
 
-            {/* Messages List with enhanced styling */}
+            {/* Messages List */}
             <FlatList
                 ref={flatListRef}
                 data={messages}
@@ -99,8 +111,9 @@ export default function Chat() {
                 keyExtractor={item => item.id.toString()}
                 contentContainerStyle={styles.messagesList}
                 showsVerticalScrollIndicator={false}
-                onContentSizeChange={() => flatListRef.current.scrollToEnd()}
-                onLayout={() => flatListRef.current.scrollToEnd()}
+                onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+                onLayout={() => flatListRef.current?.scrollToEnd({ animated: true })}
+                style={styles.messagesContainer}
             />
 
             {/* Enhanced Input Section */}
@@ -113,6 +126,7 @@ export default function Chat() {
                     placeholderTextColor="#adb5bd"
                     multiline
                     onSubmitEditing={sendMessage}
+                    returnKeyType="send"
                 />
                 <Pressable
                     android_ripple={{ color: '#ddd', borderless: true }}
@@ -126,7 +140,7 @@ export default function Chat() {
                     <Icon name="send" size={20} color="#fff" />
                 </Pressable>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -137,11 +151,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f9fa',
     },
     header: {
+        paddingTop: Platform.OS === 'ios' ? 44 : 25,
         backgroundColor: '#fff',
         padding: 16,
         elevation: 2,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f1f3f5',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
     adminInfo: {
         flexDirection: 'row',
@@ -155,24 +172,25 @@ const styles = StyleSheet.create({
         backgroundColor: THEME_COLOR,
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'relative',
     },
     adminName: {
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: 'bold',
         color: '#212529',
         marginBottom: 2,
     },
-    onlineStatus: {
+    onOffStatus: {
         fontSize: 12,
-        color: '#198754',
         flexDirection: 'row',
         alignItems: 'center',
         gap: 4,
     },
+    messagesContainer: {
+        flex: 1,
+    },
     messagesList: {
         padding: 16,
-        gap: 8,
+        flexGrow: 1,
     },
     messageContainer: {
         maxWidth: '85%',
@@ -180,17 +198,20 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         elevation: 1,
         marginVertical: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
     },
     sentMessage: {
         alignSelf: 'flex-end',
         backgroundColor: THEME_COLOR,
-        borderBottomRightRadius: 2,
-        
+        borderBottomRightRadius: 4,
     },
     receivedMessage: {
         alignSelf: 'flex-start',
         backgroundColor: '#fff',
-        borderBottomLeftRadius: 2,
+        borderBottomLeftRadius: 4,
     },
     messageText: {
         fontSize: 15,
@@ -215,23 +236,28 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row',
-        padding: 12,
+        padding: 16,
         backgroundColor: '#fff',
         elevation: 8,
         gap: 12,
         borderTopWidth: 1,
         borderTopColor: '#f1f3f5',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: -2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
     input: {
         flex: 1,
         backgroundColor: '#f8f9fa',
-        borderRadius: 24,
+        borderRadius: 20,
         paddingHorizontal: 16,
-        paddingVertical: 10,
+        paddingVertical: 12,
         maxHeight: 100,
         fontSize: 15,
         color: '#212529',
-        elevation: 1,
+        borderWidth: 1,
+        borderColor: '#e9ecef',
     },
     sendButton: {
         width: 44,
@@ -241,6 +267,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
     },
     disabledButton: {
         opacity: 0.5,
