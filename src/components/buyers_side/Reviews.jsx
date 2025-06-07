@@ -40,6 +40,7 @@ export default function Reviews({ reviews }) {
                 <TextInput
                     style={styles.reviewInput}
                     placeholder="Write your review..."
+                    placeholderTextColor={'#6c757d'}
                     value={newReview}
                     onChangeText={setNewReview}
                     multiline

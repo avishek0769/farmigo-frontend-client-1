@@ -1,9 +1,10 @@
-import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
-import { Alert, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { THEME_COLOR } from '../../constant'
-import ModalPopUp from '../common/ModalPopUp'
+import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
+import { Alert, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { THEME_COLOR } from '../../constant';
+import ModalPopUp from '../common/ModalPopUp';
 
 const PaymentMethodIcon = ({ method }) => {
     const getIcon = () => {
@@ -48,119 +49,137 @@ export const OrderCard = ({ item, onRateProduct }) => {
         Alert.prompt('Order cancelled successfully')
     }
 
+    const getStatusGradient = (status) => {
+        return status === 'Delivered' 
+            ? ['#e8f5e8', '#ffffff', '#f0fff4']
+            : ['#fff8e1', '#ffffff', '#fffde7']
+    }
+
     return (
         <View style={styles.orderCard}>
-            <View style={styles.orderHeader}>
-                <Text style={styles.orderId}>Order #{item.orderId}</Text>
-                <Text style={[
-                    styles.status,
-                    { color: item.status === 'Delivered' ? '#28a745' : '#ffc107' }
-                ]}>
-                    {item.status}
-                </Text>
-            </View>
-
-            {/* Payment Information */}
-            <View style={styles.paymentInfo}>
-                <PaymentMethodIcon method={item.paymentMethod} />
-                <View style={styles.amountContainer}>
-                    <Text style={styles.amountLabel}>Total Amount:</Text>
-                    <Text style={styles.amount}>₹{totalAmount}</Text>
+            <LinearGradient
+                colors={getStatusGradient(item.status)}
+                style={styles.cardGradient}
+            >
+                <View style={styles.orderHeader}>
+                    <Text style={styles.orderId}>Order #{item.orderId}</Text>
+                    <View style={item.status === 'Delivered' ? styles.statusDelivered : styles.statusPending}>
+                        <Text style={[
+                            styles.status,
+                            { color: item.status === 'Delivered' ? '#28a745' : '#ffc107' }
+                        ]}>
+                            {item.status}
+                        </Text>
+                    </View>
                 </View>
-            </View>
 
-            {item.products.map((product, index) => (
-                <Pressable onPress={() => navigation.navigate("ProductDetails", { productId: product.id })} key={index} style={styles.productItem}>
-                    <Image source={{ uri: product.image }} style={styles.productImage} />
-                    <View style={styles.productInfo}>
-                        <Text numberOfLines={2} style={styles.productName}>{product.name}</Text>
-                        <Text style={styles.quantity}>Quantity: {product.quantity}</Text>
-                        <Text style={styles.price}>₹{product.price}</Text>
+                {/* Payment Information */}
+                <View style={styles.paymentInfo}>
+                    <PaymentMethodIcon method={item.paymentMethod} />
+                    <View style={styles.amountContainer}>
+                        <Text style={styles.amountLabel}>Total Amount:</Text>
+                        <Text style={styles.amount}>₹{totalAmount}</Text>
                     </View>
-                </Pressable>
-            ))}
+                </View>
 
-            <View style={styles.footer}>
-                <View style={styles.footerTop}>
-                    <View>
-                        <Text style={styles.dateInfo}>
-                            {item.status === 'Delivered'
-                                ? `Delivered on ${item.deliveryDate}`
-                                : `Expected by ${item.expectedDate}`
-                            }
-                        </Text>
-                        <Text style={styles.paymentStatus}>
-                            {item.status === 'Delivered' 
-                                ? 'Payment Completed'
-                                : item.paymentMethod === 'COD'
-                                    ? 'Payment on Delivery'
-                                    : 'Payment Processed'
-                            }
-                        </Text>
+                {item.products.map((product, index) => (
+                    <Pressable onPress={() => navigation.navigate("ProductDetails", { productId: product.id })} key={index} style={styles.productItem}>
+                        <Image source={{ uri: product.image }} style={styles.productImage} />
+                        <View style={styles.productInfo}>
+                            <Text numberOfLines={2} style={styles.productName}>{product.name}</Text>
+                            <Text style={styles.quantity}>Quantity: {product.quantity}</Text>
+                            <Text style={styles.price}>₹{product.price}</Text>
+                        </View>
+                    </Pressable>
+                ))}
+
+                <View style={styles.footer}>
+                    <View style={styles.footerTop}>
+                        <View>
+                            <Text style={styles.dateInfo}>
+                                {item.status === 'Delivered'
+                                    ? `Delivered on ${item.deliveryDate}`
+                                    : `Expected by ${item.expectedDate}`
+                                }
+                            </Text>
+                            <Text style={styles.paymentStatus}>
+                                {item.status === 'Delivered' 
+                                    ? 'Payment Completed'
+                                    : item.paymentMethod === 'COD'
+                                        ? 'Payment on Delivery'
+                                        : 'Payment Processed'
+                                }
+                            </Text>
+                        </View>
+                        
+                        {item.status !== 'Delivered' && (
+                            <TouchableOpacity 
+                                onPress={() => setShowCancelModal(true)}
+                                style={styles.cancelButton}
+                            >
+                                <Icon name="close-circle-outline" size={18} color="#dc3545" />
+                                <Text style={styles.cancelButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
-                    
-                    {item.status !== 'Delivered' && (
-                        <TouchableOpacity 
-                            onPress={() => setShowCancelModal(true)}
-                            style={styles.cancelButton}
-                        >
-                            <Icon name="close-circle-outline" size={18} color="#dc3545" />
-                            <Text style={styles.cancelButtonText}>Cancel</Text>
-                        </TouchableOpacity>
+
+                    {item.status === 'Delivered' && (
+                        <View style={styles.ratingContainer}>
+                            <Text style={styles.ratingLabel}>Rate this order:</Text>
+                            <View style={styles.starsContainer}>
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <TouchableOpacity
+                                        key={star}
+                                        onPress={() => {
+                                            setRating(star)
+                                            onRateProduct(item.orderId, star)
+                                        }}
+                                    >
+                                        <Icon
+                                            name={rating >= star ? 'star' : 'star-outline'}
+                                            size={24}
+                                            color={rating >= star ? '#ffc107' : '#6c757d'}
+                                            style={styles.starIcon}
+                                        />
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        </View>
                     )}
                 </View>
 
-                {item.status === 'Delivered' && (
-                    <View style={styles.ratingContainer}>
-                        <Text style={styles.ratingLabel}>Rate this order:</Text>
-                        <View style={styles.starsContainer}>
-                            {[1, 2, 3, 4, 5].map((star) => (
-                                <TouchableOpacity
-                                    key={star}
-                                    onPress={() => {
-                                        setRating(star)
-                                        onRateProduct(item.orderId, star)
-                                    }}
-                                >
-                                    <Icon
-                                        name={rating >= star ? 'star' : 'star-outline'}
-                                        size={24}
-                                        color={rating >= star ? '#ffc107' : '#6c757d'}
-                                        style={styles.starIcon}
-                                    />
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-                    </View>
-                )}
-            </View>
-
-            {/* Cancel Confirmation Modal */}
-            <ModalPopUp 
-                showLogoutModal={showCancelModal}
-                setShowLogoutModal={setShowCancelModal}
-                handleAction={handleCancelOrder}
-                icon="info"
-                actionBtnTxt="Yes, Cancel"
-                cancelBtnTxt="No, Keep It"
-                actionTxt={"Cancel Order"}
-                actionDescription={`Are you sure you want to cancel Order #${item.orderId}?`}
-            />
+                {/* Cancel Confirmation Modal */}
+                <ModalPopUp 
+                    showLogoutModal={showCancelModal}
+                    setShowLogoutModal={setShowCancelModal}
+                    handleAction={handleCancelOrder}
+                    icon="info"
+                    actionBtnTxt="Yes, Cancel"
+                    cancelBtnTxt="No, Keep It"
+                    actionTxt={"Cancel Order"}
+                    actionDescription={`Are you sure you want to cancel Order #${item.orderId}?`}
+                />
+            </LinearGradient>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     orderCard: {
-        backgroundColor: '#fff',
+        backgroundColor: 'transparent',
         borderRadius: 12,
-        padding: 15,
+        padding: 0,
         marginBottom: 15,
         elevation: 2,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
-        shadowRadius: 3
+        shadowRadius: 3,
+        overflow: 'hidden',
+    },
+    cardGradient: {
+        padding: 15,
+        borderRadius: 12,
     },
     orderHeader: {
         flexDirection: 'row',
@@ -168,7 +187,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#dee2e6'
+        borderBottomColor: 'rgba(222, 226, 230, 0.5)'
     },
     orderId: {
         fontSize: 16,
@@ -184,7 +203,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         paddingBottom: 12,
         borderBottomWidth: 1,
-        borderBottomColor: '#f1f3f5'
+        borderBottomColor: 'rgba(241, 243, 245, 0.7)'
     },
     productImage: {
         width: 70,
@@ -238,16 +257,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#dee2e6',
+        borderBottomColor: 'rgba(222, 226, 230, 0.5)',
         marginBottom: 15
     },
     paymentMethod: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#f8f9fa',
+        backgroundColor: 'rgba(248, 249, 250, 0.8)',
         paddingHorizontal: 12,
         paddingVertical: 6,
-        borderRadius: 6
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: 'rgba(233, 236, 239, 0.5)',
     },
     paymentText: {
         marginLeft: 6,
@@ -286,12 +307,12 @@ const styles = StyleSheet.create({
     cancelButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#fff5f5',
+        backgroundColor: 'rgba(255, 245, 245, 0.9)',
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: 6,
         borderWidth: 1,
-        borderColor: '#ffcdd2',
+        borderColor: 'rgba(255, 205, 210, 0.6)',
     },
     cancelButtonText: {
         color: '#dc3545',
