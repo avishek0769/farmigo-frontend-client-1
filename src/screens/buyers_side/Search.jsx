@@ -133,14 +133,25 @@ export default function SearchScreen({ navigation }) {
                             style={styles.input}
                             placeholderTextColor="#999"
                             autoFocus={false}
+                            onSubmitEditing={() => handleSearchSubmit(query)}
+                            returnKeyType="search"
                         />
                         {query.length > 0 && (
-                            <TouchableOpacity
-                                onPress={() => setQuery('')}
-                                style={styles.clearButton}
-                            >
-                                <Icon name="close" size={20} color="#666" />
-                            </TouchableOpacity>
+                            <>
+                                <TouchableOpacity
+                                    onPress={() => setQuery('')}
+                                    style={styles.clearButton}
+                                >
+                                    <Icon name="close" size={18} color="#666" />
+                                </TouchableOpacity>
+                                
+                                <TouchableOpacity
+                                    onPress={() => handleSearchSubmit(query)}
+                                    style={styles.searchButton}
+                                >
+                                    <Icon name="arrow-forward" size={20} color="#fff" />
+                                </TouchableOpacity>
+                            </>
                         )}
                     </View>
                 </View>
@@ -234,6 +245,9 @@ export default function SearchScreen({ navigation }) {
                                         <Icon name="chevron-right" size={20} color="#adb5bd" />
                                     </Pressable>
                                 ))}
+                                {filteredSuggestions.length === 0 && (
+                                    <Text style={[styles.historyText, {marginLeft: 16}]}>No suggestions found</Text>
+                                )}
                             </View>
                         )}
                     </>
@@ -264,9 +278,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#f8f9fa',
-        borderRadius: 8,
+        borderRadius: 25, // Made more rounded for better aesthetics
         paddingHorizontal: 12,
-        gap: 12,
+        gap: 8, // Reduced gap for better spacing
+        borderWidth: 1,
+        borderColor: '#e9ecef',
     },
     input: {
         flex: 1,
@@ -276,7 +292,21 @@ const styles = StyleSheet.create({
         color: '#212529',
     },
     clearButton: {
-        padding: 4,
+        padding: 6,
+        borderRadius: 12,
+        backgroundColor: '#e9ecef',
+    },
+    searchButton: {
+        backgroundColor: THEME_COLOR,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 20,
+        marginLeft: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
     },
     list: {
         flex: 1,

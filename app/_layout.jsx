@@ -47,7 +47,7 @@ export default function Layout() {
               <StatusBar translucent backgroundColor="transparent" style="dark" />
 
               {/* <NavigationContainer> */}
-              <Stack.Navigator initialRouteName="BuyersTab" screenOptions={{ headerShown: false }} >
+              <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }} >
 
                 {/* Common Screens */}
                 <Stack.Screen name="Splash" component={SplashScreen} />
