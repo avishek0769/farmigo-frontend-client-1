@@ -152,6 +152,7 @@ export default function SellerRegistration({ navigation }) {
             areaLocation: data.display_name || ''
         }))
     }
+
     const handleDetectLocation = useCallback(async () => {
         await detectLocation(argumentFuncOfDetectLoc, setLocationLoading, setError)
     }, [setLocationLoading, setError]);
@@ -167,7 +168,7 @@ export default function SellerRegistration({ navigation }) {
             // Validate form
             const requiredFields = [
                 'businessName', 'phone', 'email', 'areaLocation',
-                'ownerName', 'licenseNumber', 'yearsInBusiness'
+                'ownerName', 'licenseNumber', 'yearsInBusiness', 'licenseProof'
             ];
 
             const emptyFields = requiredFields.filter(field => !formData[field]);
