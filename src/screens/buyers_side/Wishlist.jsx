@@ -62,7 +62,7 @@ export default function Wishlist() {
 
     return (
         <View style={styles.container}>
-            <Header />
+            <Header inCartScreen />
             
             {wishlistItems.length === 0 ? (
                 <EmptyWishlist />
@@ -92,21 +92,20 @@ export default function Wishlist() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8f9fa'
+        backgroundColor: '#fff',
     },
     headerTitle: {
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 26,
+        fontFamily: "Poppins-Bold",
         color: '#212529',
-        padding: 15
+        padding: 15,
+        paddingTop: 70
     },
     listContainer: {
-        // padding: 10,
         paddingBottom: 20
     },
     productRow: {
         justifyContent: 'space-between',
-        // paddingHorizontal: 5
     },
     emptyContainer: {
         height: '80%',
@@ -122,12 +121,13 @@ const styles = StyleSheet.create({
     },
     emptyTitle: {
         fontSize: 20,
-        fontWeight: '600',
+        fontFamily: "Poppins-Bold",
         color: '#343a40',
         marginBottom: 8
     },
     emptySubtitle: {
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
         color: '#6c757d',
         textAlign: 'center',
         lineHeight: 24

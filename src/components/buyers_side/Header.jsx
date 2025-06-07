@@ -70,10 +70,10 @@ export default function Header({ inCartScreen = false, category = false, default
     const navigation = useNavigation();
 
     return (
-        <View style={[styles.container, { height: category ? 235 : 145 }, { height: showSearchIcon ? 100 : 235 }]}>
+        <View style={[styles.container, { height: category ? 235 : 90 }]}>
             <LinearGradient
                 colors={["#99d98c", '#fff']}
-                style={[styles.gradient, { height: category ? 180 : 130 }, { height: showSearchIcon ? 100 : 180 }]}
+                style={[styles.gradient, { height: category ? 180 : 102 }]}
             >
                 <View style={styles.header}>
                     <Image

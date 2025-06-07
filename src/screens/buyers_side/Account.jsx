@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient'
 import { useState } from 'react'
 import { Image, Platform, Pressable, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -16,28 +17,25 @@ export default function Account({ navigation }) {
     const [showEditModal, setShowEditModal] = useState(false);
 
     const handleAddressUpdate = (newAddress) => {
-        // Update address in your state management system
-        // For now, we'll just console.log
         setUser({ ...user, address: newAddress });
     };
 
     const handleProfileUpdate = (updatedData) => {
-        // Update user data in your context
         setUser({ ...user, ...updatedData });
     };
 
     const handleLogout = () => {
-        // Add your logout logic here
         setShowLogoutModal(false)
         setIsLoggedIn(false)
         navigation.replace('BuyersTab')
     }
+
     const handleShare = async () => {
         try {
             const result = await Share.share({
                 message: 'Check out this amazing farming app! Download now from: https://play.google.com/store/apps/your-app-link',
-                title: 'Share Pedo App',
-                url: 'https://play.google.com/store/apps/your-app-link' // Add this for iOS
+                title: 'Share Farmigo App',
+                url: 'https://play.google.com/store/apps/your-app-link'
             });
 
             if (result.action === Share.sharedAction) {
@@ -95,18 +93,29 @@ export default function Account({ navigation }) {
     ]
 
     return isLoggedIn ? (
-        <View style={{flex: 1}}>
-            {/* <Header /> */}
+        <LinearGradient
+            colors={['#f8f9fa', '#ffffff', '#f1f8e9']}
+            style={{ flex: 1 }}
+        >
             <Header inCartScreen showSearchIcon removeSearch />
 
             <ScrollView style={styles.container}>
                 {/* Profile Header */}
-                <View style={styles.header}>
+                <LinearGradient
+                    colors={['#e8f5e8', '#f8f9fa', '#ffffff']}
+                    style={styles.header}
+                >
                     <View style={styles.profileSection}>
-                        <Image
-                            source={{ uri: 'https://ui-avatars.com/api/?name=Avishek+Adhikary&background=random' }}
-                            style={styles.avatar}
-                        />
+                        <View style={styles.avatarContainer}>
+                            <Image
+                                source={{ uri: 'https://ui-avatars.com/api/?name=Avishek+Adhikary&background=random' }}
+                                style={styles.avatar}
+                            />
+                            <LinearGradient
+                                colors={['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.1)']}
+                                style={styles.avatarOverlay}
+                            />
+                        </View>
                         <View style={styles.profileInfo}>
                             <Text style={styles.name}>{user.name}</Text>
                             <Text style={styles.phone}>{user.phone}</Text>
@@ -119,57 +128,65 @@ export default function Account({ navigation }) {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={styles.addressContainer}>
+                    <LinearGradient
+                        colors={['rgba(248,249,250,0.8)', 'rgba(255,255,255,0.9)']}
+                        style={styles.addressContainer}
+                    >
                         <View style={styles.addressHeader}>
                             <Icon name="map-marker-outline" size={20} color="#6c757d" />
                             <Text style={styles.addressLabel}>Delivery Address</Text>
-
                             <TouchableOpacity onPress={() => setShowAddressModal(true)}>
                                 <Text style={styles.changeText}>Change</Text>
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.address}>{user.address}</Text>
-                    </View>
-                </View>
+                    </LinearGradient>
+                </LinearGradient>
 
                 {/* Menu Items */}
                 <View style={styles.menuContainer}>
                     {menuItems.map((item, index) => (
-                        <Pressable
-                            key={String(index)}
-                            style={({ pressed }) => [
-                                styles.menuItem,
-                                pressed && styles.menuItemPressed,
-                                Platform.OS === 'ios' && pressed && { opacity: 0.6 }
-                            ]}
-                            android_ripple={{
-                                color: '#e9ecef',
-                                borderless: false
-                            }}
-                            onPress={() => {
-                                if (item.route) {
-                                    navigation.navigate(item.route);
-                                } else if (item.action) {
-                                    item.action();
-                                }
-                            }}
-                        >
-                            <View style={styles.menuItemLeft}>
-                                <Icon name={item.icon} size={24} color="#495057" />
-                                <View style={styles.menuItemText}>
-                                    <Text style={styles.menuItemTitle}>{item.title}</Text>
-                                    <Text style={styles.menuItemSubtitle}>{item.subtitle}</Text>
+                        <View key={String(index)} style={styles.menuItemWrapper}>
+                            <Pressable
+                                style={({ pressed }) => [
+                                    styles.menuItem,
+                                    pressed && styles.menuItemPressed,
+                                    Platform.OS === 'ios' && pressed && { opacity: 0.6 }
+                                ]}
+                                android_ripple={{
+                                    color: 'rgba(233, 236, 239, 0.3)',
+                                    borderless: false
+                                }}
+                                onPress={() => {
+                                    if (item.route) {
+                                        navigation.navigate(item.route);
+                                    } else if (item.action) {
+                                        item.action();
+                                    }
+                                }}
+                            >
+                                <View style={styles.menuItemLeft}>
+                                    <View style={styles.iconContainer}>
+                                        <Icon name={item.icon} size={24} color="#495057" />
+                                    </View>
+                                    <View style={styles.menuItemText}>
+                                        <Text style={styles.menuItemTitle}>{item.title}</Text>
+                                        <Text style={styles.menuItemSubtitle}>{item.subtitle}</Text>
+                                    </View>
                                 </View>
-                            </View>
-                            <Icon name="chevron-right" size={24} color="#ced4da" />
-                        </Pressable>
+                                <Icon name="chevron-right" size={24} color="#ced4da" />
+                            </Pressable>
+                        </View>
                     ))}
                 </View>
 
-                <Text style={styles.version}>Version 1.0.0</Text>
-                <View style={{ margin: 10, backgroundColor: "#fff" }}></View>
+                <LinearGradient
+                    colors={['rgba(248,249,250,0.5)', 'rgba(255,255,255,0.8)']}
+                    style={styles.versionContainer}
+                >
+                    <Text style={styles.version}>Version 1.0.0</Text>
+                </LinearGradient>
             </ScrollView>
-
 
             <ModalPopUp
                 actionBtnTxt={"Logout"}
@@ -193,7 +210,7 @@ export default function Account({ navigation }) {
                 onSave={handleProfileUpdate}
                 userData={user}
             />
-        </View>
+        </LinearGradient>
     ) : (
         <NoAccount navigation={navigation} />
     )
@@ -202,25 +219,34 @@ export default function Account({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
         paddingBottom: 20
     },
     header: {
-        backgroundColor: '#fff',
         padding: 20,
         borderBottomWidth: 1,
-        borderBottomColor: '#dee2e6'
+        borderBottomColor: 'rgba(222, 226, 230, 0.3)'
     },
     profileSection: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20
     },
+    avatarContainer: {
+        position: 'relative',
+        marginRight: 15
+    },
     avatar: {
         width: 70,
         height: 70,
         borderRadius: 35,
-        marginRight: 15
+    },
+    avatarOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        borderRadius: 35,
     },
     profileInfo: {
         flex: 1
@@ -237,13 +263,14 @@ const styles = StyleSheet.create({
     },
     editButton: {
         padding: 8,
-        backgroundColor: '#e9ecef',
+        backgroundColor: 'rgba(233, 236, 239, 0.8)',
         borderRadius: 20
     },
     addressContainer: {
-        backgroundColor: '#f8f9fa',
         padding: 15,
-        borderRadius: 12
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: 'rgba(233, 236, 239, 0.3)'
     },
     addressHeader: {
         flexDirection: 'row',
@@ -269,26 +296,42 @@ const styles = StyleSheet.create({
         lineHeight: 20
     },
     menuContainer: {
-        backgroundColor: '#fff',
         marginTop: 15,
+        marginHorizontal: 15,
+        backgroundColor: 'rgba(255,255,255,0.7)',
         borderRadius: 12,
-        marginHorizontal: 15
+        borderWidth: 1,
+        borderColor: 'rgba(232, 245, 232, 0.5)',
+        overflow: 'hidden'
+    },
+    menuItemWrapper: {
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(232, 245, 232, 0.3)',
     },
     menuItem: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f1f3f5'
+        backgroundColor: 'transparent'
     },
     menuItemLeft: {
         flexDirection: 'row',
         alignItems: 'center',
         flex: 1
     },
+    iconContainer: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'rgba(232, 245, 232, 0.3)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 15,
+        borderWidth: 1,
+        borderColor: 'rgba(232, 245, 232, 0.5)',
+    },
     menuItemText: {
-        marginLeft: 15,
         flex: 1
     },
     menuItemTitle: {
@@ -302,14 +345,19 @@ const styles = StyleSheet.create({
         fontFamily: "Poppins-Regular",
         color: '#6c757d'
     },
+    versionContainer: {
+        marginVertical: 20,
+        paddingVertical: 12,
+        borderRadius: 8,
+        marginHorizontal: 15,
+    },
     version: {
         textAlign: 'center',
         color: '#adb5bd',
         fontSize: 12,
         fontFamily: "Poppins-Regular",
-        marginVertical: 20
     },
     menuItemPressed: {
-        backgroundColor: '#f8f9fa'
+        backgroundColor: 'rgba(232, 245, 232, 0.2)'
     }
 })
