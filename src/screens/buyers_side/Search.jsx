@@ -59,43 +59,43 @@ export default function SearchScreen({ navigation }) {
     const [categories] = useState([
         {
             id: 1,
-            name: 'Fertilizers',
-            image: 'https://s3-eu-west-1.amazonaws.com/yara-links/lvej.png'
+            name: "Bio pesticides",
+            image: "https://kaybeebio.com/wp-content/uploads/2023/05/Insecticide-For-Cotton-Crop-Pesto-Raze-Cotton-Special-300x300.webp",
         },
         {
             id: 2,
-            name: 'Seeds',
-            image: 'https://images.pexels.com/photos/401213/pexels-photo-401213.jpeg?auto=compress&cs=tinysrgb&w=600'
+            name: "Bio Fertilizers",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8uwaWrDuCwZv81offuXOxBEZtMYynwsvd_A&s",
         },
         {
             id: 3,
-            name: 'Pesticides',
-            image: 'https://agrijunction.s3.ap-south-1.amazonaws.com/uploads/products/meta/PVaagfZX1VVt7rJTzukcEvGmSzsDGGYYtecmvX8I.webp'
+            name: "Farm Machinery",
+            image: "https://mahindrafarmmachinery.com/sites/default/files/2023-10/Land%20preparation.png",
         },
         {
             id: 4,
-            name: 'Tools',
-            image: 'https://jcblhandtools.com/wp-content/uploads/2024/05/Garden-Fork.webp'
+            name: "Seeds-Vegetable",
+            image: "https://organicbazar.net/cdn/shop/products/Summer-Vegetable-Seeds-Kit-Hybrid-3.jpg?v=1743923646",
         },
         {
             id: 5,
-            name: 'Fertilizers',
-            image: 'https://s3-eu-west-1.amazonaws.com/yara-links/lvej.png'
+            name: "Seeds",
+            image: "https://www.kanzandmuhul.com/cdn/shop/products/packof5seeds.png?v=1637936532",
         },
         {
             id: 6,
-            name: 'Seeds',
-            image: 'https://images.pexels.com/photos/401213/pexels-photo-401213.jpeg?auto=compress&cs=tinysrgb&w=600'
+            name: "Field crop",
+            image: "https://media.istockphoto.com/id/1901542091/photo/tractor-spraying-soybean-crops-field.jpg?s=612x612&w=0&k=20&c=38X2xY_f3DSOGGg94LuhYYhbGlizYyg18lCsimMTbuU=",
         },
         {
             id: 7,
-            name: 'Pesticides',
-            image: 'https://agrijunction.s3.ap-south-1.amazonaws.com/uploads/products/meta/PVaagfZX1VVt7rJTzukcEvGmSzsDGGYYtecmvX8I.webp'
+            name: "Cash crop",
+            image: "https://www.taropumps.com/media/3350/taro-pumps-cash-crops-2.jpg",
         },
         {
             id: 8,
-            name: 'Tools',
-            image: 'https://jcblhandtools.com/wp-content/uploads/2024/05/Garden-Fork.webp'
+            name: "Tools & implements",
+            image: "https://4.imimg.com/data4/YV/LU/ANDROID-59112053/product-500x500.jpeg",
         }
     ]);
 

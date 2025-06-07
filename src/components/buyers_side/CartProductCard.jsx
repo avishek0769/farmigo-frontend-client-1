@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 120,
         overflow: 'hidden',
-        elevation: 3,
+        // elevation: 3,
         backgroundColor: '#fff',
     },
     image: {

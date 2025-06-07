@@ -27,43 +27,43 @@ export default function Cart({ navigation }) {
     const [cartItems, setCartItems] = useState([
         {
             id: 1,
-            title: "Fresh Organic Apples Fresh Organic Apples Fresh Organic Apples",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "Panchagavya	Liquid organic growth booster",
+            image: "https://agribegri.com/admin/images/prod_image/13465198701739771114.webp",
             quantity: 2,
             price: 120
         },
         {
             id: 2,
-            title: "Farm Fresh Eggs",
-            image: "https://images.pexels.com/photos/129574/pexels-photo-129574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+            title: "Seaweed Extract	Plant tonic",
+            image: "https://m.media-amazon.com/images/I/61uzenjVmjL.jpg",
             quantity: 1,
             price: 90
         },
         {
             id: 3,
-            title: "Almond Milk 1L",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "SSP	(Single Super Phosphate)",
+            image: "https://mahadhan.co.in/wp-content/uploads/2017/05/single-phosper-sulfate.png",
             quantity: 3,
             price: 150
         },
         {
             id: 4,
-            title: "Raw Honey Glass Jar",
-            image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec",
+            title: "MOP	(Muriate of Potash)",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ788VZMsiHrPa2cnTb8HlQ_n68O3nVcheRnw&s",
             quantity: 1,
             price: 250
         },
         {
             id: 5,
-            title: "Organic Tomatoes 1kg",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "Karate Lambda-Cyhalothrin",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9zIrMOyXyCOurrCStIb3K0OO-uqTvGh6DgA&s",
             quantity: 2,
             price: 60
         },
         {
             id: 6,
-            title: "Homemade Bread Loaf",
-            image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec",
+            title: "Thimet Phorate",
+            image: "https://5.imimg.com/data5/SELLER/Default/2022/2/OS/RY/EX/37703988/thinet-10-g-2--500x500.JPG",
             quantity: 1,
             price: 100
         },

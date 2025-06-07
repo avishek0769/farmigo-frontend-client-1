@@ -1,9 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { THEME_COLOR } from '../../constant';
 
-const width = Dimensions.get('window').width; 
 
 export default function ProductCard({ data, horizontal = false }) {
     const navigation = useNavigation();
@@ -22,7 +21,7 @@ export default function ProductCard({ data, horizontal = false }) {
             <View style={styles.imageContainer}>
                 <Image 
                     source={{ uri: data.image }} 
-                    style={styles.imageStyle} 
+                    style={styles.imageStyle}
                     resizeMode="cover"
                 />
                 {data.discountPercentage > 0 && (
@@ -102,6 +101,9 @@ const styles = StyleSheet.create({
         minHeight: 320,
     },
     imageContainer: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        flex: 1,
         width: '100%',
         height: 170,
     },
@@ -110,8 +112,8 @@ const styles = StyleSheet.create({
         paddingBottom: 60,
     },
     imageStyle: {
-        width: '100%',
-        height: '100%',
+        width: '87%',
+        height: '87%',
     },
     discountBadge: {
         backgroundColor: '#e8f5e9',
@@ -123,13 +125,13 @@ const styles = StyleSheet.create({
         right: 0,
     },
     discountText: {
-        color: '#2e7d32', // Dark green color
+        color: '#2e7d32',
         fontSize: 12,
         fontFamily: 'Poppins-Bold',
     },
     contentContainer: {
         padding: 12,
-        paddingBottom: 60, // Make space for the button
+        paddingBottom: 60,
     },
     title: {
         fontSize: 14,

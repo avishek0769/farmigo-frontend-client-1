@@ -12,15 +12,13 @@ const width = Dimensions.get('window').width;
 export default function ProductDetails({ navigation, productId }) {
     const product = {
         id: 1,
-        title: "Stylish Jacket Stylish Jacket Stylish Jacket Stylish Jacket Stylish Jacket Stylish ",
+        title: "NPK - Nitrogen, Phosphorus, Potassium (varied ratios)",
         price: "₹1,299",
-        description: "This stylish jacket is made from high-quality materials, ensuring both comfort and durability. Perfect for any occasion, it combines fashion and functionality.",
+        description: "NPK fertilizers are essential for plant growth, providing the three primary nutrients: Nitrogen (N), Phosphorus (P), and Potassium (K). These nutrients are crucial for various plant functions, including photosynthesis, root development, and overall health. This product offers a balanced NPK ratio suitable for a wide range of crops, ensuring optimal growth and yield.",
         images: [
-            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTifmLV4f3HoV1FbH6_tJ7XvVLlWGW6l6jA8Q&s",
+            "https://cdn.shopify.com/s/files/1/0059/8835/2052/files/GM-NPK-gfx.jpg?v=1613781345",
         ],
-        seller: "Fresh Farm Foods",
         rating: 4.5,
         noOfPeopleRated: 128,
         category: "Organic Produce",
@@ -28,10 +26,10 @@ export default function ProductDetails({ navigation, productId }) {
         stockCount: 10,
         deliveryTime: "2-3 days",
         features: [
-            "100% Organic",
-            "Farm Fresh",
-            "Pesticide Free",
-            "Locally Sourced"
+            "Balanced NPK ratio for optimal plant growth",
+            "Enhances soil fertility and crop yield",
+            "Suitable for a wide range of crops",
+            "Easy to apply and environmentally friendly"
         ],
         actualPrice: "₹2,499",
         discountedPrice: "₹1,299",

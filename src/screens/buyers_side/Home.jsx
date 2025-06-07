@@ -12,77 +12,79 @@ import { THEME_COLOR } from '../../constant';
 const width = Dimensions.get('window').width;
 const data = [
     { id: 1, src: require('../../assets/images/carousel-1.jpg') },
-    { id: 2, src: require('../../assets/images/carousel-2.jpeg') },
-    { id: 3, src: require('../../assets/images/carousel-3.jpeg') },
-    { id: 4, src: require('../../assets/images/carousel-4.jpeg') },
+    { id: 2, src: require('../../assets/images/carousel-2.jpg') },
+    { id: 3, src: require('../../assets/images/carousel-3.jpg') },
+    { id: 4, src: require('../../assets/images/carousel-4.jpg') },
+    { id: 4, src: require('../../assets/images/carousel-5.jpg') },
+    { id: 4, src: require('../../assets/images/carousel-6.jpg') },
 ];
 
 const recentlyViewed = [
     {
         id: 1,
-        title: "Fresh Tomatoes",
-        image: "https://images.unsplash.com/photo-1558818498-28c1e002b655",
+        title: "Urea Nitrogen (46%)",
+        image: "https://gogarden.co.in/cdn/shop/files/71yg6hRnpTL._SL1200_fac2b8e7-208b-482d-9493-07d03daaff6f.jpg?v=1741858085",
     },
     {
         id: 2,
-        title: "Organic Eggs",
-        image: "https://images.unsplash.com/photo-1598965675045-45c5e72c7d05",
+        title: "DAP	Di-Ammonium Phosphate (18-46-0)",
+        image: "https://www.igsas.com.tr/uploads/new-products/taban-g%C3%BCbreleri/%C4%B0GSA%C5%9E-DAP-%C3%87UVAL.png",
     },
     {
         id: 3,
-        title: "Fresh Milk",
-        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+        title: "Power Sprayer (16L)",
+        image: "https://pre-live-admin.balwaan.com/uploads/media/2023/knapsack-agricultural-power-sprayer-bks-35-1.jpg",
     },
     {
         id: 4,
-        title: "Brown Rice",
-        image: "https://images.unsplash.com/photo-1586201375761-83865001e31c",
+        title: "Vermicompost (Organic Fertilizer)",
+        image: "https://www.urbanplant.in/cdn/shop/products/8copy4.webp?v=1677084445",
     },
     {
         id: 5,
-        title: "Green Apples",
-        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
+        title: "NPK	(Nitrogen, Phosphorus, Potassium)",
+        image: "https://m.media-amazon.com/images/I/811YlMq1wYL.jpg",
     },
 ];
 
 const cardData = [
     {
         id: 1,
-        title: "Organic Fresh Apples ",
+        title: "Azospirillum Nitrogen-fixing bacteria",
         actualPrice: "₹199",
         discountPercentage: 0,
         noOfPeopleRated: 120,
         rating: 4.5,
-        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
+        image: "https://m.media-amazon.com/images/I/510DQkxfRhL.jpg",
     },
     {
         id: 2,
-        title: "Farm Fresh Eggs (Pack of 12) Some Long Title",
+        title: "Rhizobium Nitrogen-fixing bacteria for legumes",
         discountedPrice: "₹120",
         actualPrice: "₹170",
         discountPercentage: 30,
         noOfPeopleRated: 120,
         rating: 4.5,
-        image: "https://images.unsplash.com/photo-1598965675045-45c5e72c7d05",
+        image: "https://m.media-amazon.com/images/I/717MffSAVKL.jpg",
     },
     {
         id: 3,
-        title: "Organic Honey (500g)",
+        title: "Urea Nitrogen (46%)",
         discountedPrice: "₹299",
         actualPrice: "₹399",
         discountPercentage: 20,
         noOfPeopleRated: 120,
         rating: 4.5,
-        image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38",
+        image: "https://gogarden.co.in/cdn/shop/files/71yg6hRnpTL._SL1200_fac2b8e7-208b-482d-9493-07d03daaff6f.jpg?v=1741858085",
     },
     {
         id: 4,
-        title: "Fresh Carrots (1kg)",
+        title: "NPK	(Nitrogen, Phosphorus, Potassium)",
         actualPrice: "₹80",
         discountPercentage: 0,
         noOfPeopleRated: 120,
         rating: 4.5,
-        image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37",
+        image: "https://m.media-amazon.com/images/I/811YlMq1wYL.jpg",
     },
 ];
 
@@ -90,42 +92,42 @@ const topSellingCategories = [
     {
         id: 1,
         name: "Bio pesticides",
-        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
+        image: "https://kaybeebio.com/wp-content/uploads/2023/05/Insecticide-For-Cotton-Crop-Pesto-Raze-Cotton-Special-300x300.webp",
     },
     {
         id: 2,
         name: "Bio Fertilizers",
-        image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8uwaWrDuCwZv81offuXOxBEZtMYynwsvd_A&s",
     },
     {
         id: 3,
         name: "Farm Machinery",
-        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+        image: "https://mahindrafarmmachinery.com/sites/default/files/2023-10/Land%20preparation.png",
     },
     {
         id: 4,
         name: "Seeds-Vegetable",
-        image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38",
+        image: "https://organicbazar.net/cdn/shop/products/Summer-Vegetable-Seeds-Kit-Hybrid-3.jpg?v=1743923646",
     },
     {
         id: 5,
         name: "Seeds",
-        image: "https://images.unsplash.com/photo-1598965675045-45c5e72c7d05",
+        image: "https://www.kanzandmuhul.com/cdn/shop/products/packof5seeds.png?v=1637936532",
     },
     {
         id: 6,
         name: "Field crop",
-        image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b",
+        image: "https://media.istockphoto.com/id/1901542091/photo/tractor-spraying-soybean-crops-field.jpg?s=612x612&w=0&k=20&c=38X2xY_f3DSOGGg94LuhYYhbGlizYyg18lCsimMTbuU=",
     },
     {
         id: 7,
         name: "Cash crop",
-        image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d",
+        image: "https://www.taropumps.com/media/3350/taro-pumps-cash-crops-2.jpg",
     },
     {
         id: 8,
         name: "Tools & implements",
-        image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4",
+        image: "https://4.imimg.com/data4/YV/LU/ANDROID-59112053/product-500x500.jpeg",
     }
 ];
 
@@ -135,7 +137,7 @@ const generateMoreItems = (startIndex, count) => {
         title: `Product ${startIndex + index}`,
         actualPrice: `₹${Math.floor(Math.random() * 500) + 100}`,
         discountPercentage: Math.random() > 0.5 ? Math.floor(Math.random() * 30) + 10 : 0,
-        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlotJ33HO5vcii9ae4N-7mmHZXjgftS5cJ4Q&s",
         rating: (Math.random() * 2 + 3).toFixed(1),
         noOfPeopleRated: Math.floor(Math.random() * 500) + 50,
     }));
@@ -153,7 +155,7 @@ export default function Home({ navigation }) {
 
         // Simulate API call with delay
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            await new Promise(resolve => setTimeout(resolve, 500));
             const newItems = generateMoreItems(products.length, 4);
 
             // Simulate when no more items are available
@@ -269,10 +271,10 @@ export default function Home({ navigation }) {
                     <>
                         {/* Carousel */}
                         <Carousel
-                            autoPlay
+                            // autoPlay
                             autoPlayInterval={2000}
                             width={width}
-                            height={width / 1.5}
+                            height={width / 2}
                             data={data}
                             renderItem={({ item }) => (
                                 <Pressable style={{ flex: 1, justifyContent: "center" }} >
@@ -310,7 +312,7 @@ export default function Home({ navigation }) {
 
                         <View style={styles.bannerContainer}>
                             <Image
-                                source={{ uri: 'https://images.unsplash.com/photo-1542838132-92c53300491e' }}
+                                source={require('../../assets/images/promotionImg.jpg')}
                                 style={styles.bannerImage}
                                 resizeMode="cover"
                             />
@@ -365,10 +367,14 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 150,
         marginVertical: 30,
+        position: 'relative',
     },
     bannerImage: {
-        width: '100%',
-        height: '100%',
+        position: 'absolute',
+        top: 0,
+        left: -20,
+        width: '110.5%',
+        height: '115%',
     },
     loaderContainer: {
         paddingVertical: 20,

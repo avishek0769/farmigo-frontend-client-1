@@ -8,42 +8,42 @@ const categories = [
     {
         id: 1,
         name: "Bio pesticides",
-        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
+        image: "https://kaybeebio.com/wp-content/uploads/2023/05/Insecticide-For-Cotton-Crop-Pesto-Raze-Cotton-Special-300x300.webp",
     },
     {
         id: 2,
         name: "Bio Fertilizers",
-        image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8uwaWrDuCwZv81offuXOxBEZtMYynwsvd_A&s",
     },
     {
         id: 3,
         name: "Farm Machinery",
-        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+        image: "https://mahindrafarmmachinery.com/sites/default/files/2023-10/Land%20preparation.png",
     },
     {
         id: 4,
         name: "Seeds-Vegetable",
-        image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38",
+        image: "https://organicbazar.net/cdn/shop/products/Summer-Vegetable-Seeds-Kit-Hybrid-3.jpg?v=1743923646",
     },
     {
         id: 5,
         name: "Seeds",
-        image: "https://images.unsplash.com/photo-1598965675045-45c5e72c7d05",
+        image: "https://www.kanzandmuhul.com/cdn/shop/products/packof5seeds.png?v=1637936532",
     },
     {
         id: 6,
         name: "Field crop",
-        image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b",
+        image: "https://media.istockphoto.com/id/1901542091/photo/tractor-spraying-soybean-crops-field.jpg?s=612x612&w=0&k=20&c=38X2xY_f3DSOGGg94LuhYYhbGlizYyg18lCsimMTbuU=",
     },
     {
         id: 7,
         name: "Cash crop",
-        image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d",
+        image: "https://www.taropumps.com/media/3350/taro-pumps-cash-crops-2.jpg",
     },
     {
         id: 8,
         name: "Tools & implements",
-        image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4",
+        image: "https://4.imimg.com/data4/YV/LU/ANDROID-59112053/product-500x500.jpeg",
     }
 ];
 

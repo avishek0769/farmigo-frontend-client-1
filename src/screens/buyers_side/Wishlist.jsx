@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import Header from '../../components/buyers_side/Header'
 import ProductCard from '../../components/buyers_side/ProductCard'
-import { THEME_COLOR } from '../../constant'
 
 const EmptyWishlist = () => (
     <View style={styles.emptyContainer}>
@@ -21,40 +20,40 @@ export default function Wishlist() {
     const [wishlistItems] = useState([
         {
             id: 1,
-            title: "Fresh Organic Apples Fresh Organic Apples",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "Panchagavya	Liquid organic growth booster",
+            image: "https://agribegri.com/admin/images/prod_image/13465198701739771114.webp",
             actualPrice: "₹199",
             discountedPrice: "₹149",
             discountPercentage: 25,
         },
         {
             id: 2,
-            title: "Fresh Organic Apples",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "SSP	(Single Super Phosphate)",
+            image: "https://mahadhan.co.in/wp-content/uploads/2017/05/single-phosper-sulfate.png",
             actualPrice: "₹199",
             discountedPrice: "₹149",
             discountPercentage: 0
         },
         {
             id: 3,
-            title: "Fresh Organic Apples",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "Karate Lambda-Cyhalothrin",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9zIrMOyXyCOurrCStIb3K0OO-uqTvGh6DgA&s",
             actualPrice: "₹199",
             discountedPrice: "₹149",
             discountPercentage: 0
         },
         {
             id: 4,
-            title: "Fresh Organic Apples",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "Seaweed Extract	Plant tonic",
+            image: "https://m.media-amazon.com/images/I/61uzenjVmjL.jpg",
             actualPrice: "₹199",
             discountedPrice: "₹149",
             discountPercentage: 25
         },
         {
             id: 5,
-            title: "Fresh Organic Apples",
-            image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+            title: "MOP	(Muriate of Potash)",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ788VZMsiHrPa2cnTb8HlQ_n68O3nVcheRnw&s",
             actualPrice: "₹199",
             discountedPrice: "₹149",
             discountPercentage: 0

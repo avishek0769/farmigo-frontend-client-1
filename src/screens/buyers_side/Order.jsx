@@ -12,8 +12,8 @@ export default function Order() {
             paymentMethod: "COD",
             products: [
                 {
-                    name: "Fresh Organic Apples",
-                    image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+                    name: "Rogor Dimethoate 30% EC",
+                    image: "https://badikheti-production.s3.ap-south-1.amazonaws.com/products/202406201730461483887352.jpg",
                     quantity: 2,
                     price: 120
                 }
@@ -27,14 +27,14 @@ export default function Order() {
             rating: 4,
             products: [
                 {
-                    name: "Farm Fresh Eggs",
-                    image: "https://images.pexels.com/photos/129574/pexels-photo-129574.jpeg",
+                    name: "Confidor	Imidacloprid",
+                    image: "https://krushidukan.bharatagri.com/cdn/shop/files/Bayer_Confidor_Imidacloprid_200_SL_1.webp?v=1742304486",
                     quantity: 1,
                     price: 90
                 },
                 {
-                    name: "Organic Tomatoes",
-                    image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+                    name: "Bavistin	Carbendazim",
+                    image: "https://krushidukan.bharatagri.com/cdn/shop/files/Crystal_Bavistin____IFC_Sticker.webp?v=1743505329",
                     quantity: 2,
                     price: 60
                 }
@@ -47,8 +47,8 @@ export default function Order() {
             paymentMethod: "Wallet",
             products: [
                 {
-                    name: "Fresh Organic Apples",
-                    image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+                    name: "PSB Organic Fertilizer",
+                    image: "https://kisansewakendra.in/cdn/shop/files/psb.png?v=1715857151",
                     quantity: 2,
                     price: 120
                 }
@@ -62,14 +62,14 @@ export default function Order() {
             rating: 4,
             products: [
                 {
-                    name: "Farm Fresh Eggs",
-                    image: "https://images.pexels.com/photos/129574/pexels-photo-129574.jpeg",
+                    name: "Neem Cake Organic pest + fertilizer",
+                    image: "https://m.media-amazon.com/images/I/7132Fu7fW0L.jpg",
                     quantity: 1,
                     price: 90
                 },
                 {
-                    name: "Organic Tomatoes",
-                    image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+                    name: "Vermicompost",
+                    image: "https://m.media-amazon.com/images/I/71zxEAIaI7L.jpg",
                     quantity: 2,
                     price: 60
                 }
