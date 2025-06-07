@@ -3,6 +3,7 @@ import { Image, Platform, Pressable, ScrollView, Share, StyleSheet, Text, Toucha
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import AddressModal from '../../components/buyers_side/AddressModal'
 import EditProfileModal from '../../components/buyers_side/EditProfileModal'
+import Header from '../../components/buyers_side/Header'
 import NoAccount from '../../components/buyers_side/NoAccount'
 import ModalPopUp from '../../components/common/ModalPopUp'
 import { THEME_COLOR } from '../../constant'
@@ -29,8 +30,7 @@ export default function Account({ navigation }) {
         // Add your logout logic here
         setShowLogoutModal(false)
         setIsLoggedIn(false)
-        // Navigate to login screen or clear auth state
-        navigation.replace('Main')
+        navigation.replace('BuyersTab')
     }
     const handleShare = async () => {
         try {
@@ -97,6 +97,8 @@ export default function Account({ navigation }) {
     return isLoggedIn ? (
         <View style={{flex: 1}}>
             {/* <Header /> */}
+            <Header inCartScreen showSearchIcon removeSearch />
+
             <ScrollView style={styles.container}>
                 {/* Profile Header */}
                 <View style={styles.header}>
@@ -200,7 +202,6 @@ export default function Account({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 25,
         backgroundColor: "#fff",
         paddingBottom: 20
     },

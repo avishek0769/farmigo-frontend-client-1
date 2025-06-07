@@ -66,7 +66,7 @@ function SmallCategoryCard({ category, onPress, icon }) {
     );
 }
 
-export default function Header({ inCartScreen = false, category = false, defaultQuery = "", showSearchIcon = false }) {
+export default function Header({ inCartScreen = false, category = false, defaultQuery = "", showSearchIcon = false, removeSearch = false }) {
     const navigation = useNavigation();
 
     return (
@@ -82,16 +82,19 @@ export default function Header({ inCartScreen = false, category = false, default
                         resizeMode="cover"
                     />
                     <View style={styles.iconRow}>
-                        {showSearchIcon && (
-                            <TouchableOpacity
-                                style={[styles.iconButton, styles.glassEffect]}
-                                onPress={() => navigation.navigate('Search', { defaultQuery })}
-                                activeOpacity={0.7}
-                            >
-                                <Icon name='search' size={24} color={THEME_COLOR} />
-                            </TouchableOpacity>
-                        )}
-                        {!inCartScreen && (
+                        {!removeSearch ?
+                            showSearchIcon ? (
+                                <TouchableOpacity
+                                    style={[styles.iconButton, styles.glassEffect]}
+                                    onPress={() => navigation.navigate('Search', { defaultQuery })}
+                                    activeOpacity={0.7}
+                                >
+                                    <Icon name='search' size={24} color={THEME_COLOR} />
+                                </TouchableOpacity>
+                            ) : null : null
+                        }
+
+                        {!inCartScreen ? (
                             <TouchableOpacity
                                 style={[styles.iconButton, styles.glassEffect]}
                                 onPress={() => navigation.navigate("Cart")}
@@ -102,25 +105,27 @@ export default function Header({ inCartScreen = false, category = false, default
                                     <Text style={styles.cartBadgeText}>2</Text>
                                 </View>
                             </TouchableOpacity>
-                        )}
+                        ) : null}
                     </View>
                 </View>
 
-                {!showSearchIcon && (
-                    <TouchableOpacity
-                        style={styles.searchBar}
-                        activeOpacity={0.7}
-                        onPress={() => navigation.navigate('Search', { defaultQuery })}
-                    >
-                        <Icon name="search" size={20} color="#666" style={styles.searchIcon} />
-                        <Text style={[styles.searchPlaceholder, { color: defaultQuery.length ? "black" : "#adb5bd" }]}>
-                            {defaultQuery.length ? defaultQuery : "Search products..."}
-                        </Text>
-                    </TouchableOpacity>
-                )}
+                {!removeSearch ?
+                    !showSearchIcon ? (
+                        <TouchableOpacity
+                            style={styles.searchBar}
+                            activeOpacity={0.7}
+                            onPress={() => navigation.navigate('Search', { defaultQuery })}
+                        >
+                            <Icon name="search" size={20} color="#666" style={styles.searchIcon} />
+                            <Text style={[styles.searchPlaceholder, { color: defaultQuery.length ? "black" : "#adb5bd" }]}>
+                                {defaultQuery.length ? defaultQuery : "Search products..."}
+                            </Text>
+                        </TouchableOpacity>
+                    ) : null : null
+                }
 
                 {/* Add Categories Section */}
-                {category && <View style={styles.categoriesContainer}>
+                {category ? <View style={styles.categoriesContainer}>
                     <FlatList
                         horizontal
                         data={categories}
@@ -135,7 +140,7 @@ export default function Header({ inCartScreen = false, category = false, default
                             />
                         )}
                     />
-                </View>}
+                </View> : null}
             </LinearGradient>
         </View>
     );
