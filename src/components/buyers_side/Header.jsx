@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         paddingHorizontal: 16,
         paddingVertical: 10,
-        borderRadius: 8,
+        borderRadius: 80,
         borderWidth: 1,
         borderColor: '#e9ecef',
         elevation: 2,

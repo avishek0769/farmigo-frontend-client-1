@@ -12,7 +12,7 @@ export default function ProductCard({ data, horizontal = false }) {
             style={[
                 styles.card,
                 horizontal && {
-                    width: 220,
+                    width: 210,
                     margin: 8,
                 }
             ]}
@@ -21,7 +21,7 @@ export default function ProductCard({ data, horizontal = false }) {
             <View style={styles.imageContainer}>
                 <Image 
                     source={{ uri: data.image }} 
-                    style={styles.imageStyle}
+                    style={[styles.imageStyle, horizontal && { width: '70%', height: '85%' }]}
                     resizeMode="cover"
                 />
                 {data.discountPercentage > 0 && (

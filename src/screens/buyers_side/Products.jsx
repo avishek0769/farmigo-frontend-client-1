@@ -47,10 +47,10 @@ const cardData = [
     },
     {
         id: 5,
-        title: "Organic Fresh Apples ",
+        title: "MOP	(Muriate of Potash)",
         actualPrice: "₹199",
         discountPercentage: 0,
-        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2",
+        image: "https://www.paudhewale.com/s/660a356584d1ac2391ae69de/677eae65e87ac10277560d38/paudhewale-2025-01-08t222649-290.png",
         noOfPeopleRated: 120,
         rating: 4.5,
     },
