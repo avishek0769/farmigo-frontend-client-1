@@ -7,6 +7,7 @@ import EditProfileModal from '../../components/buyers_side/EditProfileModal'
 import Header from '../../components/buyers_side/Header'
 import NoAccount from '../../components/buyers_side/NoAccount'
 import ModalPopUp from '../../components/common/ModalPopUp'
+import { GradientSeparator } from '../../components/common/Separator'
 import { THEME_COLOR } from '../../constant'
 import { AppContext } from '../../context/ContextProvider'
 
@@ -101,19 +102,12 @@ export default function Account({ navigation }) {
 
             <ScrollView style={styles.container}>
                 {/* Profile Header */}
-                <LinearGradient
-                    colors={['#e8f5e8', '#f8f9fa', '#ffffff']}
-                    style={styles.header}
-                >
+                <View style={styles.header} >
                     <View style={styles.profileSection}>
                         <View style={styles.avatarContainer}>
                             <Image
                                 source={{ uri: 'https://ui-avatars.com/api/?name=Avishek+Adhikary&background=random' }}
                                 style={styles.avatar}
-                            />
-                            <LinearGradient
-                                colors={['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.1)']}
-                                style={styles.avatarOverlay}
                             />
                         </View>
                         <View style={styles.profileInfo}>
@@ -141,10 +135,12 @@ export default function Account({ navigation }) {
                         </View>
                         <Text style={styles.address}>{user.address}</Text>
                     </LinearGradient>
-                </LinearGradient>
+                </View>
 
                 {/* Menu Items */}
                 <View style={styles.menuContainer}>
+                    <GradientSeparator first='#c2f8cb' second='#f0fff1' third='#f0fff1' />
+
                     {menuItems.map((item, index) => (
                         <View key={String(index)} style={styles.menuItemWrapper}>
                             <Pressable
@@ -176,16 +172,16 @@ export default function Account({ navigation }) {
                                 </View>
                                 <Icon name="chevron-right" size={24} color="#ced4da" />
                             </Pressable>
+
+                            {/* Separator with gradient background */}
+                            <GradientSeparator first='#c2f8cb' second='#f0fff1' third='#f0fff1' />
                         </View>
                     ))}
                 </View>
 
-                <LinearGradient
-                    colors={['rgba(248,249,250,0.5)', 'rgba(255,255,255,0.8)']}
-                    style={styles.versionContainer}
-                >
+                <View style={styles.versionContainer} >
                     <Text style={styles.version}>Version 1.0.0</Text>
-                </LinearGradient>
+                </View>
             </ScrollView>
 
             <ModalPopUp
@@ -223,8 +219,7 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(222, 226, 230, 0.3)'
+        backgroundColor: "#fff"
     },
     profileSection: {
         flexDirection: 'row',
@@ -297,28 +292,26 @@ const styles = StyleSheet.create({
     },
     menuContainer: {
         marginTop: 15,
-        marginHorizontal: 15,
         backgroundColor: 'rgba(255,255,255,0.7)',
         borderRadius: 12,
-        borderWidth: 1,
-        borderColor: 'rgba(232, 245, 232, 0.5)',
-        overflow: 'hidden'
-    },
-    menuItemWrapper: {
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(232, 245, 232, 0.3)',
+        overflow: 'hidden',
     },
     menuItem: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 15,
+        paddingVertical: 7,
         backgroundColor: 'transparent'
     },
     menuItemLeft: {
         flexDirection: 'row',
         alignItems: 'center',
         flex: 1
+    },
+    menuItemWrapper: {
+        // backgroundColor: "red"
+
     },
     iconContainer: {
         width: 40,

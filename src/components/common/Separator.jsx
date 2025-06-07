@@ -27,5 +27,6 @@ const styles = {
     separatorGradient: {
         height: 8,
         width: '100%',
+        marginVertical: 0,
     },
 }
